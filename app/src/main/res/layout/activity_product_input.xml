@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".product.ProductInput_Activity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:fontFamily="@font/cafe24oneprettynight"
+        android:text="제품 등록하기"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/productName"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="50dp"
+            android:background="@drawable/rounded_rectangle"
+            android:backgroundTint="@color/white"
+            android:fontFamily="@font/cafe24oneprettynight"
+            android:gravity="center"
+            android:hint="ex) 제품명 입력 : 샤넬 립스틱"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/productPrice"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="50dp"
+            android:background="@drawable/rounded_rectangle"
+            android:backgroundTint="@color/white"
+            android:fontFamily="@font/cafe24oneprettynight"
+            android:gravity="center"
+            android:hint="ex) 금액 입력 : 230000"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/productParcel"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="50dp"
+            android:background="@drawable/rounded_rectangle"
+            android:backgroundTint="@color/white"
+            android:fontFamily="@font/cafe24oneprettynight"
+            android:gravity="center"
+            android:hint="ex) 배송지 : 국내배송 / 해외배송 "
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
+
+        <EditText
+            android:id="@+id/deliveryFee"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="50dp"
+            android:background="@drawable/rounded_rectangle"
+            android:backgroundTint="@color/white"
+            android:fontFamily="@font/cafe24oneprettynight"
+            android:gravity="center"
+            android:hint="ex) 배송비 작성 : 2500"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
+
+        <EditText
+            android:id="@+id/productParcel_day"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="50dp"
+            android:background="@drawable/rounded_rectangle"
+            android:backgroundTint="@color/white"
+            android:fontFamily="@font/cafe24oneprettynight"
+            android:gravity="center"
+            android:hint="ex) 배송일 작성 : 2-3일 정도 소요"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="50dp"
+            android:fontFamily="@font/cafe24oneprettynight"
+            android:gravity="center"
+            android:text="[ 제품사진 ]"
+            android:textColor="#BC5C5C5C"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/ProductPicture"
+            android:layout_width="190dp"
+            android:layout_height="150dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginBottom="20dp"
+            android:backgroundTint="@null"
+            android:padding="2dp"
+            android:layout_gravity="center"
+            android:scaleType="centerCrop"
+            android:src="@drawable/pictures"
+            android:text="사진 선택" />
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnSave"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:layout_gravity="right"
+            android:layout_marginRight="13dp"
+            android:background="@drawable/rounded_rectangle"
+            android:backgroundTint="@color/mainColor"
+            android:text="완료"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</LinearLayout>

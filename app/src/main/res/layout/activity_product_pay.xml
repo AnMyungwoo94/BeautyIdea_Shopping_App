@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:padding="16dp">
+
+    <!-- 상단 타이틀바 -->
+    <LinearLayout
+        android:id="@+id/topBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:padding="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?android:selectableItemBackground"
+            android:src="@drawable/ic_x" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/cafe24oneprettynight"
+            android:gravity="center"
+            android:text="결제정보"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+    <!-- Content in ScrollView -->
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        app:layout_constraintBottom_toTopOf="@+id/totalDeliveryFee_Layout"
+        app:layout_constraintTop_toBottomOf="@+id/topBar"
+        tools:layout_editor_absoluteX="16dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- 주문상품 정보 Section -->
+
+            <TextView
+                android:id="@+id/purchaseInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:fontFamily="@font/cafe24oneprettynight"
+                android:text="선택한 제품"
+                android:textColor="@color/black"
+                android:textSize="17sp"
+                app:layout_constraintBottom_toTopOf="@+id/productInfoLayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/productInfoLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:padding="16dp"
+                android:visibility="visible"
+                app:layout_constraintTop_toBottomOf="@+id/purchaseInfo"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+
+                <ImageView
+                    android:id="@+id/product_image"
+                    android:layout_width="80dp"
+                    android:layout_height="90dp"
+                    android:src="@drawable/product_1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/product_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="제품 이름"
+                    app:layout_constraintStart_toEndOf="@+id/product_image"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/product_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="제품 가격"
+                    app:layout_constraintStart_toEndOf="@+id/product_image"
+                    app:layout_constraintTop_toBottomOf="@+id/product_name" />
+
+                <!-- 수량 버튼 추가 -->
+                <TextView
+                    android:id="@+id/product_deliveryFee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="15dp"
+                    android:text="배송비"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/product_image"
+                    app:layout_constraintTop_toBottomOf="@+id/product_price" />
+
+                <Button
+                    android:id="@+id/minus_btn"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:text="-"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/quantity_text_view"
+                    app:layout_constraintTop_toBottomOf="@+id/product_price" />
+
+                <TextView
+                    android:id="@+id/quantity_text_view"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:text="1"
+                    app:layout_constraintEnd_toStartOf="@+id/plus_btn"
+                    app:layout_constraintTop_toBottomOf="@+id/product_price" />
+
+                <Button
+                    android:id="@+id/plus_btn"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:text="+"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/product_price" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/cartItems"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="1dp"
+                android:fontFamily="@font/cafe24oneprettynight"
+                android:text="같이 구매하세요! 장바구니 상품입니다."
+                android:textColor="@color/black"
+                android:visibility="gone"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toTopOf="@+id/productListRV"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/productInfoLayout" />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/productListRV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cartItems"
+                android:visibility="gone"
+                tools:listitem="@layout/productcart_item" />
+
+            <TextView
+                android:id="@+id/shippingInfoTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/cafe24oneprettynight"
+                android:text="배송정보"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/productListRV" />
+
+            <EditText
+                android:id="@+id/nameEditText"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:background="@android:drawable/editbox_background"
+                android:fontFamily="@font/cafe24oneprettynight"
+                android:hint="이름"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:textSize="16sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/shippingInfoTitle" />
+
+            <EditText
+                android:id="@+id/phoneEditText"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:background="@android:drawable/editbox_background"
+                android:fontFamily="@font/cafe24oneprettynight"
+                android:hint="전화번호"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:textSize="16sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/nameEditText" />
+
+            <EditText
+                android:id="@+id/addressEditText"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:background="@android:drawable/editbox_background"
+                android:fontFamily="@font/cafe24oneprettynight"
+                android:hint="주소"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:textSize="16sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/phoneEditText" />
+
+            <TextView
+                android:id="@+id/deliveryMemoTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/cafe24oneprettynight"
+                android:text="배송메모"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/addressEditText" />
+
+            <Spinner
+                android:id="@+id/deliveryMemoSpinner"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:fontFamily="@font/cafe24oneprettynight"
+                android:textSize="16sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/deliveryMemoTitle" />
+
+            <!-- 결제방법 Section -->
+
+            <TextView
+                android:id="@+id/payTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/cafe24oneprettynight"
+                android:text="결제 방식"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/deliveryMemoSpinner" />
+
+            <RadioGroup
+                android:id="@+id/paymentRadioGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/payTitle">
+
+                <RadioButton
+                    android:id="@+id/paymentOption1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/cafe24oneprettynight"
+                    android:text="Option 1"
+                    android:textSize="16sp" />
+
+                <RadioButton
+                    android:id="@+id/paymentOption2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/cafe24oneprettynight"
+                    android:text="Option 2"
+                    android:textSize="16sp" />
+
+                <RadioButton
+                    android:id="@+id/paymentOption3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/cafe24oneprettynight"
+                    android:text="Option 3"
+                    android:textSize="16sp" />
+
+                <RadioButton
+                    android:id="@+id/paymentOption4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/cafe24oneprettynight"
+                    android:text="Option 4"
+                    android:textSize="16sp" />
+
+            </RadioGroup>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/totalDeliveryFee_Layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="9dp"
+        android:backgroundTint="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/totalPaymentAmount_Layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="배송비:"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/totalDeliveryFee"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:padding="5dp"
+            android:text="0 원"
+            android:textColor="#FF0808"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/totalPaymentAmount_Layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="9dp"
+        android:backgroundTint="@color/white"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        app:layout_constraintBottom_toTopOf="@+id/payButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="총 결제금액:"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/totalPaymentAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:padding="5dp"
+            android:text="0 원"
+            android:textColor="#FF0808"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <!-- 결제하기 Button -->
+    <Button
+        android:id="@+id/payButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="결제하기"
+        android:fontFamily="@font/cafe24oneprettynight"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

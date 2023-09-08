@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout>
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        tools:context=".fragments.TipFragment">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="70dp"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp">
+
+                    <ImageView
+                        android:id="@+id/categoryALl"
+                        android:src="@drawable/category1_all"
+                        android:layout_weight="1"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"/>
+
+                    <ImageView
+                        android:id="@+id/categoryLip"
+                        android:src="@drawable/category2_lip"
+                        android:layout_weight="1"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"/>
+
+                    <ImageView
+                        android:id="@+id/categoryBlusher"
+                        android:src="@drawable/category3_blusher"
+                        android:layout_weight="1"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:text="All"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_weight="1.3"/>
+
+                    <TextView
+                        android:text="lip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_weight="1.3"/>
+
+                    <TextView
+                        android:text="blusher"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_weight="0.9"/>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_marginTop="20dp"
+                    >
+
+                    <ImageView
+                        android:id="@+id/categoryMascara"
+                        android:src="@drawable/category4_mascara"
+                        android:layout_weight="1"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"/>
+
+                    <ImageView
+                        android:id="@+id/categoryNail"
+                        android:src="@drawable/category5_nail"
+                        android:layout_weight="1"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"/>
+
+                    <ImageView
+                        android:id="@+id/categoryShadow"
+                        android:src="@drawable/category6_shadow"
+                        android:layout_weight="1"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <TextView
+                        android:text="mascara"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_weight="1"/>
+
+                    <TextView
+                        android:text="nail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_weight="1"/>
+
+                    <TextView
+                        android:text="shadow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_weight="0.9"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_marginTop="20dp">
+
+                    <ImageView
+                        android:id="@+id/categorySkin"
+                        android:src="@drawable/category7_skin"
+                        android:layout_weight="1"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"/>
+
+                    <ImageView
+                        android:id="@+id/categorySun"
+                        android:src="@drawable/category8_sun"
+                        android:layout_weight="1"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"/>
+
+                    <ImageView
+                        android:layout_weight="1"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:text="skin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_weight="1"/>
+
+                    <TextView
+                        android:text="sun"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_weight="1"/>
+
+                    <TextView
+                        android:text=""
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_weight="1"/>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                app:layout_constraintBottom_toTopOf="@+id/linearLayout">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/mainColor"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                   />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@color/white"
+                android:weightSum="5"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <ImageView
+                    android:id="@+id/storeTap"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:src="@drawable/shopicon" />
+
+                <ImageView
+                    android:id="@+id/tipTap"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:src="@drawable/tipicon" />
+                <ImageView
+                    android:id="@+id/homeTap"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:src="@drawable/homeicon" />
+
+                <ImageView
+                    android:id="@+id/talkTap"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:src="@drawable/talkicon" />
+
+                <ImageView
+                    android:id="@+id/bookmarkTap"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:src="@drawable/markicon" />
+
+
+            </LinearLayout>
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </FrameLayout>
+
+</layout>
