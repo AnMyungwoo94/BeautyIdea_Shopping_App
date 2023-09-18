@@ -24,6 +24,7 @@ import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.common.util.Utility
 import com.kakao.sdk.user.UserApiClient
+import com.myungwoo.shoppingmall_app.MainActivity
 
 class IntroActivity : AppCompatActivity() {
     private lateinit var binding: ActivityIntroBinding
@@ -79,7 +80,6 @@ class IntroActivity : AppCompatActivity() {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
             //'R.string.default_web_client_id' 에는 본인의 클라이언트 아이디를 넣어주시면 됩니다.
-            //저는 스트링을 따로 빼서 저렇게 사용했지만 스트링을 통째로 넣으셔도 됩니다.
             .requestEmail()
             .build()
 
@@ -121,7 +121,7 @@ class IntroActivity : AppCompatActivity() {
                     } else if (token != null) {
                         Log.i(TAG, "카카오톡으로 로그인 성공 ${token.accessToken}")
                         Toast.makeText(this, "로그인에 성공하였습니다", Toast.LENGTH_SHORT).show()
-                        startActivity(Intent(this, com.myungwoo.shoppingmall_app.MainActivity::class.java))
+                        startActivity(Intent(this, MainActivity::class.java))
                         finish()
                     }
                 }
@@ -180,7 +180,7 @@ class IntroActivity : AppCompatActivity() {
     // toMainActivity
     fun toMainActivity(user: FirebaseUser?) {
         if (user != null) { // MainActivity 로 이동
-            startActivity(Intent(this, com.myungwoo.shoppingmall_app.MainActivity::class.java))
+            startActivity(Intent(this, MainActivity::class.java))
             finish()
         }
     } // toMainActivity End

@@ -16,7 +16,7 @@ android {
         applicationId "com.myungwoo.shoppingmall_app"
         minSdk 24
         targetSdk 33
-        versionCode 3
+        versionCode 4
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -50,7 +50,6 @@ android {
 }
 
 dependencies {
-
     implementation "androidx.viewpager2:viewpager2:1.0.0"
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation("com.google.firebase:firebase-database-ktx")

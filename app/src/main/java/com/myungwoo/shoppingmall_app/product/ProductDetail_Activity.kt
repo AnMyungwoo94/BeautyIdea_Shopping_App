@@ -59,6 +59,10 @@ class ProductDetail_Activity : AppCompatActivity() {
             }
         }
 
+        // backButton 클릭 리스너 설정
+        binding.btnExit.setOnClickListener {
+            finish()
+        }
         // 수량 증가 버튼의 클릭 리스너 설정
         binding.plusBtn.setOnClickListener {
             count += 1

@@ -41,6 +41,7 @@
     </LinearLayout>
 
     <!-- Content in ScrollView -->
+
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
@@ -76,9 +77,9 @@
                 android:layout_marginTop="16dp"
                 android:padding="16dp"
                 android:visibility="visible"
-                app:layout_constraintTop_toBottomOf="@+id/purchaseInfo"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
+                app:layout_constraintTop_toBottomOf="@+id/purchaseInfo">
 
 
                 <ImageView
@@ -157,8 +158,8 @@
                 android:fontFamily="@font/cafe24oneprettynight"
                 android:text="같이 구매하세요! 장바구니 상품입니다."
                 android:textColor="@color/black"
-                android:visibility="gone"
                 android:textSize="15sp"
+                android:visibility="gone"
                 app:layout_constraintBottom_toTopOf="@+id/productListRV"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -169,9 +170,9 @@
                 android:id="@+id/productListRV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/cartItems"
-                android:visibility="gone"
                 tools:listitem="@layout/productcart_item" />
 
             <TextView
@@ -228,27 +229,6 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/phoneEditText" />
 
-            <TextView
-                android:id="@+id/deliveryMemoTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/cafe24oneprettynight"
-                android:text="배송메모"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/addressEditText" />
-
-            <Spinner
-                android:id="@+id/deliveryMemoSpinner"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:fontFamily="@font/cafe24oneprettynight"
-                android:textSize="16sp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/deliveryMemoTitle" />
 
             <!-- 결제방법 Section -->
 
@@ -262,12 +242,14 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/deliveryMemoSpinner" />
+                app:layout_constraintTop_toBottomOf="@+id/addressEditText" />
 
             <RadioGroup
                 android:id="@+id/paymentRadioGroup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/payTitle">
 
@@ -314,13 +296,16 @@
         android:id="@+id/totalDeliveryFee_Layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_marginTop="1dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="9dp"
         android:backgroundTint="@color/white"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/totalPaymentAmount_Layout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent">
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2">
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="40dp"
@@ -379,10 +364,11 @@
         android:id="@+id/payButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="결제하기"
         android:fontFamily="@font/cafe24oneprettynight"
+        android:text="결제하기"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

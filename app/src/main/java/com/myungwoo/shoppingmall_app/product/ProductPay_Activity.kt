@@ -1,14 +1,16 @@
 package com.myungwoo.shoppingmall_app.product
 
 import android.content.ContentValues
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.text.isDigitsOnly
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
-import com.myungwoo.shoppingmall_app.databinding.ActivityProductPayBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -17,6 +19,12 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.storage
+import com.myungwoo.shoppingmall_app.Delivery.DeliveryInfo
+import com.myungwoo.shoppingmall_app.Delivery.ProductInfo
+import com.myungwoo.shoppingmall_app.databinding.ActivityProductPayBinding
+import com.myungwoo.shoppingmall_app.utils.FBAuth
+import com.myungwoo.shoppingmall_app.utils.FBRef
+import java.io.Serializable
 import java.text.NumberFormat
 import java.util.*
 
@@ -24,6 +32,8 @@ class ProductPay_Activity : AppCompatActivity() {
     private lateinit var binding: ActivityProductPayBinding
     private var productCartList = mutableListOf<ProductModel>()
     private var key: String = ""
+    private val uid = FirebaseAuth.getInstance().currentUser?.uid
+    private var count_sum_cart: Serializable = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityProductPayBinding.inflate(layoutInflater)
@@ -49,7 +59,8 @@ class ProductPay_Activity : AppCompatActivity() {
         //제품 상세페이지에서 구매하기 버튼을 눌렸을 경우
         val selecteddProduct = intent.getSerializableExtra("SELECTED_PRODUCT_PAY") as? ProductModel
         val count = intent.getSerializableExtra("COUNT")
-        val count_sum = intent.getSerializableExtra("COUNT_SUM")
+        count_sum_cart = intent.getSerializableExtra("COUNT_SUM")!!
+        Log.e("count_sum_cart", count_sum_cart.toString())
 
         // 데이터 확인
         if (selecteddProduct != null) {
@@ -57,7 +68,7 @@ class ProductPay_Activity : AppCompatActivity() {
 
             binding.productName.text = selecteddProduct.name
             binding.productPrice.text =
-                "${NumberFormat.getNumberInstance(Locale.US).format(count_sum)} "
+                "${NumberFormat.getNumberInstance(Locale.US).format(count_sum_cart)} "
             binding.quantityTextView.text = count.toString()
             var deliveryFee = selecteddProduct.delivery_fee
             if (deliveryFee != 0) {
@@ -161,6 +172,79 @@ class ProductPay_Activity : AppCompatActivity() {
             finish()
         }
 
+        binding.payButton.setOnClickListener {
+            // 배송 정보 입력값 가져오기
+            val name = binding.nameEditText.text.toString()
+            val phoneNumber = binding.phoneEditText.text.toString()
+            val address = binding.addressEditText.text.toString()
+            val product_sum = binding.totalPaymentAmount.text.toString()
+            val time = FBAuth.getTime()
+
+
+            // 선택한 제품들의 정보 저장할 리스트 생성
+            var selectedProductsList = mutableListOf<ProductInfo>()
+
+            // 선택한 단일 상품 정보 생성 및 리스트에 추가
+            if (selecteddProduct != null) {
+                selectedProductsList.add(
+                    ProductInfo(
+                        selecteddProduct.key,selecteddProduct.name, selecteddProduct.count,
+                        selecteddProduct.delivery_fee,
+                        (selecteddProduct.price.replace(",", "").trim()
+                            .toInt()) * binding.quantityTextView.text.toString().toInt(), "배송중", time
+                    )
+                )
+            }
+
+            for (product in productCartList) {
+                if (product.isSelected) {
+                    val totalPaymentAmount = (product.price.replace(",", "").trim().toInt()) * product.count
+
+                    selectedProductsList.add(
+                        ProductInfo(
+                            key = product.key,
+                            name = product.name,
+                            count = product.count, // 각 상품의 수량 정보를 반영
+                            deliveryFee = product.delivery_fee,
+                            totalPaymentAmount = totalPaymentAmount,
+                            delivery_status = "배송중",
+                             time = time,
+                        )
+                    )
+                    Log.e("selectedProductsList", selectedProductsList.toString())
+                }
+
+            }
+
+            // Firebase Database 참조 가져오기
+            val database = FirebaseDatabase.getInstance().reference
+
+            // 사용자 UID - 실제로는 Firebase Authentication에서 가져올 수 있습니다.
+            val uid = FirebaseAuth.getInstance().uid  // Firebase Auth를 사용하여 실제 UID를 가져오도록 수정하세요
+
+            // 배송 정보와 상품 정보를 하나의 객체로 묶어서 Database에 저장
+            val deliveryInfo = DeliveryInfo(
+                name = name,
+                phoneNumber = phoneNumber,
+                address = address,
+                product_sum = product_sum,
+
+                products = selectedProductsList
+            )
+
+            // Database에 주문 정보 저장
+            database.child("orders").child(uid!!).push().setValue(deliveryInfo)
+                .addOnSuccessListener {
+                    // 주문 정보가 성공적으로 저장되었을 때 실행할 코드
+                    Toast.makeText(this, "주문이 완료되었습니다.", Toast.LENGTH_SHORT).show()
+                }.addOnFailureListener {
+                    // 주문 정보 저장 실패 시 실행할 코드
+                    Toast.makeText(this, "주문이 실패되었습니다. ${it.message}", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            startActivity(Intent(this, ProductSuccess_Activity::class.java))
+        }
+
     }
 
     //전체 상품을 가져오는 함수
@@ -198,7 +282,7 @@ class ProductPay_Activity : AppCompatActivity() {
                         else -> 1
                     }
 
-                    // 기존 리스트에서 상품 찾기
+                    // 기존 리스트에서 상품 찾기8
                     val existingProduct = productCartList.find { it.key == key }
                     val isSelected =
                         existingProduct?.isSelected ?: productSnapshot.child("isSelected")

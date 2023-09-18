@@ -1,5 +1,6 @@
 package com.myungwoo.shoppingmall_app.fragments
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -43,6 +44,7 @@ class ShopFragment : Fragment() {
     val itemKeyList = ArrayList<String>()
     lateinit var productrvAdapter: ProductRvAdapter
     val productList = mutableListOf<ProductModel>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -109,6 +111,8 @@ class ShopFragment : Fragment() {
 
         return binding.root
     }
+
+
     //상품리스트에 있는 값들 가져오기
     private fun getCategoryData_Product() {
         val postListener = object : ValueEventListener {
@@ -148,13 +152,17 @@ class ShopFragment : Fragment() {
     }
 
     private fun setCurrentIndicator(position: Int) {
-        val childCount =  binding.layoutIndicators.childCount
+        val childCount = binding.layoutIndicators.childCount
+        val context = requireContext() // 컨텍스트를 미리 가져옵니다.
+
         for (i in 0 until childCount) {
-            val imageView = binding.layoutIndicators.getChildAt(i) as ImageView
-            if (i == position) {
-                imageView.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.bg_indicator_active))
-            } else {
-                imageView.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.bg_indicator_inactive))
+            val imageView = binding.layoutIndicators.getChildAt(i) as? ImageView // 안전한 캐스팅
+            if (imageView != null) {
+                if (i == position) {
+                    imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.bg_indicator_active))
+                } else {
+                    imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.bg_indicator_inactive))
+                }
             }
         }
     }
