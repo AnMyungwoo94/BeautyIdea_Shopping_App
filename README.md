@@ -4,9 +4,9 @@
 
 <table>
   <tr>
-    <th style="text-align:center; width:25%"><b> Splash 화면 </b></th>
-    <th style="text-align:center; width:25%"><b> 로그인 화면 </b></th>
-    <th style="text-align:center; width:25%"><b> 상품 상세페이지 및 장바구니</b></th>
+    <th style="text-align:center; width:15%"><b> Splash 화면 </b></th>
+    <th style="text-align:center; width:15%"><b> 로그인 화면 </b></th>
+    <th style="text-align:center; width:15%"><b> 상품 상세페이지 및 장바구니</b></th>
   </tr>
   <tr>
     <td style="text-align:center; "><img src="https://github.com/AnMyungwoo94/BeautyIdea_Shopping_App/assets/126849689/6849d8c0-eccf-419a-8e78-1c405862d99f.gif" width="250" height="500"></td>
@@ -19,9 +19,9 @@
     <td>shop fragment메인 화면, 제품 상세페이지, 장바구니 화면입니다..</td>
   </tr>
  <tr>
-    <th style="text-align:center; width:25%"><b> 상품 구매페이지</b></th>
-    <th style="text-align:center; width:25%"><b>배송확인 페이지 </b></th>
-    <th style="text-align:center; width:25%"><b>상품 등록화면</b></th>
+    <th style="text-align:center; width:15%"><b> 상품 구매페이지</b></th>
+    <th style="text-align:center; width:15%"><b>배송확인 페이지 </b></th>
+    <th style="text-align:center; width:15%"><b>상품 등록화면</b></th>
   </tr>
   <tr>
     <td style="text-align:center;"><img src="https://github.com/AnMyungwoo94/BeautyIdea_Shopping_App/assets/126849689/7ddeaafe-e8a4-4324-9d35-972d5036c02d.gif" width="290" height="500"></td>
@@ -34,9 +34,9 @@
     <td>상품등록의 경우 관리자 이메일에서만 가능합니다.</td>
   </tr>
 <tr>
-    <th style="text-align:center; width:25%"><b>뷰티팁 화면</b></th>
-    <th style="text-align:center; width:25%"><b>커뮤니티 화면</b></th>
-    <th style="text-align:center; width:25%"><b></b></th>
+    <th style="text-align:center; width:15%"><b>뷰티팁 화면</b></th>
+    <th style="text-align:center; width:15%"><b>커뮤니티 화면</b></th>
+    <th style="text-align:center; width:15%"><b></b></th>
   </tr>
   <tr>
       <td style="text-align:center;"><img src="https://github.com/AnMyungwoo94/BeautyIdea_Shopping_App/assets/126849689/914e140d-359f-4781-8ead-89ac5499185a.gif" width="250" height="500"></td>
