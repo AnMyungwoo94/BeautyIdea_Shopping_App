@@ -2,11 +2,11 @@
 ## Google play 배포 완료
 ### <img src="https://github.com/AnMyungwoo94/BeautyIdea_Shopping_App/assets/126849689/d0ba6eb9-f5c2-4839-ad30-6f8bf65c7452" alt="구글 플레이 이미지" width="30" height="30" style="float:left"> [이곳을 클릭하여 구글플레이 스토어로 이동](https://play.google.com/store/apps/details?id=com.myungwoo.shoppingmall_app)
 
-<table>
+<table style="width:80%; margin:auto;">
   <tr>
-    <th style="text-align:center; width:15%"><b> Splash 화면 </b></th>
-    <th style="text-align:center; width:15%"><b> 로그인 화면 </b></th>
-    <th style="text-align:center; width:15%"><b> 상품 상세페이지 및 장바구니</b></th>
+    <th style="text-align:center; width:33.33%"><b> Splash 화면 </b></th>
+    <th style="text-align:center; width:33.33%"><b> 로그인 화면 </b></th>
+    <th style="text-align:center; width:33.33%"><b> 상품 상세페이지 및 장바구니</b></th>
   </tr>
   <tr>
     <td style="text-align:center; "><img src="https://github.com/AnMyungwoo94/BeautyIdea_Shopping_App/assets/126849689/6849d8c0-eccf-419a-8e78-1c405862d99f.gif" width="250" height="500"></td>
@@ -19,9 +19,9 @@
     <td>shop fragment메인 화면, 제품 상세페이지, 장바구니 화면입니다..</td>
   </tr>
  <tr>
-    <th style="text-align:center; width:15%"><b> 상품 구매페이지</b></th>
-    <th style="text-align:center; width:15%"><b>배송확인 페이지 </b></th>
-    <th style="text-align:center; width:15%"><b>상품 등록화면</b></th>
+    <th style="text-align:center; width:33.33%"><b> 상품 구매페이지</b></th>
+    <th style="text-align:center; width:33.33%"><b>배송확인 페이지 </b></th>
+    <th style="text-align:center;width:33.33%"><b>상품 등록화면</b></th>
   </tr>
   <tr>
     <td style="text-align:center;"><img src="https://github.com/AnMyungwoo94/BeautyIdea_Shopping_App/assets/126849689/7ddeaafe-e8a4-4324-9d35-972d5036c02d.gif" width="290" height="500"></td>
@@ -34,9 +34,9 @@
     <td>상품등록의 경우 관리자 이메일에서만 가능합니다.</td>
   </tr>
 <tr>
-    <th style="text-align:center; width:15%"><b>뷰티팁 화면</b></th>
-    <th style="text-align:center; width:15%"><b>커뮤니티 화면</b></th>
-    <th style="text-align:center; width:15%"><b></b></th>
+    <th style="text-align:center; width:33.33%"><b>뷰티팁 화면</b></th>
+    <th style="text-align:center; width:33.33%"><b>커뮤니티 화면</b></th>
+    <th style="text-align:center; width:33.33%"><b></b></th>
   </tr>
   <tr>
       <td style="text-align:center;"><img src="https://github.com/AnMyungwoo94/BeautyIdea_Shopping_App/assets/126849689/914e140d-359f-4781-8ead-89ac5499185a.gif" width="250" height="500"></td>
