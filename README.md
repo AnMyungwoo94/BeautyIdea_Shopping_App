@@ -16,7 +16,7 @@
     </td>
     <td style="text-align:center;">
       <p align="center">
-        <img src="https://github.com/AnMyungwoo94/BeautyIdea_Shopping_App/assets/126849689/88991672-d863-4c0b-b1f2-ca475180d876.gif" width="250" height="500">
+        <img src="https://github.com/AnMyungwoo94/BeautyIdea_Shopping_App/assets/126849689/a3ad8379-ea20-4929-85b3-74d45e744b11.gif" width="250" height="500">
       </p>
       회원가입, 이메일, 구글, 카카오 로그인으로 구성됨.
     </td>
