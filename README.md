@@ -2,6 +2,8 @@
 ## Google play 배포 완료
 ### <img src="https://github.com/AnMyungwoo94/BeautyIdea_Shopping_App/assets/126849689/d0ba6eb9-f5c2-4839-ad30-6f8bf65c7452" alt="구글 플레이 이미지" width="30" height="30" style="float:left"> [이곳을 클릭하여 구글플레이 스토어로 이동](https://play.google.com/store/apps/details?id=com.myungwoo.shoppingmall_app)
 
+![Frame 13 (1)](https://github.com/AnMyungwoo94/BeautyIdea_Shopping_App/assets/126849689/c373df1f-6c55-47f6-a9f8-3ce74e79aba3)
+
 <table style="width:80%; margin:auto;">
   <tr>
     <th style="text-align:center; width:50%"><b> Splash 화면 </b></th>
