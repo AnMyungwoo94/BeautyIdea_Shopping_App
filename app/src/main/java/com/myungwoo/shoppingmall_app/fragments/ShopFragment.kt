@@ -31,10 +31,12 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
+import com.myungwoo.shoppingmall_app.MainActivity
 
 
 class ShopFragment : Fragment() {
     private lateinit var binding: FragmentShopBinding
+
 
     //뷰페이지2 이미지 슬라이드 연결
     private var sliderHandler = Handler()
@@ -100,7 +102,11 @@ class ShopFragment : Fragment() {
         sliderViewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-                setCurrentIndicator(position)
+                if (isAdded) {
+                    setCurrentIndicator(position)
+                }else{
+                    Log.e("setCurrentIndicator", "setCurrentIndicator 오류")
+                }
             }
         })
         setupIndicators(images.size)

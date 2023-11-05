@@ -15,8 +15,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context=".board.BoardInsideActivity"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                tools:context=".board.BoardInsideActivity">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -28,23 +28,23 @@
 
                         <TextView
                             android:id="@+id/titleArea"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="50dp"
+                            android:layout_marginRight="50dp"
+                            android:gravity="center"
                             android:text="title"
                             android:textColor="@color/black"
                             android:textSize="15sp"
-                            android:textStyle="bold"
-                            android:layout_width="match_parent"
-                            android:layout_marginRight="50dp"
-                            android:layout_marginLeft="50dp"
-                            android:layout_height="match_parent"
-                            android:gravity="center"/>
+                            android:textStyle="bold" />
 
                         <ImageView
                             android:id="@+id/boardSettingIcon"
-                            android:visibility="invisible"
                             android:layout_width="20dp"
                             android:layout_height="40dp"
-                            android:src="@drawable/main_menu"
                             android:layout_margin="10dp"
+                            android:src="@drawable/main_menu"
+                            android:visibility="invisible"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
@@ -54,53 +54,52 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:background="@color/black"
-                    android:layout_height="0.5dp">
+                    android:layout_height="0.5dp"
+                    android:background="@color/black">
 
                 </LinearLayout>
 
                 <TextView
                     android:id="@+id/timeArea"
-                    android:text="time"
                     android:layout_width="match_parent"
-                    android:gravity="right"
+                    android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:layout_height="wrap_content"/>
+                    android:gravity="right"
+                    android:text="time" />
 
                 <TextView
                     android:id="@+id/textArea"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:layout_margin="20dp"
-                    android:textColor="@color/black"
+                    android:padding="10dp"
                     android:text="여기는 내용 영역"
-                    android:background="@drawable/background_radius"
-                    android:padding="10dp"/>
+                    android:textColor="@color/black" />
 
 
                 <ImageView
                     android:id="@+id/getImageArea"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
-                    android:background="@drawable/background_radius"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:background="@drawable/background_radius" />
 
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:background="#999999"
+                    android:layout_height="0.5dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:layout_height="0.5dp"/>
+                    android:background="#999999" />
 
                 <ListView
                     android:id="@+id/commentLV"
-                    android:dividerHeight="0px"
-                    android:divider="#FFFFFF"
                     android:layout_width="match_parent"
                     android:layout_height="600dp"
-                    android:layout_marginTop="20dp" />
+                    android:layout_marginTop="20dp"
+                    android:divider="#FFFFFF"
+                    android:dividerHeight="0px" />
 
             </LinearLayout>
 

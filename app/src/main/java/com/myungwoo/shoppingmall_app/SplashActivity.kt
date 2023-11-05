@@ -1,15 +1,23 @@
 package com.myungwoo.shoppingmall_app
 
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.content.pm.PackageInfo
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Handler
+import android.util.Base64
 import android.util.Log
-import com.myungwoo.shoppingmall_app.R
-import com.myungwoo.shoppingmall_app.auth.IntroActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.kakao.sdk.common.util.Utility
+import com.myungwoo.shoppingmall_app.auth.IntroActivity
+import java.security.MessageDigest
+import java.security.NoSuchAlgorithmException
+
 
 class SplashActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
@@ -17,6 +25,7 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
         auth = Firebase.auth
+
 
         if(auth.currentUser?.uid == null){
             Log.d("스플래시 액티비티", "null")

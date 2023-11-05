@@ -2,13 +2,13 @@ package com.myungwoo.shoppingmall_app.auth
 
 import android.content.ContentValues.TAG
 import android.content.Intent
+import android.content.pm.PackageInfo
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import com.myungwoo.shoppingmall_app.R
-import com.myungwoo.shoppingmall_app.databinding.ActivityIntroBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -22,9 +22,11 @@ import com.google.firebase.ktx.Firebase
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
-import com.kakao.sdk.common.util.Utility
 import com.kakao.sdk.user.UserApiClient
 import com.myungwoo.shoppingmall_app.MainActivity
+import com.myungwoo.shoppingmall_app.R
+import com.myungwoo.shoppingmall_app.databinding.ActivityIntroBinding
+
 
 class IntroActivity : AppCompatActivity() {
     private lateinit var binding: ActivityIntroBinding
@@ -55,6 +57,7 @@ class IntroActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        //비회원 로그인 버튼 숨기기(필요할 때 다시 사용하기)
 //        binding.noAccountBtn.setOnClickListener {
 //            auth.signInAnonymously()
 //                .addOnCompleteListener(this) { task ->
@@ -90,39 +93,72 @@ class IntroActivity : AppCompatActivity() {
 
         //-----------------------------------카카오로그인--------------------------------------
 
-
         binding.kakaoBtn.setOnClickListener {
-            // 카카오계정으로 로그인 공통 callback 구성
-            // 카카오톡으로 로그인 할 수 없어 카카오계정으로 로그인할 경우 사용됨
+            val context = application.applicationContext
+
+            // 카카오 로그인 콜백
             val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
                 if (error != null) {
-                    Log.e(TAG, "카카오계정으로 로그인 실패", error)
+                    Log.e(TAG, "카카오 로그인 실패", error)
                 } else if (token != null) {
-                    Log.i(TAG, "카카오계정으로 로그인 성공 ${token.accessToken}")
-                    Toast.makeText(this, "로그인에 성공하였습니다", Toast.LENGTH_SHORT).show()
-                    startActivity(Intent(this, com.myungwoo.shoppingmall_app.MainActivity::class.java))
-                    finish()
+                    // 사용자 정보 가져오기
+                    UserApiClient.instance.me { user, meError ->
+                        if (meError != null) {
+                            Log.e(TAG, "카카오 사용자 정보 가져오기 실패", meError)
+                        } else if (user != null) {
+                            val email = user.kakaoAccount?.email
+                            val nickname = user.kakaoAccount?.profile?.nickname
+
+                            if (nickname != null) {
+                                KakaoUserInfo.setKakaoNickName(nickname)
+
+                                // 이메일이 있을 때만 저장
+                                if (email != null) {
+                                    KakaoUserInfo.setKakaoEmail(email)
+                                }
+
+                                Log.i(TAG, "카카오 계정으로 로그인 성공 ${user.id}")
+                                Log.e("kakaoBtn", nickname)
+                                Toast.makeText(this, "로그인에 성공하였습니다", Toast.LENGTH_SHORT).show()
+
+                                // Firebase 익명 인증
+                                FirebaseAuth.getInstance().signInAnonymously()
+                                    .addOnCompleteListener(this) { task ->
+                                        if (task.isSuccessful) {
+                                            // Firebase 인증 성공
+                                            Log.i(TAG, "Firebase 인증 성공: ${FirebaseAuth.getInstance().currentUser?.uid}")
+                                            startActivity(Intent(this, MainActivity::class.java))
+                                            finish()
+                                        } else {
+                                            // Firebase 인증 실패
+                                            Log.e(TAG, "Firebase 인증 실패", task.exception)
+                                        }
+                                    }
+                            } else {
+                                // 닉네임 정보가 없는 경우 처리
+                                Log.e(TAG, "닉네임 정보가 없습니다.")
+                            }
+                        }
+                    }
                 }
             }
 
-            val context = application.applicationContext
-            // 카카오톡이 설치되어 있으면 카카오톡으로 로그인, 아니면 카카오계정으로 로그인
+            // 카카오톡으로 로그인 가능한지 확인
             if (UserApiClient.instance.isKakaoTalkLoginAvailable(context)) {
                 UserApiClient.instance.loginWithKakaoTalk(context) { token, error ->
                     if (error != null) {
                         Log.e(TAG, "카카오톡으로 로그인 실패", error)
+
                         // 사용자가 카카오톡 설치 후 디바이스 권한 요청 화면에서 로그인을 취소한 경우,
                         // 의도적인 로그인 취소로 보고 카카오계정으로 로그인 시도 없이 로그인 취소로 처리 (예: 뒤로 가기)
                         if (error is ClientError && error.reason == ClientErrorCause.Cancelled) {
                             return@loginWithKakaoTalk
                         }
+
                         // 카카오톡에 연결된 카카오계정이 없는 경우, 카카오계정으로 로그인 시도
                         UserApiClient.instance.loginWithKakaoAccount(context, callback = callback)
                     } else if (token != null) {
                         Log.i(TAG, "카카오톡으로 로그인 성공 ${token.accessToken}")
-                        Toast.makeText(this, "로그인에 성공하였습니다", Toast.LENGTH_SHORT).show()
-                        startActivity(Intent(this, MainActivity::class.java))
-                        finish()
                     }
                 }
             } else {
@@ -178,7 +214,7 @@ class IntroActivity : AppCompatActivity() {
 
 
     // toMainActivity
-    fun toMainActivity(user: FirebaseUser?) {
+    private fun toMainActivity(user: FirebaseUser?) {
         if (user != null) { // MainActivity 로 이동
             startActivity(Intent(this, MainActivity::class.java))
             finish()

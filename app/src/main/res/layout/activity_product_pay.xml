@@ -46,9 +46,10 @@
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="500dp"
-        app:layout_constraintBottom_toTopOf="@+id/totalDeliveryFee_Layout"
-        app:layout_constraintTop_toBottomOf="@+id/topBar"
-        tools:layout_editor_absoluteX="16dp">
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topBar">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -171,204 +172,380 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
-                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/cartItems"
                 tools:listitem="@layout/productcart_item" />
 
-            <TextView
-                android:id="@+id/shippingInfoTitle"
-                android:layout_width="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/userInfo"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/cafe24oneprettynight"
-                android:text="배송정보"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/productListRV" />
+                app:layout_constraintBottom_toTopOf="@+id/constraintLayout4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/productListRV">
 
-            <EditText
-                android:id="@+id/nameEditText"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:background="@android:drawable/editbox_background"
-                android:fontFamily="@font/cafe24oneprettynight"
-                android:hint="이름"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:textSize="16sp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/shippingInfoTitle" />
+                <TextView
+                    android:id="@+id/title_delivery"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginStart="10dp"
+                    android:gravity="center_vertical"
+                    android:text="베송지 정보"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <EditText
-                android:id="@+id/phoneEditText"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:background="@android:drawable/editbox_background"
-                android:fontFamily="@font/cafe24oneprettynight"
-                android:hint="전화번호"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:textSize="16sp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/nameEditText" />
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="40dp"
+                    android:gravity="center_vertical"
+                    android:text="수령인"
+                    android:textSize="15sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/title_delivery" />
 
-            <EditText
-                android:id="@+id/addressEditText"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:background="@android:drawable/editbox_background"
-                android:fontFamily="@font/cafe24oneprettynight"
-                android:hint="주소"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:textSize="16sp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/phoneEditText" />
+                <EditText
+                    android:id="@+id/edit_user_name"
+                    android:layout_width="250dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/edit_background"
+                    android:padding="5dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/name"
+                    app:layout_constraintTop_toBottomOf="@+id/title_delivery" />
 
+                <TextView
+                    android:id="@+id/phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical"
+                    android:text="휴대폰"
+                    android:textSize="15sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/name" />
 
-            <!-- 결제방법 Section -->
+                <EditText
+                    android:id="@+id/edit_phone"
+                    android:layout_width="250dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/edit_background"
+                    android:padding="5dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/phone"
+                    app:layout_constraintTop_toBottomOf="@+id/edit_user_name" />
 
-            <TextView
-                android:id="@+id/payTitle"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical"
+                    android:text="주소지"
+                    android:textSize="15sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/phone" />
+
+                <EditText
+                    android:id="@+id/edit_address"
+                    android:layout_width="250dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/edit_background"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/address"
+                    app:layout_constraintTop_toBottomOf="@+id/edit_phone" />
+
+                <TextView
+                    android:id="@+id/delivery_memo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical"
+                    android:text="배송메모"
+                    android:textSize="15sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/address" />
+
+                <EditText
+                    android:id="@+id/edit_delivery_memo"
+                    android:layout_width="250dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/edit_background"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/delivery_memo"
+                    app:layout_constraintTop_toBottomOf="@+id/edit_address" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="4px"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/light_gray"
+                    android:padding="5dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/delivery_memo" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout4"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/cafe24oneprettynight"
-                android:text="결제 방식"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/addressEditText" />
+                app:layout_constraintBottom_toTopOf="@+id/constraintLayout6"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/userInfo">
 
-            <RadioGroup
-                android:id="@+id/paymentRadioGroup"
+                <TextView
+                    android:id="@+id/title_how_to_pay"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginStart="10dp"
+                    android:gravity="center_vertical"
+                    android:text="결제 방식"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@+id/constraintLayout5"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout4">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_account"
+                    android:layout_width="120dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="60dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/button_color_change"
+                    android:text="계좌간편결제"
+                    android:textColor="@color/black"
+                    android:textSize="13sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_card"
+                    android:layout_width="120dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/button_color_change"
+                    android:text="신용/체크 카드"
+                    android:textColor="@color/black"
+                    android:textSize="13sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/btn_account"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_phone"
+                    android:layout_width="120dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="60dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/button_color_change"
+                    android:text="휴대폰"
+                    android:textColor="@color/black"
+                    android:textSize="13sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btn_account" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_no_bankbook"
+                    android:layout_width="120dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/button_color_change"
+                    android:text="무통장"
+                    android:textColor="@color/black"
+                    android:textSize="13sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/btn_phone"
+                    app:layout_constraintTop_toBottomOf="@+id/btn_card" />
+
+                <View
+                    android:id="@+id/pay"
+                    android:layout_width="match_parent"
+                    android:layout_height="4px"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/light_gray"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btn_phone" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/payTitle">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout6">
 
-                <RadioButton
-                    android:id="@+id/paymentOption1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/cafe24oneprettynight"
-                    android:text="Option 1"
-                    android:textSize="16sp" />
+                <CheckBox
+                    android:id="@+id/btn_check_1"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/custom_checkbox"
+                    android:button="@android:color/transparent"
+                    android:checked="false"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                <RadioButton
-                    android:id="@+id/paymentOption2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/cafe24oneprettynight"
-                    android:text="Option 2"
-                    android:textSize="16sp" />
+                <TextView
+                    android:id="@+id/tv_check_1"
+                    android:layout_width="200dp"
+                    android:layout_height="25dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center_vertical"
+                    android:text="만 14세 이상 결제 동의"
+                    android:textSize="13sp"
+                    app:layout_constraintStart_toEndOf="@+id/btn_check_1"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                <RadioButton
-                    android:id="@+id/paymentOption3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/cafe24oneprettynight"
-                    android:text="Option 3"
-                    android:textSize="16sp" />
+                <CheckBox
+                    android:id="@+id/btn_check_2"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/custom_checkbox"
+                    android:button="@android:color/transparent"
+                    android:checked="false"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_check_2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btn_check_1" />
 
-                <RadioButton
-                    android:id="@+id/paymentOption4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/cafe24oneprettynight"
-                    android:text="Option 4"
-                    android:textSize="16sp" />
+                <TextView
+                    android:id="@+id/tv_check_2"
+                    android:layout_width="200dp"
+                    android:layout_height="25dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center_vertical"
+                    android:text="주문내용 확인 및 결제 동의"
+                    android:textSize="13sp"
+                    app:layout_constraintStart_toEndOf="@+id/btn_check_2"
+                    app:layout_constraintTop_toBottomOf="@id/tv_check_1" />
 
-            </RadioGroup>
 
-
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
 
-    <LinearLayout
-        android:id="@+id/totalDeliveryFee_Layout"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout7"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="9dp"
-        android:backgroundTint="@color/white"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/totalPaymentAmount_Layout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView2">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:text="배송비:"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/totalDeliveryFee"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:padding="5dp"
-            android:text="0 원"
-            android:textColor="#FF0808"
-            android:textSize="18sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/totalPaymentAmount_Layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="9dp"
-        android:backgroundTint="@color/white"
-        android:orientation="horizontal"
-        android:weightSum="2"
-        app:layout_constraintBottom_toTopOf="@+id/payButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:text="총 결제금액:"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/totalPaymentAmount"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:padding="5dp"
-            android:text="0 원"
-            android:textColor="#FF0808"
-            android:textSize="18sp" />
-    </LinearLayout>
-
-    <!-- 결제하기 Button -->
-    <Button
-        android:id="@+id/payButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/cafe24oneprettynight"
-        android:text="결제하기"
-        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:id="@+id/totalDeliveryFee_Layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="9dp"
+            android:backgroundTint="@color/white"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/totalPaymentAmount_Layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:background="@color/white"
+                android:text="배송비:"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/totalDeliveryFee"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:padding="5dp"
+                android:text="0 원"
+                android:background="@color/white"
+                android:textColor="#FF0808"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/totalPaymentAmount_Layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="9dp"
+            android:backgroundTint="@color/white"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            app:layout_constraintBottom_toTopOf="@+id/payButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/totalDeliveryFee_Layout">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="총 결제금액:"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/totalPaymentAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:padding="5dp"
+                android:text="0 원"
+                android:textColor="#FF0808"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <!-- 결제하기 Button -->
+        <Button
+            android:id="@+id/payButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/cafe24oneprettynight"
+            android:text="결제하기"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/totalPaymentAmount_Layout" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

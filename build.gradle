@@ -1,6 +1,7 @@
 buildscript {
     dependencies {
         classpath 'com.google.gms:google-services:4.3.10'
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1' //이니시스 결제
 
     }
 }// Top-level build file where you can add configuration options common to all sub-projects/modules.

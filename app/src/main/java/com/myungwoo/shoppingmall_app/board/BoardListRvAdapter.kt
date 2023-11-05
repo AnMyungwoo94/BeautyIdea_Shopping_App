@@ -37,7 +37,7 @@ class BoardListRvAdapter(val boardList : MutableList<BoardModel>) : BaseAdapter(
         val time = view!!.findViewById<TextView>(R.id.timeArea)
 
         if(boardList[position].uid.equals(FBAuth.getUid())){
-            itemLinearLayoutView.setBackgroundColor(Color.parseColor("#F0D198"))
+            itemLinearLayoutView.setBackgroundColor(Color.parseColor("#FFD400"))
         }
 
         title!!.text = boardList[position].title

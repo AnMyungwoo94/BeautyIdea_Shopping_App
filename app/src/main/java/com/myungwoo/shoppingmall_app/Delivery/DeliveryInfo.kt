@@ -4,6 +4,7 @@ data class DeliveryInfo(
     val name: String = "",
     val phoneNumber: String = "",
     val address: String = "",
+    val memo : String = "",
     val product_sum : String = "",
     val products: List<ProductInfo> = emptyList()
 )
