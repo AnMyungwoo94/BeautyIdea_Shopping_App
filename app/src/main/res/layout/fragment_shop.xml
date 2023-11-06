@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
 
         <ScrollView
             android:layout_width="match_parent"
@@ -24,13 +22,12 @@
                 android:orientation="vertical">
 
                 <androidx.cardview.widget.CardView
-                    app:cardCornerRadius="6dp"
-                    android:layout_margin="16dp"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:layout_margin="16dp"
+                    app:cardCornerRadius="6dp">
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        xmlns:android="http://schemas.android.com/apk/res/android"
+                    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
                         xmlns:app="http://schemas.android.com/apk/res-auto"
                         xmlns:tools="http://schemas.android.com/tools"
                         android:layout_width="match_parent"
@@ -47,13 +44,12 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
-
                         <LinearLayout
                             android:id="@+id/layoutIndicators"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
                             android:gravity="center"
+                            android:orientation="horizontal"
                             android:paddingBottom="20dp"
                             app:layout_constraintBottom_toBottomOf="@id/sliderViewPager"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -62,7 +58,6 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </androidx.cardview.widget.CardView>
-
 
                 <TextView
                     android:layout_width="match_parent"
@@ -80,7 +75,6 @@
                     layout_constrainedHeight="true"
                     android:layout_width="match_parent"
                     android:layout_height="600dp" />
-
 
             </LinearLayout>
 
@@ -130,38 +124,43 @@
             <ImageView
                 android:id="@+id/storeTap"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
                 android:layout_weight="1"
-                android:src="@drawable/shopicon" />
+                android:src="@drawable/store_icon" />
 
             <ImageView
                 android:id="@+id/tipTap"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:layout_weight="1"
-                android:src="@drawable/tipicon" />
+                android:layout_gravity="center"
+                android:src="@drawable/tip_icon" />
+
             <ImageView
                 android:id="@+id/homeTap"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:layout_weight="1"
-                android:src="@drawable/homeicon" />
+                android:layout_gravity="center"
+                android:src="@drawable/home_icon" />
+
 
             <ImageView
                 android:id="@+id/talkTap"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="35dp"
                 android:layout_weight="1"
-                android:src="@drawable/talkicon" />
+                android:layout_gravity="center"
+                android:src="@drawable/community_icon" />
 
             <ImageView
                 android:id="@+id/bookmarkTap"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:layout_weight="1"
-                android:src="@drawable/markicon" />
-
-
+                android:layout_gravity="center"
+                android:src="@drawable/bookmark_icon" />
 
         </LinearLayout>
 

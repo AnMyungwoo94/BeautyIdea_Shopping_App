@@ -20,7 +20,6 @@
                 android:gravity="center"
                 android:textColor="#000000"
                 android:textSize="20sp"
-                android:fontFamily="@font/cafe24oneprettynight"
                 android:layout_marginTop="100dp"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"/>
@@ -29,7 +28,6 @@
                 android:gravity="center"
                 android:textColor="#000000"
                 android:textSize="20sp"
-                android:fontFamily="@font/cafe24oneprettynight"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"/>
 
@@ -81,8 +79,7 @@
                 android:layout_margin="40dp"
                 android:background="@drawable/background_radius_yellow"
                 android:text="로그인하기"
-                android:textSize="15sp"
-                android:fontFamily="@font/cafe24oneprettynight"/>
+                android:textSize="15sp" />
 
 
         </LinearLayout>

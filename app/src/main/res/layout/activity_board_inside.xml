@@ -7,7 +7,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -20,7 +19,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="100dp">
+                    android:layout_height="60dp">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -30,13 +29,13 @@
                             android:id="@+id/titleArea"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_marginLeft="50dp"
-                            android:layout_marginRight="50dp"
                             android:gravity="center"
                             android:text="title"
-                            android:textColor="@color/black"
-                            android:textSize="15sp"
-                            android:textStyle="bold" />
+                            android:textSize="20sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <ImageView
                             android:id="@+id/boardSettingIcon"
@@ -70,35 +69,31 @@
                 <TextView
                     android:id="@+id/textArea"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
+                    android:layout_height="wrap_content"
                     android:layout_margin="20dp"
                     android:padding="10dp"
                     android:textColor="@color/black" />
 
-
                 <ImageView
                     android:id="@+id/getImageArea"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="250dp"
+                    android:scaleType="fitCenter"
                     android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:background="@drawable/background_radius" />
-
+                    android:layout_marginRight="20dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_margin="20dp"
                     android:background="#999999" />
 
-                <ListView
-                    android:id="@+id/commentLV"
-                    android:layout_width="match_parent"
-                    android:layout_height="600dp"
-                    android:layout_marginTop="20dp"
-                    android:divider="#FFFFFF"
-                    android:dividerHeight="0px" />
+                    <ListView
+                        android:id="@+id/commentLV"
+                        android:layout_width="match_parent"
+                        android:layout_height="600dp"
+                        android:divider="#FFFFFF"
+                        android:dividerHeight="0px" />
 
             </LinearLayout>
 
@@ -106,23 +101,23 @@
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:layout_height="60dp"
             android:layout_alignParentBottom="true"
-            android:background="@color/white"
-            android:layout_height="60dp">
+            android:background="@color/white">
 
             <EditText
                 android:id="@+id/commentArea"
-                android:hint="댓글을 입력해주세요"
-                android:layout_marginLeft="10dp"
                 android:layout_width="320dp"
                 android:layout_height="match_parent"
-                android:background="@android:color/transparent"/>
+                android:layout_marginLeft="10dp"
+                android:background="@android:color/transparent"
+                android:hint="댓글을 입력해주세요" />
 
             <ImageView
                 android:id="@+id/commentBtn"
-                android:src="@drawable/btnwrite"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:src="@drawable/btnwrite" />
 
         </LinearLayout>
 

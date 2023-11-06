@@ -5,13 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".product.ProductDetail_Activity">
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginBottom="1dp"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -31,9 +29,8 @@
 
         <TextView
             android:id="@+id/textView2"
-            android:layout_width="220dp"
+            android:layout_width="250dp"
             android:layout_height="50dp"
-            android:fontFamily="@font/cafe24oneprettynight"
             android:gravity="center_vertical"
             android:text="해당 제품의 상세페이지 입니다."
             android:textSize="18sp"
@@ -42,14 +39,12 @@
             app:layout_constraintStart_toEndOf="@+id/btn_exit"
             app:layout_constraintTop_toTopOf="parent" />
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout3"
         android:layout_width="match_parent"
         android:layout_height="580dp"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -70,8 +65,7 @@
                 android:layout_width="200dp"
                 android:layout_height="200dp"
                 android:padding="15dp"
-                android:scaleType="centerCrop"
-              />
+                android:scaleType="centerCrop" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -84,7 +78,6 @@
                     android:layout_width="180dp"
                     android:layout_height="40dp"
                     android:layout_marginLeft="15dp"
-                    android:fontFamily="@font/cafe24oneprettynight"
                     android:gravity="center_vertical"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -94,7 +87,6 @@
                     android:layout_width="180dp"
                     android:layout_height="40dp"
                     android:layout_marginLeft="15dp"
-                    android:fontFamily="@font/cafe24oneprettynight"
                     android:gravity="center_vertical"
                     android:textSize="22sp"
                     android:textStyle="bold" />
@@ -104,33 +96,31 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:weightSum="2">
-                <TextView
-                    android:id="@+id/product_parcel"
-                    android:layout_width="120dp"
-                    android:layout_height="35dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/cafe24oneprettynight"
-                    android:gravity="center_vertical"
-                    android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/product_parcel"
+                        android:layout_width="120dp"
+                        android:layout_height="35dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:textSize="15sp" />
 
 
                     <TextView
                         android:id="@+id/product_parcelDay"
                         android:layout_width="180dp"
                         android:layout_height="30dp"
-                        android:fontFamily="@font/cafe24oneprettynight"
-                        android:gravity="center_vertical"
                         android:layout_weight="1"
+                        android:gravity="center_vertical"
                         android:textSize="15sp" />
-            </LinearLayout>
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/delivery_fee"
                     android:layout_width="180dp"
                     android:layout_height="35dp"
                     android:layout_marginLeft="15dp"
-                    android:fontFamily="@font/cafe24oneprettynight"
                     android:gravity="center_vertical"
                     android:textSize="15sp" />
 
@@ -142,17 +132,16 @@
             android:id="@+id/linearLayout6"
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:orientation="vertical"
             android:layout_marginStart="10dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
             android:background="#999999"
+            android:orientation="vertical"
             app:layout_constraintBottom_toTopOf="@+id/product_Detail"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout5" >
-        </LinearLayout>
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout5" />
 
         <TextView
             android:id="@+id/product_Detail"
@@ -167,17 +156,14 @@
         <TextView
             android:id="@+id/detail_text"
             android:layout_width="wrap_content"
-            android:layout_height="300dp"
+            android:layout_height="200dp"
             android:layout_margin="10dp"
-            android:layout_marginTop="10dp"
             android:gravity="center"
             android:scrollbars="vertical"
             android:text="@string/product_Detail"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/product_Detail" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -187,15 +173,13 @@
         android:layout_height="90dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout3">
+        app:layout_constraintStart_toStartOf="parent">
 
         <TextView
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginStart="16dp"
-            android:fontFamily="@font/cafe24oneprettynight"
             android:gravity="center"
             android:text=" 수량 합계 :  "
             android:textSize="20sp"
@@ -210,7 +194,6 @@
             android:id="@+id/sum_text"
             android:layout_width="80dp"
             android:layout_height="match_parent"
-            android:fontFamily="@font/cafe24oneprettynight"
             android:gravity="center"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -224,7 +207,6 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginEnd="16dp"
-            android:fontFamily="@font/cafe24oneprettynight"
             android:gravity="center"
             android:text=" 원"
             android:textSize="20sp"
@@ -259,13 +241,12 @@
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/selectedProductLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
         android:background="#EFEFEF"
+        android:padding="16dp"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout2">
 
         <ImageView
@@ -273,7 +254,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/selected_product_name"
@@ -282,7 +263,7 @@
             android:layout_marginStart="16dp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/selected_product_image"
-            app:layout_constraintTop_toTopOf="@+id/selected_product_image"/>
+            app:layout_constraintTop_toTopOf="@+id/selected_product_image" />
 
         <TextView
             android:id="@+id/selected_product_price"
@@ -290,7 +271,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="@+id/selected_product_name"
-            app:layout_constraintTop_toBottomOf="@+id/selected_product_name"/>
+            app:layout_constraintTop_toBottomOf="@+id/selected_product_name" />
 
         <Button
             android:id="@+id/minus_btn"
@@ -298,7 +279,7 @@
             android:layout_height="40dp"
             android:text="-"
             app:layout_constraintEnd_toStartOf="@+id/quantity_text_view"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/quantity_text_view"
@@ -307,7 +288,7 @@
             android:gravity="center"
             android:text="1"
             app:layout_constraintEnd_toStartOf="@+id/plus_btn"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/plus_btn"
@@ -315,7 +296,7 @@
             android:layout_height="40dp"
             android:text="+"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

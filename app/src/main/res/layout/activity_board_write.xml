@@ -2,14 +2,13 @@
 
 <layout>
 
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".board.BoardWriteActivity"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:context=".board.BoardWriteActivity">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -25,65 +24,66 @@
                     android:layout_height="60dp">
 
                     <TextView
-                        android:text="글쓰기 페이지"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="글쓰기 페이지"
                         android:textColor="@color/black"
-                        android:gravity="center"/>
+                        android:textSize="20sp" />
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
-                    android:background="#000000"/>
+                    android:background="#000000" />
 
                 <EditText
                     android:id="@+id/titleArea"
-                    android:layout_margin="20dp"
                     android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_margin="20dp"
                     android:background="@android:color/transparent"
-                    android:hint="제목을 입력해주세요"
-                    android:layout_height="60dp"/>
+                    android:hint="제목을 입력해주세요" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
-                    android:background="#000000"/>
+                    android:background="#000000" />
 
                 <EditText
                     android:id="@+id/contentArea"
-                    android:layout_margin="20dp"
                     android:layout_width="match_parent"
-                    android:hint="내용을 입력해주세요"
+                    android:layout_height="60dp"
+                    android:layout_margin="20dp"
                     android:background="@android:color/transparent"
-                    android:layout_height="60dp"/>
+                    android:hint="내용을 입력해주세요" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
-                    android:background="#000000"/>
+                    android:background="#000000" />
 
                 <ImageView
                     android:id="@+id/imageArea"
-                    android:src="@drawable/plusbtn"
-                    android:layout_marginTop="20dp"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"/>
+                    android:layout_height="200dp"
+                    android:layout_marginTop="20dp"
+                    android:src="@drawable/plusbtn" />
 
                 <Button
                     android:id="@+id/writeBtn"
-                    android:text="입력"
                     android:layout_width="match_parent"
-                    android:background="@drawable/background_radius_yellow"
-                    android:layout_marginTop="50dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
+                    android:layout_marginTop="50dp"
                     android:layout_marginRight="20dp"
-                    android:layout_height="wrap_content"/>
+                    android:background="@drawable/background_radius_yellow"
+                    android:text="입력" />
 
             </LinearLayout>
 

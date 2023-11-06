@@ -63,13 +63,13 @@
                 android:layout_margin="5dp"
                 android:background="@drawable/login_sign" />
 
-<!--            <Button-->
-<!--                android:id="@+id/noAccountBtn"-->
-<!--                android:layout_width="50dp"-->
-<!--                android:layout_height="50dp"-->
-<!--                android:layout_margin="5dp"-->
-<!--                android:text="GO"-->
-<!--                android:textSize="15sp" />-->
+            <!--            <Button-->
+            <!--                android:id="@+id/noAccountBtn"-->
+            <!--                android:layout_width="50dp"-->
+            <!--                android:layout_height="50dp"-->
+            <!--                android:layout_margin="5dp"-->
+            <!--                android:text="GO"-->
+            <!--                android:textSize="15sp" />-->
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

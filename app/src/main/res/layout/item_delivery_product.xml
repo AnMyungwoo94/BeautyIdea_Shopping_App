@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -11,8 +12,8 @@
             android:id="@+id/deliveryDate"
             android:layout_width="match_parent"
             android:layout_height="20dp"
-            android:textSize="14sp"
             android:layout_marginStart="7dp"
+            android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -20,8 +21,8 @@
             android:id="@+id/stuffImage"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:scaleType="centerCrop"
             android:layout_marginStart="15dp"
+            android:scaleType="centerCrop"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/deliveryDate" />
@@ -30,8 +31,8 @@
             android:id="@+id/productName"
             android:layout_width="200dp"
             android:layout_height="30dp"
-            android:textSize="15sp"
             android:layout_marginStart="10dp"
+            android:textSize="15sp"
             app:layout_constraintStart_toEndOf="@+id/stuffImage"
             app:layout_constraintTop_toBottomOf="@+id/deliveryDate" />
 
@@ -39,8 +40,8 @@
             android:id="@+id/productPrice"
             android:layout_width="200dp"
             android:layout_height="30dp"
-            android:textSize="15sp"
             android:layout_marginStart="10dp"
+            android:textSize="15sp"
             app:layout_constraintStart_toEndOf="@+id/stuffImage"
             app:layout_constraintTop_toBottomOf="@+id/productName" />
 
@@ -48,9 +49,9 @@
             android:id="@+id/deliveryStatus"
             android:layout_width="200dp"
             android:layout_height="40dp"
+            android:layout_marginStart="10dp"
             android:textSize="17sp"
             android:textStyle="bold"
-            android:layout_marginStart="10dp"
             app:layout_constraintStart_toEndOf="@+id/stuffImage"
             app:layout_constraintTop_toBottomOf="@+id/productPrice" />
 

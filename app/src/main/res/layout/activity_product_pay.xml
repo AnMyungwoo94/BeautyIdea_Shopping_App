@@ -5,14 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    android:padding="16dp">
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp">
 
     <!-- 상단 타이틀바 -->
     <LinearLayout
         android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
         android:background="@color/white"
         android:gravity="center_vertical"
         android:padding="10dp"
@@ -23,8 +23,9 @@
 
         <ImageButton
             android:id="@+id/backButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:scaleType="centerCrop"
             android:background="?android:selectableItemBackground"
             android:src="@drawable/ic_x" />
 
@@ -32,10 +33,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:fontFamily="@font/cafe24oneprettynight"
             android:gravity="center"
             android:text="결제정보"
-            android:textColor="@color/black"
             android:textSize="20sp" />
 
     </LinearLayout>
@@ -44,8 +43,8 @@
 
     <ScrollView
         android:id="@+id/scrollView2"
-        android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_width="382dp"
+        android:layout_height="424dp"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -62,9 +61,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="15dp"
-                android:fontFamily="@font/cafe24oneprettynight"
                 android:text="선택한 제품"
-                android:textColor="@color/black"
                 android:textSize="17sp"
                 app:layout_constraintBottom_toTopOf="@+id/productInfoLayout"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -152,7 +149,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="1dp"
-                android:fontFamily="@font/cafe24oneprettynight"
                 android:text="같이 구매하세요! 장바구니 상품입니다."
                 android:textColor="@color/black"
                 android:textSize="15sp"
@@ -481,6 +477,7 @@
                 android:gravity="center_vertical"
                 android:background="@color/white"
                 android:text="배송비:"
+                android:layout_marginLeft="10dp"
                 android:textSize="18sp" />
 
             <TextView
@@ -515,6 +512,7 @@
                 android:layout_weight="1"
                 android:background="@color/white"
                 android:gravity="center_vertical"
+                android:layout_marginLeft="10dp"
                 android:text="총 결제금액:"
                 android:textSize="18sp" />
 
@@ -536,7 +534,6 @@
             android:id="@+id/payButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/cafe24oneprettynight"
             android:text="결제하기"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"

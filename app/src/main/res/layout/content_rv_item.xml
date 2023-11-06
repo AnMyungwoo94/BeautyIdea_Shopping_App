@@ -19,9 +19,7 @@
     <TextView
         android:id="@+id/textArea"
         android:text="Text Area"
-        android:fontFamily="@font/cafe24oneprettynight"
         android:textSize="15sp"
-        android:textColor="@color/black"
         android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:gravity="center"

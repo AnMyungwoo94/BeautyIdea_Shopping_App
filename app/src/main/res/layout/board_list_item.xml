@@ -21,35 +21,35 @@
 
             <TextView
                 android:id="@+id/titleArea"
-                android:text="title"
-                android:textSize="17sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="30dp"
-                android:textStyle="bold"
+                android:text="title"
                 android:textColor="@color/black"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:textSize="17sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/contentArea"
-                android:text="content"
-                android:textSize="13sp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="5dp"
-                android:textColor="@color/black"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="20dp"
+                android:text="content"
+                android:textColor="@color/black"
+                android:textSize="13sp" />
 
             <TextView
                 android:id="@+id/timeArea"
-                android:text="time"
-                android:textSize="10sp"
-                android:textColor="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="5dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:text="time"
+                android:textColor="@color/black"
+                android:textSize="10sp" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </LinearLayout>

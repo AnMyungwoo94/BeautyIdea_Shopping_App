@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_height="match_parent">
     <!-- 상단 타이틀바 -->
     <LinearLayout
         android:id="@+id/topBar"
@@ -18,8 +18,9 @@
 
         <ImageButton
             android:id="@+id/backButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:scaleType="centerCrop"
             android:background="?android:selectableItemBackground"
             android:src="@drawable/ic_x" />
 
@@ -29,17 +30,19 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="장바구니"
-            android:textColor="@color/black"
             android:textSize="20sp" />
 
     </LinearLayout>
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
+        android:id="@+id/constraintLayout8"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_marginTop="70dp"
         android:padding="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/topBar">
 
         <androidx.recyclerview.widget.RecyclerView
@@ -71,8 +74,8 @@
                     android:layout_height="40dp"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:textSize="18sp"
-                    android:text="배송비:" />
+                    android:text="배송비:"
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/totalDeliveryFee"
@@ -80,12 +83,11 @@
                     android:layout_height="40dp"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:textSize="18sp"
-                    android:textColor="#FF0808"
                     android:padding="5dp"
-                    android:text="0 원" />
+                    android:text="0 원"
+                    android:textColor="#FF0808"
+                    android:textSize="18sp" />
             </LinearLayout>
-
 
 
             <LinearLayout
@@ -98,8 +100,8 @@
                     android:layout_height="40dp"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:textSize="18sp"
-                    android:text="총 결제금액:" />
+                    android:text="총 결제금액:"
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/totalPaymentAmount"
@@ -107,20 +109,20 @@
                     android:layout_height="40dp"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:textSize="18sp"
-                    android:textColor="#FF0808"
                     android:padding="5dp"
-                    android:text="0 원" />
+                    android:text="0 원"
+                    android:textColor="#FF0808"
+                    android:textSize="18sp" />
             </LinearLayout>
 
             <Button
                 android:id="@+id/payBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="주문하기"
-                android:textColor="@color/white"
+                android:layout_marginTop="16dp"
                 android:backgroundTint="@color/black"
-                android:layout_marginTop="16dp"/>
+                android:text="주문하기"
+                android:textColor="@color/white" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
