@@ -71,7 +71,7 @@
                 android:layout_height="200dp"
                 android:padding="15dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/product_1" />
+              />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -86,7 +86,6 @@
                     android:layout_marginLeft="15dp"
                     android:fontFamily="@font/cafe24oneprettynight"
                     android:gravity="center_vertical"
-                    android:text="샤넬 LipsTick"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -97,7 +96,6 @@
                     android:layout_marginLeft="15dp"
                     android:fontFamily="@font/cafe24oneprettynight"
                     android:gravity="center_vertical"
-                    android:text="11,900"
                     android:textSize="22sp"
                     android:textStyle="bold" />
 
@@ -114,7 +112,6 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/cafe24oneprettynight"
                     android:gravity="center_vertical"
-                    android:text="국내배송"
                     android:textSize="15sp" />
 
 
@@ -125,7 +122,6 @@
                         android:fontFamily="@font/cafe24oneprettynight"
                         android:gravity="center_vertical"
                         android:layout_weight="1"
-                        android:text="배송 소요일"
                         android:textSize="15sp" />
             </LinearLayout>
 
@@ -136,7 +132,6 @@
                     android:layout_marginLeft="15dp"
                     android:fontFamily="@font/cafe24oneprettynight"
                     android:gravity="center_vertical"
-                    android:text="2500"
                     android:textSize="15sp" />
 
             </LinearLayout>
@@ -217,7 +212,6 @@
             android:layout_height="match_parent"
             android:fontFamily="@font/cafe24oneprettynight"
             android:gravity="center"
-            android:text=" 119,000 "
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -278,7 +272,6 @@
             android:id="@+id/selected_product_image"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/product_1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
@@ -287,7 +280,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="제품 이름"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/selected_product_image"
             app:layout_constraintTop_toTopOf="@+id/selected_product_image"/>
@@ -297,7 +289,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="제품 가격"
             app:layout_constraintStart_toStartOf="@+id/selected_product_name"
             app:layout_constraintTop_toBottomOf="@+id/selected_product_name"/>
 

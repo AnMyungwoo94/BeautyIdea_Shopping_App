@@ -25,7 +25,7 @@
             android:layout_marginRight="20dp"
             android:layout_marginBottom="5dp"
             android:scaleType="fitXY"
-            android:src="@drawable/home_img" />
+             />
 
     </FrameLayout>
 

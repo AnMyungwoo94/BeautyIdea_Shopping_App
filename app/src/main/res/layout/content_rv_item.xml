@@ -8,7 +8,6 @@
 
         <ImageView
             android:id="@+id/imageArea"
-            android:src="@drawable/home_img"
             android:scaleType="fitXY"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"

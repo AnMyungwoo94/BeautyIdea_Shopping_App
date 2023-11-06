@@ -2,7 +2,6 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'com.google.gms.google-services'
-
 }
 
 Properties properties = new Properties()
@@ -16,7 +15,7 @@ android {
         applicationId "com.myungwoo.shoppingmall_app"
         minSdk 24
         targetSdk 33
-        versionCode 10
+        versionCode 12
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -25,7 +24,6 @@ android {
         buildConfigField "String", "kakao_native_app_key", properties['kakao_native_app_key']
         resValue "string", "kakao_auth_host",  properties['kakao_auth_host']
     }
-
 
     buildTypes {
         release {

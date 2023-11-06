@@ -73,7 +73,6 @@
                     android:layout_height="100dp"
                     android:layout_margin="20dp"
                     android:padding="10dp"
-                    android:text="여기는 내용 영역"
                     android:textColor="@color/black" />
 
 
