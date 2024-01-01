@@ -16,74 +16,69 @@ import com.myungwoo.shoppingmall_app.databinding.FragmentTipBinding
 class TipFragment : Fragment() {
     private lateinit var binding: FragmentTipBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
-      binding = DataBindingUtil.inflate(inflater,R.layout.fragment_tip, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_tip, container, false)
 
-
-        //카테고리별 클릭시 이벤트
         binding.categoryALl.setOnClickListener {
             val intent = Intent(context, ContentListActivity::class.java)
-            intent.putExtra("category","categoryALl")
+            intent.putExtra("category", "categoryALl")
             startActivity(intent)
         }
 
         binding.categoryLip.setOnClickListener {
             val intent = Intent(context, ContentListActivity::class.java)
-            intent.putExtra("category","categoryLip")
+            intent.putExtra("category", "categoryLip")
             startActivity(intent)
         }
         binding.categoryBlusher.setOnClickListener {
             val intent = Intent(context, ContentListActivity::class.java)
-            intent.putExtra("category","categoryBlusher")
+            intent.putExtra("category", "categoryBlusher")
             startActivity(intent)
         }
         binding.categoryMascara.setOnClickListener {
             val intent = Intent(context, ContentListActivity::class.java)
-            intent.putExtra("category","categoryMascara")
+            intent.putExtra("category", "categoryMascara")
             startActivity(intent)
         }
         binding.categoryNail.setOnClickListener {
             val intent = Intent(context, ContentListActivity::class.java)
-            intent.putExtra("category","categoryNail")
+            intent.putExtra("category", "categoryNail")
             startActivity(intent)
         }
         binding.categoryShadow.setOnClickListener {
             val intent = Intent(context, ContentListActivity::class.java)
-            intent.putExtra("category","categoryShadow")
+            intent.putExtra("category", "categoryShadow")
             startActivity(intent)
         }
         binding.categorySkin.setOnClickListener {
             val intent = Intent(context, ContentListActivity::class.java)
-            intent.putExtra("category","categorySkin")
+            intent.putExtra("category", "categorySkin")
             startActivity(intent)
         }
         binding.categorySun.setOnClickListener {
             val intent = Intent(context, ContentListActivity::class.java)
-            intent.putExtra("category","categorySun")
+            intent.putExtra("category", "categorySun")
             startActivity(intent)
         }
 
         //네비메뉴로 이동하기
-        binding.homeTap.setOnClickListener{
+        binding.homeTap.setOnClickListener {
             it.findNavController().navigate(R.id.action_tipFragment_to_homeFragment2)
         }
 
-        binding.talkTap.setOnClickListener{
+        binding.talkTap.setOnClickListener {
             it.findNavController().navigate(R.id.action_tipFragment_to_talkFragment)
         }
 
-        binding.bookmarkTap.setOnClickListener{
+        binding.bookmarkTap.setOnClickListener {
             it.findNavController().navigate(R.id.action_tipFragment_to_bookmarkFragment)
         }
 
-        binding.storeTap.setOnClickListener{
+        binding.storeTap.setOnClickListener {
             it.findNavController().navigate(R.id.action_tipFragment_to_shopFragment)
         }
 

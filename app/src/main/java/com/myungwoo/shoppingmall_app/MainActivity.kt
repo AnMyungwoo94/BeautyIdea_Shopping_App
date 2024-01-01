@@ -22,7 +22,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         auth = Firebase.auth
 
-
        binding.settingBtn.setOnClickListener {
             val intent = Intent(this, SettingActivity::class.java)
             startActivity(intent)
@@ -32,7 +31,6 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, ProductCart_Activity::class.java)
             startActivity(intent)
         }
-
 
 //        findViewById<Button>(R.id.logoutBtn).setOnClickListener {
 //           auth.signOut()

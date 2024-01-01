@@ -22,32 +22,28 @@ import com.google.firebase.database.ValueEventListener
 
 class BookmarkFragment : Fragment() {
 
-    private lateinit var binding : FragmentBookmarkBinding
+    private lateinit var binding: FragmentBookmarkBinding
     lateinit var rvAdapter: BookmarkRvAdapter
     val bookmarkList = mutableListOf<String>()
     val items = ArrayList<ContentModel>()
     val itemKeyList = ArrayList<String>()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_bookmark, container, false)
 
-       //사용자가 북마크한 정보를 다 가져옴
+        //사용자가 북마크한 정보를 다 가져옴
         getBookmarkData()
 
         rvAdapter = BookmarkRvAdapter(requireContext(), items, itemKeyList, bookmarkList)
-        val rv : RecyclerView = binding.bookmarkRV
+        val rv: RecyclerView = binding.bookmarkRV
         rv.adapter = rvAdapter
-        rv.layoutManager = GridLayoutManager(requireContext(),2)
+        rv.layoutManager = GridLayoutManager(requireContext(), 2)
 
         binding.homeTap.setOnClickListener {
-            it.findNavController().navigate(R.id.action_bookmarkFragment_to_homeFragment2)
+            it.findNavController().navigate(R.id.action_bookmarkFragment_to_homeFragment)
         }
 
         binding.tipTap.setOnClickListener {
@@ -63,20 +59,22 @@ class BookmarkFragment : Fragment() {
         }
         return binding.root
     }
-    private fun getCategoryData(){
+
+    private fun getCategoryData() {
         val postListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (dataModel in dataSnapshot.children) {
                     //데이터 받아 올 때
                     val item = dataModel.getValue(ContentModel::class.java)
                     //전체 컨텐츠 중에서, 사용자가 북마크한 정보를 보여줌
-                    if(bookmarkList.contains(dataModel.key.toString())){
+                    if (bookmarkList.contains(dataModel.key.toString())) {
                         items.add(item!!)
                         itemKeyList.add(dataModel.key.toString())
                     }
                 }
                 rvAdapter.notifyDataSetChanged()
             }
+
             override fun onCancelled(databaseError: DatabaseError) {
                 // Getting Post failed, log a message
                 Log.w("ContentListActivity", "loadPost:onCancelled", databaseError.toException())
@@ -92,7 +90,8 @@ class BookmarkFragment : Fragment() {
         FBRef.conetent.child("categorySun").addValueEventListener(postListener)
 
     }
-    private fun getBookmarkData(){
+
+    private fun getBookmarkData() {
         //파이어베이스 데이터 읽기(북마크)
         val postListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -103,6 +102,7 @@ class BookmarkFragment : Fragment() {
                 //전체 카테고리에 있는 컨텐츠 데이터들을 다 가져옴
                 getCategoryData()
             }
+
             override fun onCancelled(databaseError: DatabaseError) {
                 // Getting Post failed, log a message
                 Log.w("ContentListActivity", "loadPost:onCancelled", databaseError.toException())

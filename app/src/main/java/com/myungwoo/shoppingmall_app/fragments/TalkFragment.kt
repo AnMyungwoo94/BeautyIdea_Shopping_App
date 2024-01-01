@@ -22,28 +22,24 @@ import com.google.firebase.database.ValueEventListener
 
 class TalkFragment : Fragment() {
 
-    private lateinit var binding : FragmentTalkBinding
-    private lateinit var boardRVAdapter :BoardListRvAdapter
+    private lateinit var binding: FragmentTalkBinding
+    private lateinit var boardRVAdapter: BoardListRvAdapter
     private val TAG = TalkFragment::class.java.simpleName
     private val boardDataList = mutableListOf<BoardModel>()
     private val boardKeyList = mutableListOf<String>()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_talk, container, false)
 
         boardRVAdapter = BoardListRvAdapter(boardDataList)
         binding.boardListView.adapter = boardRVAdapter
 
         binding.boardListView.setOnItemClickListener { parent, view, position, id ->
-        //게시글보기로 값 넘겨주기
-        //첫번째 방법으로는 listview에 있는 데이터 title, content, time의 값을 intent로 넘겨주기
+            //게시글보기로 값 넘겨주기
+            //첫번째 방법으로는 listview에 있는 데이터 title, content, time의 값을 intent로 넘겨주기
 //            val intent = Intent(context, BoardInsideActivity::class.java)
 //            intent.putExtra("title", boardDataList[position].title)
 //            intent.putExtra("content", boardDataList[position].content)
@@ -57,7 +53,7 @@ class TalkFragment : Fragment() {
         }
 
 
-       binding.writeBtn.setOnClickListener {
+        binding.writeBtn.setOnClickListener {
             val intent = Intent(context, BoardWriteActivity::class.java)
             startActivity(intent)
 
@@ -80,9 +76,9 @@ class TalkFragment : Fragment() {
         getFBBoardData()
         return binding.root
     }
-    private fun getFBBoardData(){
+
+    private fun getFBBoardData() {
         val postListener = object : ValueEventListener {
-            //Content 데이터읽기
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 boardDataList.clear()
                 for (dataModel in dataSnapshot.children) {
@@ -97,8 +93,8 @@ class TalkFragment : Fragment() {
                 boardRVAdapter.notifyDataSetChanged()
 
             }
+
             override fun onCancelled(databaseError: DatabaseError) {
-                // Getting Post failed, log a message
                 Log.w(TAG, "loadPost:onCancelled", databaseError.toException())
             }
         }

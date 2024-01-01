@@ -139,7 +139,6 @@ class BoardInsideActivity : AppCompatActivity() {
         val postListener = object : ValueEventListener {
             //Content 데이터읽기
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-
                 try {
                     val dataModel = dataSnapshot.getValue(BoardModel::class.java)
                     Log.d(TAG, dataModel!!.title)
@@ -161,12 +160,10 @@ class BoardInsideActivity : AppCompatActivity() {
                     Log.d(TAG, "삭제완료")
                 }
             }
-
             override fun onCancelled(databaseError: DatabaseError) {
                 Log.w(TAG, "loadPost:onCancelled", databaseError.toException())
             }
         }
         FBRef.boardRef.child(key).addValueEventListener(postListener)
-
     }
 }

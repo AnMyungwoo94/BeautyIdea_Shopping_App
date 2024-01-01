@@ -1,5 +1,6 @@
 package com.myungwoo.shoppingmall_app.product
 
+import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Intent
 import android.os.Bundle
@@ -478,6 +479,7 @@ class ProductPay_Activity : AppCompatActivity() {
         })
     }
 
+    @SuppressLint("SetTextI18n")
     private fun updateTotalAmount() {
         val selectedAmount = productCartList.filter { it.isSelected }.sumBy { it.count_sum }
         val selectedFee = productCartList.filter { it.isSelected }.sumBy { it.delivery_fee }
@@ -519,8 +521,5 @@ class ProductPay_Activity : AppCompatActivity() {
         Log.e("totalDeliveryFee", totalDeliveryFee.toString())
         binding.totalDeliveryFee.text =
             "${NumberFormat.getNumberInstance(Locale.US).format(totalDeliveryFee)} 원"
-
-
     }
-
 }

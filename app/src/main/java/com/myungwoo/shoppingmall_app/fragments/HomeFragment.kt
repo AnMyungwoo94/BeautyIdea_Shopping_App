@@ -9,39 +9,36 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.myungwoo.shoppingmall_app.R
-import com.myungwoo.shoppingmall_app.databinding.FragmentHome2Binding
+import com.myungwoo.shoppingmall_app.databinding.FragmentHomeBinding
 
+class HomeFragment : Fragment() {
 
-class HomeFragment2 : Fragment() {
+    private lateinit var binding: FragmentHomeBinding
 
-    private  lateinit var binding: FragmentHome2Binding
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home2, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
 
-        binding.tipTap.setOnClickListener{
+        binding.tipTap.setOnClickListener {
             it.findNavController().navigate(R.id.action_homeFragment2_to_tipFragment)
         }
 
-        binding.talkTap.setOnClickListener{
+        binding.talkTap.setOnClickListener {
             it.findNavController().navigate(R.id.action_homeFragment2_to_talkFragment)
         }
 
-        binding.bookmarkTap.setOnClickListener{
+        binding.bookmarkTap.setOnClickListener {
             it.findNavController().navigate(R.id.action_homeFragment2_to_bookmarkFragment)
         }
 
-        binding.storeTap.setOnClickListener{
+        binding.storeTap.setOnClickListener {
             it.findNavController().navigate(R.id.action_homeFragment2_to_shopFragment)
         }
 
-        val viewToShake= binding.homeExplanation
+        val viewToShake = binding.homeExplanation
         val shake = AnimationUtils.loadAnimation(context, R.anim.shake_animation)
         viewToShake.startAnimation(shake)
 

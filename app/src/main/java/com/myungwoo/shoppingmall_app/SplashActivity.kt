@@ -26,7 +26,6 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
         auth = Firebase.auth
 
-
         if(auth.currentUser?.uid == null){
             Log.d("스플래시 액티비티", "null")
 
