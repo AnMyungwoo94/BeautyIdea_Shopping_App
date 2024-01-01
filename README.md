@@ -4,6 +4,9 @@
 
 ![Frame 13 (1)](https://github.com/AnMyungwoo94/BeautyIdea_Shopping_App/assets/126849689/c373df1f-6c55-47f6-a9f8-3ce74e79aba3)
 
+
+## ※ 10/30일 이니시스 간편결제 연동 추가 [Gif 추가예정]
+
 <table style="width:80%; margin:auto;">
   <tr>
     <th style="text-align:center; width:50%"><b> Splash 화면 </b></th>
