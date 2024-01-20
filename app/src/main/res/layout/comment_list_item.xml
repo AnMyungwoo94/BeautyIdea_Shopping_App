@@ -54,8 +54,6 @@
                 android:text="time"
                 android:textColor="#999999"
                 android:textSize="10sp" />
-
-
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </LinearLayout>

@@ -4,11 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
     android:layout_marginLeft="10dp"
-    android:layout_marginRight="10dp">
+    android:layout_marginRight="10dp"
+    android:background="#FFFFFF">
 
-    <!-- 상단 타이틀바 -->
     <LinearLayout
         android:id="@+id/topBar"
         android:layout_width="match_parent"
@@ -38,8 +37,6 @@
 
     </LinearLayout>
 
-    <!-- Content in ScrollView -->
-
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
@@ -52,8 +49,6 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
-            <!-- 주문상품 정보 Section -->
 
             <TextView
                 android:id="@+id/purchaseInfo"
@@ -77,7 +72,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/purchaseInfo">
-
 
                 <ImageView
                     android:id="@+id/product_image"
@@ -103,7 +97,6 @@
                     app:layout_constraintStart_toEndOf="@+id/product_image"
                     app:layout_constraintTop_toBottomOf="@+id/product_name" />
 
-                <!-- 수량 버튼 추가 -->
                 <TextView
                     android:id="@+id/product_deliveryFee"
                     android:layout_width="wrap_content"
@@ -156,7 +149,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/productInfoLayout" />
-
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/productListRV"
@@ -445,7 +437,6 @@
                     app:layout_constraintStart_toEndOf="@+id/btn_check_2"
                     app:layout_constraintTop_toBottomOf="@id/tv_check_1" />
 
-
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -528,7 +519,6 @@
                 android:textSize="18sp" />
         </LinearLayout>
 
-        <!-- 결제하기 Button -->
         <Button
             android:id="@+id/payButton"
             android:layout_width="match_parent"
@@ -540,5 +530,4 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/totalPaymentAmount_Layout" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

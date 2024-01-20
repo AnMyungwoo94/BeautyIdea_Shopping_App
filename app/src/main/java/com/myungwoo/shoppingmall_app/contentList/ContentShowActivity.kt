@@ -3,7 +3,6 @@ package com.myungwoo.shoppingmall_app.contentList
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.webkit.WebView
-import android.widget.Toast
 import com.myungwoo.shoppingmall_app.R
 
 class ContentShowActivity : AppCompatActivity() {
@@ -13,7 +12,7 @@ class ContentShowActivity : AppCompatActivity() {
 
         val getUri = intent.getStringExtra("uri")
 
-        val webView : WebView = findViewById(R.id.webView)
+        val webView: WebView = findViewById(R.id.webView)
         webView.loadUrl(getUri.toString())
     }
 }

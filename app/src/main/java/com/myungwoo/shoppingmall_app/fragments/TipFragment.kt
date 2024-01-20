@@ -12,7 +12,6 @@ import com.myungwoo.shoppingmall_app.R
 import com.myungwoo.shoppingmall_app.contentList.ContentListActivity
 import com.myungwoo.shoppingmall_app.databinding.FragmentTipBinding
 
-
 class TipFragment : Fragment() {
     private lateinit var binding: FragmentTipBinding
 
@@ -65,7 +64,6 @@ class TipFragment : Fragment() {
             startActivity(intent)
         }
 
-        //네비메뉴로 이동하기
         binding.homeTap.setOnClickListener {
             it.findNavController().navigate(R.id.action_tipFragment_to_homeFragment2)
         }

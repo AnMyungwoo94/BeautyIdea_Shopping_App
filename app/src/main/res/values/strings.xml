@@ -1,24 +1,16 @@
 <resources>
     <string name="app_name">BeautyIdea_APP</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_product_input_main">ProductInput_MainActivity</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
-
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="title_activity_product_input">ProductInput_Activity</string>
-    <string name="product_Detail">The lipstick is a versatile beauty product that adds color and definition to the lips. It comes in various shades, finishes, and formulas to suit different preferences and occasions. With its smooth and creamy texture, it glides effortlessly onto the lips, providing a rich and vibrant color payoff. \n\n
-
-This long-lasting formula ensures that the lipstick stays put throughout the day, even after eating or drinking. It is also enriched with moisturizing ingredients like jojoba oil or shea butter to keep the lips hydrated and nourished.\n\n
-
-Whether you prefer a bold red for a glamorous look or a subtle nude for everyday wear, there a lipstick shade for everyone. The finish can range from matte to satin or glossy, allowing you to achieve different effects based on your desired style.\n\n
-
-In addition to adding color, lipsticks can also help enhance the shape of your lips. You can create fuller-looking lips by using lip liners or optically minimize their appearance by choosing darker shades.\n\n
-
-Overall, lipstick is an essential makeup item that not only enhances your natural beauty but also allows you to express your personal style and confidence.</string>
+    <string name="product_Detail">The lipstick is a versatile beauty product that adds color and definition to the lips.
+        It comes in various shades, finishes, and formulas to suit different preferencesand occasions. With its smooth
+        and creamy texture,it glides effortlessly onto the lips, providing a rich and vibrant color payoff. \n\n
+        This long-lasting formula ensures that the lipstick stays put throughout the day, even after eating or drinking.
+        It is also enriched with moisturizing ingredients like jojoba oil or shea butter to keep the lips hydrated and nourished.\n\n
+        Whether you prefer a bold red for a glamorous look or a subtle nude for everyday wear, there a lipstick shade for everyone.
+        The finish can range from matte to satin or glossy, allowing you to achieve different effects based on your desired style.
+        \n\ndition to adding color, lipsticks can also help enhance the shape of your lips. You can create fuller-looking lips by
+        using lip liners or optically minimize their appearance by choosing darker shades.\n\nOverall, lipstick is an essential
+        makeup item that not only enhances your natural beauty but also allows you to express your personal style and confidence.</string>
 </resources>

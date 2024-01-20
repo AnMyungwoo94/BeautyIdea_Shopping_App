@@ -1,7 +1,6 @@
 package com.myungwoo.shoppingmall_app.product
 
 import android.content.Context
-import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -12,14 +11,12 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
-import java.io.Serializable
 import java.text.NumberFormat
 import java.util.*
 
-
 class ProductCartRvAdapter(
     val context: Context,
-    val items: MutableList<ProductModel>,
+    private val items: MutableList<ProductModel>,
     val onItemChanged: () -> Unit
 ) : RecyclerView.Adapter<ProductCartRvAdapter.ViewHolder>() {
 
@@ -33,10 +30,10 @@ class ProductCartRvAdapter(
 
         with(holder.binding) {
             productName.text = product.name
-            productPrice.text = "${NumberFormat.getNumberInstance(Locale.US).format(product.count_sum)}"
+            productPrice.text = "${NumberFormat.getNumberInstance(Locale.US).format(product.countSum)}"
             quantityTextView.text = product.count.toString()
-            var deliveryFee = product.delivery_fee
-            if(deliveryFee != 0){
+            val deliveryFee = product.deliveryFee
+            if (deliveryFee != 0) {
                 productDeliveryFee.text = "배송비 ${NumberFormat.getNumberInstance(Locale.US).format(deliveryFee)} 원"
             } else {
                 productDeliveryFee.text = "배송비 무료"
@@ -46,10 +43,7 @@ class ProductCartRvAdapter(
                 if (it.isSuccessful) {
                     Glide.with(context).load(it.result).into(productImage)
                 }
-
-
             }
-            // 삭제 버튼 클릭 리스너 설정
             deleteButton.setOnClickListener {
                 val userUID = FirebaseAuth.getInstance().currentUser?.uid
                 FirebaseDatabase.getInstance().getReference("cart/$userUID/${product.key}").removeValue()
@@ -58,8 +52,8 @@ class ProductCartRvAdapter(
             minusBtn.setOnClickListener {
                 if (product.count > 1) {
                     product.count -= 1
-                    product.count_sum = product.getTotalPrice()
-                    productPrice.text = "${NumberFormat.getNumberInstance(Locale.US).format(product.count_sum)}" // 가격 업데이트
+                    product.countSum = product.getTotalPrice()
+                    productPrice.text = "${NumberFormat.getNumberInstance(Locale.US).format(product.countSum)}"
                     updateProductInFirebase(product)  // Firebase 업데이트
                     quantityTextView.text = product.count.toString()
                     onItemChanged()
@@ -68,23 +62,19 @@ class ProductCartRvAdapter(
 
             plusBtn.setOnClickListener {
                 product.count += 1
-                product.count_sum = product.getTotalPrice()
-                productPrice.text = "${NumberFormat.getNumberInstance(Locale.US).format(product.count_sum)}" // 가격 업데이트
-                updateProductInFirebase(product)  // Firebase 업데이트
+                product.countSum = product.getTotalPrice()
+                productPrice.text = "${NumberFormat.getNumberInstance(Locale.US).format(product.countSum)}"
+                updateProductInFirebase(product)
                 quantityTextView.text = product.count.toString()
                 onItemChanged()
 
             }
-
-
             productCheckBox.setOnCheckedChangeListener(null)
             productCheckBox.isChecked = product.isSelected
             productCheckBox.setOnCheckedChangeListener { _, isChecked ->
-                Log.d("CheckboxChanged", "Position: $position, IsChecked: $isChecked")
                 items[position].isSelected = isChecked
-                onItemChanged()  // 콜백 함수 호출
+                onItemChanged()
 
-                // Firebase 데이터베이스 업데이트
                 val userUID = FirebaseAuth.getInstance().currentUser?.uid
                 val productKey = items[position].key
                 val ref = FirebaseDatabase.getInstance().getReference("cart/$userUID/$productKey")
@@ -96,9 +86,8 @@ class ProductCartRvAdapter(
     private fun updateProductInFirebase(product: ProductModel) {
         val userUID = FirebaseAuth.getInstance().currentUser?.uid
         val ref = FirebaseDatabase.getInstance().getReference("cart/$userUID/${product.key}")
-
         ref.child("count").setValue(product.count.toString())
-        ref.child("count_sum").setValue(product.count_sum.toString())
+        ref.child("count_sum").setValue(product.countSum.toString())
     }
 
     override fun getItemCount(): Int = items.size

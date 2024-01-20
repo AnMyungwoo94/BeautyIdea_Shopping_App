@@ -85,9 +85,6 @@
                     android:text="수정" />
 
             </LinearLayout>
-
         </ScrollView>
-
     </LinearLayout>
-
 </layout>

@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <layout>
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -50,7 +49,6 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@color/mainColor" />
-
             </LinearLayout>
 
             <LinearLayout
@@ -73,40 +71,35 @@
                     android:id="@+id/tipTap"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:layout_weight="1"
                     android:layout_gravity="center"
+                    android:layout_weight="1"
                     android:src="@drawable/tip_icon" />
 
                 <ImageView
                     android:id="@+id/homeTap"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:layout_weight="1"
                     android:layout_gravity="center"
+                    android:layout_weight="1"
                     android:src="@drawable/home_icon" />
-
 
                 <ImageView
                     android:id="@+id/talkTap"
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
-                    android:layout_weight="1"
                     android:layout_gravity="center"
+                    android:layout_weight="1"
                     android:src="@drawable/community_icon" />
 
                 <ImageView
                     android:id="@+id/bookmarkTap"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:layout_weight="1"
                     android:layout_gravity="center"
+                    android:layout_weight="1"
                     android:src="@drawable/bookmark_icon" />
 
             </LinearLayout>
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </FrameLayout>
-
 </layout>

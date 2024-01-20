@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!-- TODO: Update blank fragment layout -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -57,7 +54,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1" />
-
         </LinearLayout>
 
         <LinearLayout
@@ -80,39 +76,33 @@
                 android:id="@+id/tipTap"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:layout_weight="1"
                 android:layout_gravity="center"
+                android:layout_weight="1"
                 android:src="@drawable/tip_icon" />
 
             <ImageView
                 android:id="@+id/homeTap"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:layout_weight="1"
                 android:layout_gravity="center"
+                android:layout_weight="1"
                 android:src="@drawable/home_icon" />
 
             <ImageView
                 android:id="@+id/talkTap"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
-                android:layout_weight="1"
                 android:layout_gravity="center"
+                android:layout_weight="1"
                 android:src="@drawable/community_icon" />
 
             <ImageView
                 android:id="@+id/bookmarkTap"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:layout_weight="1"
                 android:layout_gravity="center"
+                android:layout_weight="1"
                 android:src="@drawable/bookmark_icon" />
-
-
         </LinearLayout>
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 </layout>

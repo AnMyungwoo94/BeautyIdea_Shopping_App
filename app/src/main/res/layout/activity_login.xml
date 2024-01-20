@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".auth.LoginActivity"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:context=".auth.LoginActivity">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -16,20 +14,21 @@
             android:orientation="vertical">
 
             <TextView
-                android:text="환영합니다!"
-                android:gravity="center"
-                android:textColor="#000000"
-                android:textSize="20sp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
                 android:layout_marginTop="100dp"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"/>
-            <TextView
-                android:text="아이디와 비밀번호를 입력해주세요"
                 android:gravity="center"
+                android:text="환영합니다!"
                 android:textColor="#000000"
-                android:textSize="20sp"
+                android:textSize="20sp" />
+
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="50dp"/>
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="아이디와 비밀번호를 입력해주세요"
+                android:textColor="#000000"
+                android:textSize="20sp" />
 
         </LinearLayout>
 
@@ -41,36 +40,34 @@
 
             <EditText
                 android:id="@+id/emailArea"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-
-                android:hint="0000000@naver.com"
                 style="@style/AuthEditText"
-                />
+                android:layout_width="match_parent"
+
+                android:layout_height="50dp"
+                android:hint="0000000@naver.com" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:background="#999999"
+                android:layout_height="0.5dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_height="0.5dp"/>
+                android:background="#999999" />
 
 
             <EditText
                 android:id="@+id/passwordArea"
+                style="@style/AuthEditText"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:inputType="textPassword"
                 android:hint="password"
-                style="@style/AuthEditText"
-                />
+                android:inputType="textPassword" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:background="#999999"
+                android:layout_height="0.5dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_height="0.5dp"/>
+                android:background="#999999" />
 
             <Button
                 android:id="@+id/loginBtn"
@@ -80,10 +77,6 @@
                 android:background="@drawable/background_radius_yellow"
                 android:text="로그인하기"
                 android:textSize="15sp" />
-
-
         </LinearLayout>
-
     </LinearLayout>
-
 </layout>

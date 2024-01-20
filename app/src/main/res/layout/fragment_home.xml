@@ -72,7 +72,6 @@
                             android:src="@drawable/tip_main" />
 
                     </androidx.cardview.widget.CardView>
-
                 </LinearLayout>
 
                 <LinearLayout
@@ -194,7 +193,6 @@
                 android:layout_weight="1"
                 android:src="@drawable/home_icon" />
 
-
             <ImageView
                 android:id="@+id/talkTap"
                 android:layout_width="match_parent"
@@ -210,7 +208,6 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:src="@drawable/bookmark_icon" />
-
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" >
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>  <!-- 이니시스 결제 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />  <!-- 이니시스 결제 -->
 
     <application
         android:name=".auth.MyApplication"
@@ -14,26 +14,26 @@
         android:icon="@mipmap/ic_launcher_round"
         android:label="뷰아"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="true"
         android:theme="@style/Theme.ShoppingMall_App"
-        tools:targetApi="33" >
+        android:usesCleartextTraffic="true"
+        tools:targetApi="33">
         <activity
-            android:name=".product.ProductSuccess_Activity"
+            android:name=".product.ProductSuccessActivity"
             android:exported="false" />
         <activity
-            android:name=".mypick.MyPick_Activity"
+            android:name=".mypick.MyPickActivity"
             android:exported="false" />
         <activity
-            android:name=".product.ProductPay_Activity"
+            android:name=".product.ProductPayActivity"
             android:exported="false" />
         <activity
-            android:name=".product.ProductCart_Activity"
+            android:name=".product.ProductCartActivity"
             android:exported="false" />
         <activity
-            android:name=".product.ProductDetail_Activity"
+            android:name=".product.ProductDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".product.ProductInput_Activity"
+            android:name=".product.ProductInputActivity"
             android:exported="false" />
         <activity
             android:name=".setting.SettingActivity"
@@ -64,7 +64,7 @@
             android:exported="false" />
         <activity
             android:name=".SplashActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -76,7 +76,7 @@
             android:exported="false" />
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 

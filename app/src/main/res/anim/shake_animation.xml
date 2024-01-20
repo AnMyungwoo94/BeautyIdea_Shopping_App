@@ -3,17 +3,11 @@
 <translate xmlns:android="http://schemas.android.com/apk/res/android"
 
     android:duration="2000"
-
     android:fromXDelta="0"
-
     android:fromYDelta="-5%"
-
-    android:toXDelta="0"
-
-    android:toYDelta="5%"
-
+    android:repeatCount="7"
     android:repeatMode="reverse"
-
-    android:repeatCount="7">
+    android:toXDelta="0"
+    android:toYDelta="5%">
 
 </translate>

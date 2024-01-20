@@ -86,9 +86,6 @@
                     android:text="입력" />
 
             </LinearLayout>
-
         </ScrollView>
-
     </LinearLayout>
-
 </layout>

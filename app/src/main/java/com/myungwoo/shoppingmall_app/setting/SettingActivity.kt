@@ -17,22 +17,18 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
-import com.kakao.sdk.auth.AuthApiClient
 import com.kakao.sdk.user.UserApiClient
-import com.myungwoo.shoppingmall_app.Delivery.DeliveryInfo
-import com.myungwoo.shoppingmall_app.Delivery.ProductInfo
+import com.myungwoo.shoppingmall_app.delivery.DeliveryInfo
+import com.myungwoo.shoppingmall_app.delivery.ProductInfo
 import com.myungwoo.shoppingmall_app.auth.KakaoUserInfo
 import com.myungwoo.shoppingmall_app.databinding.ActivitySettingBinding
-import com.myungwoo.shoppingmall_app.utils.FBRef.Companion.deliveryRef
-
 
 class SettingActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var binding: ActivitySettingBinding
-    val user = FirebaseAuth.getInstance().currentUser
+    private val user = FirebaseAuth.getInstance().currentUser
     private lateinit var orderAdapter: OrderAdapter
-    private lateinit var deliveryInfo: DeliveryInfo
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,22 +39,20 @@ class SettingActivity : AppCompatActivity() {
         val logoutBtn = findViewById<Button>(R.id.logoutBtn)
         logoutBtn.setOnClickListener {
 
-
-            //파이어베이스 로그아웃
-            val currentUser = auth.currentUser // Firebase 인증 객체에서 현재 사용자 정보를 가져옵니다.
+            val currentUser = auth.currentUser
             if (currentUser != null) {
-                val providerId = currentUser.providerId // 로그인 제공자 ID를 가져옵니다.
+                val providerId = currentUser.providerId
                 Log.e("providerId", providerId)
                 when (providerId) {
                     "firebase" -> {
-                        performFirebaseLogout() // Firebase 로그아웃 함수 호출
+                        performFirebaseLogout()
                     }
+
                     else -> {
                         // 다른 로그아웃 방법 만들기
                     }
                 }
             } else {
-                //카카오 로그아웃
                 UserApiClient.instance.logout { error ->
                     if (error != null) {
                         Toast.makeText(this, "로그아웃 실패 $error", Toast.LENGTH_SHORT).show()
@@ -72,8 +66,7 @@ class SettingActivity : AppCompatActivity() {
             }
         }
 
-        val kakaonickName = KakaoUserInfo.getKakaoNickName().toString()
-        Log.e("kakaonickName", kakaonickName)
+        val kakaoName = KakaoUserInfo.getKakaoNickName().toString()
         val currentUser = auth.currentUser
         if (currentUser != null) {
             val providerData = currentUser.providerData
@@ -86,16 +79,18 @@ class SettingActivity : AppCompatActivity() {
                         binding.userEmail.text = "회원"
                     }
                 }
-                "google.com" ->  binding.userEmail.text = currentUser.email.toString()
+
+                "google.com" -> binding.userEmail.text = currentUser.email.toString()
                 "anonymous" -> {
                     binding.userEmail.text = "회원"
                 }
+
                 else -> {
-                   //다른 로그인 시도시 추가하기
+                    //다른 로그인 시도시 추가하기
                 }
             }
         } else {
-            binding.userEmail.text = kakaonickName
+            binding.userEmail.text = kakaoName
         }
 
         binding.backButton.setOnClickListener {
@@ -108,7 +103,6 @@ class SettingActivity : AppCompatActivity() {
         ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
 
-
                 val deliveryList = mutableListOf<DeliveryInfo>()
 
                 for (deliverySnapshot in dataSnapshot.children) {
@@ -117,7 +111,7 @@ class SettingActivity : AppCompatActivity() {
                         deliverySnapshot.child("phoneNumber").getValue(String::class.java) ?: ""
                     val address =
                         deliverySnapshot.child("address").getValue(String::class.java) ?: ""
-                    val product_sum =
+                    val productSum =
                         deliverySnapshot.child("product_sum").getValue(String::class.java) ?: ""
 
                     val productsList = mutableListOf<ProductInfo>()
@@ -131,7 +125,7 @@ class SettingActivity : AppCompatActivity() {
                         name = name,
                         phoneNumber = phoneNumber,
                         address = address,
-                        product_sum = product_sum,
+                        productSum = productSum,
                         products = productsList
                     )
                     deliveryList.add(deliveryInfo)
@@ -144,21 +138,18 @@ class SettingActivity : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                // 데이터 가져오기 실패. 에러 로그 출력
                 Log.w("TAG", "loadPost:onCancelled", error.toException())
             }
         })
 
-    }  // Firebase 로그아웃을 수행하는 함수
+    }
 
     private fun performFirebaseLogout() {
         auth.signOut() // Firebase 로그아웃
-
         Toast.makeText(this, "로그아웃 성공", Toast.LENGTH_SHORT).show()
         val intent = Intent(this, IntroActivity::class.java)
         intent.flags =
             Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
         startActivity(intent)
     }
-
 }

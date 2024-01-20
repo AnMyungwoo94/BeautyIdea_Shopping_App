@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.myungwoo.shoppingmall_app.R
 
-class ImageSliderAdapter(val context: Context, val sliderImage: List<Int>) :
+class ImageSliderAdapter(val context: Context, private val sliderImage: List<Int>) :
     RecyclerView.Adapter<ImageSliderAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -27,9 +27,7 @@ class ImageSliderAdapter(val context: Context, val sliderImage: List<Int>) :
     }
 
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
         private val mImageView: ImageView = itemView.findViewById(R.id.imageSlider)
-
         fun bindSliderImage(imageResId: Int) {
             Glide.with(context)
                 .load(imageResId)

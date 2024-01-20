@@ -32,7 +32,6 @@ class LoginActivity : AppCompatActivity() {
                     .addOnCompleteListener(this) { task ->
                         if (task.isSuccessful) {
                             val intent = Intent(this, com.myungwoo.shoppingmall_app.MainActivity::class.java)
-                            //뒤로가기 눌렀을때 앱이 종료하도록 설정
                             intent.flags =
                                 Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                             startActivity(intent)

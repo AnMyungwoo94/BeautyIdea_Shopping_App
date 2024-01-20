@@ -19,7 +19,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.myungwoo.shoppingmall_app.R
 import com.myungwoo.shoppingmall_app.databinding.FragmentShopBinding
 import com.myungwoo.shoppingmall_app.product.ImageSliderAdapter
-import com.myungwoo.shoppingmall_app.product.ProductInput_Activity
+import com.myungwoo.shoppingmall_app.product.ProductInputActivity
 import com.myungwoo.shoppingmall_app.product.ProductModel
 import com.myungwoo.shoppingmall_app.product.ProductRvAdapter
 import com.myungwoo.shoppingmall_app.utils.FBRef
@@ -29,16 +29,13 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 
 class ShopFragment : Fragment() {
-    private lateinit var binding: FragmentShopBinding
 
-    //뷰페이지2 이미지 슬라이드 연결
+    private lateinit var binding: FragmentShopBinding
     private var sliderHandler = Handler()
     private lateinit var runnable: Runnable
-
-    //상품 데이터 불러오기
-    val itemKeyList = ArrayList<String>()
+    private val itemKeyList = ArrayList<String>()
     lateinit var productrvAdapter: ProductRvAdapter
-    val productList = mutableListOf<ProductModel>()
+    private val productList = mutableListOf<ProductModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,7 +48,7 @@ class ShopFragment : Fragment() {
             binding.floatingActionButton.visibility = View.GONE
         } else {
             binding.floatingActionButton.setOnClickListener {
-                val intent = Intent(requireContext(), ProductInput_Activity::class.java)
+                val intent = Intent(requireContext(), ProductInputActivity::class.java)
                 startActivity(intent)
             }
         }
@@ -72,15 +69,12 @@ class ShopFragment : Fragment() {
             it.findNavController().navigate(R.id.action_shopFragment_to_talkFragment)
         }
 
-        //제품 리스트를 메인에 불러오고 싶을때 사용
-        // 어댑터 초기화 및 데이터 설정
         val rv: RecyclerView = binding.mainRV
         productrvAdapter = ProductRvAdapter(requireContext(), productList)
         rv.layoutManager = GridLayoutManager(requireContext(), 2)
         rv.adapter = productrvAdapter
-        getCategoryData_Product()
+        getCategoryDataProduct()
 
-        //이미지 슬라이드
         val images = listOf(R.drawable.shop_img, R.drawable.shop_img2, R.drawable.shop_img3)
         val sliderViewPager = binding.sliderViewPager
         sliderViewPager.offscreenPageLimit = 1
@@ -97,16 +91,12 @@ class ShopFragment : Fragment() {
             }
         })
         setupIndicators(images.size)
-        // 자동 슬라이드 시작
-        autoSlideViewPager2()
-        Log.d("ViewPager2", "Initial Page: ${sliderViewPager.currentItem}")
+        autoSlideViewPager()
 
         return binding.root
     }
 
-
-    //상품리스트에 있는 값들 가져오기
-    private fun getCategoryData_Product() {
+    private fun getCategoryDataProduct() {
         val postListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (dataModel in dataSnapshot.children) {
@@ -114,11 +104,10 @@ class ShopFragment : Fragment() {
                     itemKeyList.add(dataModel.key.toString())
                     productList.add(item!!)
                 }
-                productrvAdapter.notifyDataSetChanged() // 어댑터에 변경 사항 알림
+                productrvAdapter.notifyDataSetChanged()
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
-                // Getting Post failed, log a message
                 Log.w("제품 불러오기", "loadPost:onCancelled", databaseError.toException())
             }
         }
@@ -145,10 +134,10 @@ class ShopFragment : Fragment() {
 
     private fun setCurrentIndicator(position: Int) {
         val childCount = binding.layoutIndicators.childCount
-        val context = requireContext() // 컨텍스트를 미리 가져옴
+        val context = requireContext()
 
         for (i in 0 until childCount) {
-            val imageView = binding.layoutIndicators.getChildAt(i) as? ImageView // 안전한 캐스팅
+            val imageView = binding.layoutIndicators.getChildAt(i) as? ImageView
             if (imageView != null) {
                 if (i == position) {
                     imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.bg_indicator_active))
@@ -159,23 +148,22 @@ class ShopFragment : Fragment() {
         }
     }
 
-    private fun autoSlideViewPager2() {
+    private fun autoSlideViewPager() {
         val sliderViewPager = binding.sliderViewPager
         val totalItemCount = sliderViewPager.adapter?.itemCount ?: 0
 
         runnable = Runnable {
-            val nextItem: Int = (sliderViewPager.currentItem + 1) % totalItemCount //순서대로 가게끔 하려고
+            val nextItem: Int = (sliderViewPager.currentItem + 1) % totalItemCount
             sliderViewPager.setCurrentItem(nextItem, true)
             sliderHandler.postDelayed(runnable, 3000L)
         }
 
-        // 처음 시작할 때의 딜레이 설정.
         sliderHandler.postDelayed(runnable, 3000L)
     }
 
     override fun onResume() {
         super.onResume()
-        autoSlideViewPager2()
+        autoSlideViewPager()
     }
 
     override fun onPause() {

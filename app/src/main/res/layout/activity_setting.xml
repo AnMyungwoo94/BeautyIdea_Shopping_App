@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".setting.SettingActivity">
 
-
     <LinearLayout
         android:id="@+id/linearLayout7"
         android:layout_width="match_parent"
@@ -33,7 +32,6 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
 
             <TextView
                 android:id="@+id/textView3"
@@ -87,7 +85,6 @@
 
         </LinearLayout>
 
-
         <View
             android:layout_width="match_parent"
             android:layout_height="4px"
@@ -112,7 +109,6 @@
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:src="@drawable/delivery" />
-
         </LinearLayout>
 
         <View
@@ -127,7 +123,5 @@
             android:layout_marginStart="5dp"
             android:layout_marginTop="20dp"
             tools:listitem="@layout/item_delivery" />
-
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

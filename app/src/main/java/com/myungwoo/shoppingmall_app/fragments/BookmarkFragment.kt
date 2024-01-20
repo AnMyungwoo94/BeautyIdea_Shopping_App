@@ -34,7 +34,6 @@ class BookmarkFragment : Fragment() {
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_bookmark, container, false)
 
-        //사용자가 북마크한 정보를 다 가져옴
         getBookmarkData()
 
         rvAdapter = BookmarkRvAdapter(requireContext(), items, itemKeyList, bookmarkList)
@@ -64,9 +63,7 @@ class BookmarkFragment : Fragment() {
         val postListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (dataModel in dataSnapshot.children) {
-                    //데이터 받아 올 때
                     val item = dataModel.getValue(ContentModel::class.java)
-                    //전체 컨텐츠 중에서, 사용자가 북마크한 정보를 보여줌
                     if (bookmarkList.contains(dataModel.key.toString())) {
                         items.add(item!!)
                         itemKeyList.add(dataModel.key.toString())
@@ -76,35 +73,31 @@ class BookmarkFragment : Fragment() {
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
-                // Getting Post failed, log a message
                 Log.w("ContentListActivity", "loadPost:onCancelled", databaseError.toException())
             }
         }
-        FBRef.conetent.child("categoryALl").addValueEventListener(postListener)
-        FBRef.conetent.child("categoryLip").addValueEventListener(postListener)
-        FBRef.conetent.child("categoryBlusher").addValueEventListener(postListener)
-        FBRef.conetent.child("categoryMascara").addValueEventListener(postListener)
-        FBRef.conetent.child("categoryNail").addValueEventListener(postListener)
-        FBRef.conetent.child("categoryShadow").addValueEventListener(postListener)
-        FBRef.conetent.child("categorySkin").addValueEventListener(postListener)
-        FBRef.conetent.child("categorySun").addValueEventListener(postListener)
+        FBRef.content.child("categoryALl").addValueEventListener(postListener)
+        FBRef.content.child("categoryLip").addValueEventListener(postListener)
+        FBRef.content.child("categoryBlusher").addValueEventListener(postListener)
+        FBRef.content.child("categoryMascara").addValueEventListener(postListener)
+        FBRef.content.child("categoryNail").addValueEventListener(postListener)
+        FBRef.content.child("categoryShadow").addValueEventListener(postListener)
+        FBRef.content.child("categorySkin").addValueEventListener(postListener)
+        FBRef.content.child("categorySun").addValueEventListener(postListener)
 
     }
 
     private fun getBookmarkData() {
-        //파이어베이스 데이터 읽기(북마크)
         val postListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
 
                 for (dataModel in dataSnapshot.children) {
                     bookmarkList.add(dataModel.key.toString())
                 }
-                //전체 카테고리에 있는 컨텐츠 데이터들을 다 가져옴
                 getCategoryData()
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
-                // Getting Post failed, log a message
                 Log.w("ContentListActivity", "loadPost:onCancelled", databaseError.toException())
             }
         }

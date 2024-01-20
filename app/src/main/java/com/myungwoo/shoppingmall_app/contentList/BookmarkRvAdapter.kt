@@ -13,8 +13,8 @@ import com.myungwoo.shoppingmall_app.R
 
 class BookmarkRvAdapter(
     val context: Context,
-    val items: ArrayList<ContentModel>,
-    val keyList: ArrayList<String>,
+    private val items: ArrayList<ContentModel>,
+    private val keyList: ArrayList<String>,
     val bookmarkIdList: MutableList<String>
 ) : RecyclerView.Adapter<BookmarkRvAdapter.Viewholder>() {
 
@@ -41,17 +41,16 @@ class BookmarkRvAdapter(
                 itemView.context.startActivity(intent)
             }
 
-            val ContentTitle = itemView.findViewById<TextView>(R.id.textArea)
+            val contentTitle = itemView.findViewById<TextView>(R.id.textArea)
             val imageViewArea = itemView.findViewById<ImageView>(R.id.imageArea)
             val bookmarkArea = itemView.findViewById<ImageView>(R.id.bookmarkArea)
-            //content List와 bookmark List의 값이 같은게 있다면 검은색으로 변경
             if (bookmarkIdList.contains(key)) {
                 bookmarkArea.setImageResource(R.drawable.bookmark_color)
             } else {
                 bookmarkArea.setImageResource(R.drawable.bookmark_white)
             }
 
-            ContentTitle.text = item.title
+            contentTitle.text = item.title
             Glide.with(context).load(item.imageUrl).into(imageViewArea)
         }
     }

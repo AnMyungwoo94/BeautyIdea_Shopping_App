@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <!-- 상단 타이틀바 -->
+
     <LinearLayout
         android:id="@+id/topBar"
         android:layout_width="match_parent"
@@ -20,8 +20,8 @@
             android:id="@+id/backButton"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:scaleType="centerCrop"
             android:background="?android:selectableItemBackground"
+            android:scaleType="centerCrop"
             android:src="@drawable/ic_x" />
 
         <TextView
@@ -33,7 +33,6 @@
             android:textSize="20sp" />
 
     </LinearLayout>
-
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout8"
@@ -63,7 +62,6 @@
             android:padding="16dp"
             app:layout_constraintBottom_toBottomOf="parent">
 
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -88,7 +86,6 @@
                     android:textColor="#FF0808"
                     android:textSize="18sp" />
             </LinearLayout>
-
 
             <LinearLayout
                 android:layout_width="match_parent"

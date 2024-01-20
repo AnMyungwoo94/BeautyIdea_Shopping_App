@@ -38,20 +38,10 @@ class TalkFragment : Fragment() {
         binding.boardListView.adapter = boardRVAdapter
 
         binding.boardListView.setOnItemClickListener { parent, view, position, id ->
-            //게시글보기로 값 넘겨주기
-            //첫번째 방법으로는 listview에 있는 데이터 title, content, time의 값을 intent로 넘겨주기
-//            val intent = Intent(context, BoardInsideActivity::class.java)
-//            intent.putExtra("title", boardDataList[position].title)
-//            intent.putExtra("content", boardDataList[position].content)
-//            intent.putExtra("time", boardDataList[position].time)
-//            startActivity(intent)
-
-            //두번째 방법으로는 Firebase에 있는 board에 대한 데이터의 id를 기반으로 가져오기
             val intent = Intent(context, BoardInsideActivity::class.java)
             intent.putExtra("key", boardKeyList[position])
             startActivity(intent)
         }
-
 
         binding.writeBtn.setOnClickListener {
             val intent = Intent(context, BoardWriteActivity::class.java)
@@ -87,7 +77,6 @@ class TalkFragment : Fragment() {
                     boardDataList.add(item!!)
                     boardKeyList.add(dataModel.key.toString())
                 }
-                //reverse()로 최신글이 먼저 나오게 하기
                 boardKeyList.reverse()
                 boardDataList.reverse()
                 boardRVAdapter.notifyDataSetChanged()
@@ -100,5 +89,4 @@ class TalkFragment : Fragment() {
         }
         FBRef.boardRef.addValueEventListener(postListener)
     }
-
 }

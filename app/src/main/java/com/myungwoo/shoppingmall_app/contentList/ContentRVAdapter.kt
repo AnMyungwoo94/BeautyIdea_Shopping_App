@@ -15,7 +15,7 @@ import com.myungwoo.shoppingmall_app.utils.FBRef
 
 class ContentRVAdapter(
     val context: Context, val items: ArrayList<ContentModel>,
-    val keyList: ArrayList<String>,
+    private val keyList: ArrayList<String>,
     val bookmarkIdList: MutableList<String>
 ) : RecyclerView.Adapter<ContentRVAdapter.Viewholder>() {
 
@@ -42,27 +42,25 @@ class ContentRVAdapter(
                 itemView.context.startActivity(intent)
             }
 
-            val ContentTitle = itemView.findViewById<TextView>(R.id.textArea)
+            val contentTitle = itemView.findViewById<TextView>(R.id.textArea)
             val imageViewArea = itemView.findViewById<ImageView>(R.id.imageArea)
             val bookmarkArea = itemView.findViewById<ImageView>(R.id.bookmarkArea)
-            //content List와 bookmark List의 값이 같은게 있다면 검은색으로 변경
+
             if (bookmarkIdList.contains(key)) {
                 bookmarkArea.setImageResource(R.drawable.bookmark_color)
             } else {
                 bookmarkArea.setImageResource(R.drawable.bookmark_white)
             }
 
-            ContentTitle.text = item.title
+            contentTitle.text = item.title
             Glide.with(context).load(item.imageUrl).into(imageViewArea)
 
             bookmarkArea.setOnClickListener {
 
-                if(bookmarkIdList.contains(key)){
-                    //북마크가 있을때
+                if (bookmarkIdList.contains(key)) {
                     FBRef.bookmarkRef.child(FBAuth.getUid())
                         .child(key).removeValue()
-                }else{
-                    //북마크가 없는지
+                } else {
                     FBRef.bookmarkRef.child(FBAuth.getUid())
                         .child(key).setValue(BookmarkModel(true))
                 }

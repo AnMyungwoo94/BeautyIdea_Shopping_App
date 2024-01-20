@@ -1,6 +1,5 @@
 package com.myungwoo.shoppingmall_app.product
 
-import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Intent
 import android.os.Bundle
@@ -19,8 +18,8 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.storage
-import com.myungwoo.shoppingmall_app.Delivery.DeliveryInfo
-import com.myungwoo.shoppingmall_app.Delivery.ProductInfo
+import com.myungwoo.shoppingmall_app.delivery.DeliveryInfo
+import com.myungwoo.shoppingmall_app.delivery.ProductInfo
 import com.myungwoo.shoppingmall_app.databinding.ActivityProductPayBinding
 import com.myungwoo.shoppingmall_app.utils.FBAuth
 import java.io.Serializable
@@ -33,11 +32,9 @@ import kr.co.bootpay.android.models.BootUser
 import kr.co.bootpay.android.models.Payload
 import java.util.*
 
-class ProductPay_Activity : AppCompatActivity() {
+class ProductPayActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProductPayBinding
-    private  var productCartList = mutableListOf<ProductModel>()
-    private var key: String = ""
-    private val uid = FirebaseAuth.getInstance().currentUser?.uid
+    private var productCartList = mutableListOf<ProductModel>()
     private var count_sum_cart: Serializable = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,11 +46,8 @@ class ProductPay_Activity : AppCompatActivity() {
             inicisPayMent()
         }
 
-        //장바구니에서 결제하기 버튼을 눌렀을 경우
         val selectedProducts: List<ProductModel> =
             intent.getSerializableExtra("SELECTED_PRODUCTS") as? ArrayList<ProductModel> ?: listOf()
-        Log.e("selectedProducts", selectedProducts.toString())
-
 
         //제품 상세페이지에서 구매하기 버튼을 눌렸을 경우
         val selecteddProduct = intent.getSerializableExtra("SELECTED_PRODUCT_PAY") as? ProductModel
@@ -64,14 +58,13 @@ class ProductPay_Activity : AppCompatActivity() {
         }
         Log.e("count_sum_cart", count_sum_cart.toString())
 
-        // 데이터 확인
         if (selecteddProduct != null) {
-            binding.productInfoLayout.visibility = View.VISIBLE  // 뷰를 보이게 설정
+            binding.productInfoLayout.visibility = View.VISIBLE
             binding.productName.text = selecteddProduct.name
             binding.productPrice.text =
                 "${NumberFormat.getNumberInstance(Locale.US).format(count_sum_cart)} "
             binding.quantityTextView.text = count.toString()
-            var deliveryFee = selecteddProduct.delivery_fee
+            val deliveryFee = selecteddProduct.deliveryFee
             if (deliveryFee != 0) {
                 binding.productDeliveryFee.text =
                     "배송비 ${NumberFormat.getNumberInstance(Locale.US).format(deliveryFee)} 원"
@@ -80,17 +73,13 @@ class ProductPay_Activity : AppCompatActivity() {
             }
 
             val storageRef: StorageReference = Firebase.storage.reference
-
-            // selecteddProduct에서 이미지 가져오기
-            selecteddProduct?.let { product ->
+            selecteddProduct.let { product ->
                 val productKey = product.key
                 val pictureRef = storageRef.child("$productKey.png")
 
                 pictureRef.downloadUrl.addOnSuccessListener { uri ->
-                    // 성공적으로 다운로드된 이미지 URI를 사용하여 작업 수행
                     Glide.with(this).load(uri).into(binding.productImage)
                 }.addOnFailureListener { exception ->
-                    // 이미지 다운로드 실패 시 처리할 내용 작성
                     Log.e(
                         "ProductPay_Activity",
                         "Failed to download image for product $productKey",
@@ -105,9 +94,7 @@ class ProductPay_Activity : AppCompatActivity() {
                 val pictureRef = storageRef.child("$productKey.png")
 
                 pictureRef.downloadUrl.addOnSuccessListener { uri ->
-                    // 성공적으로 다운로드된 이미지 URI를 사용하여 작업 수행
                 }.addOnFailureListener { exception ->
-                    // 이미지 다운로드 실패 시 처리할 내용 작성
                     Log.e(
                         "ProductPay_Activity",
                         "Failed to download image for product $productKey",
@@ -116,22 +103,19 @@ class ProductPay_Activity : AppCompatActivity() {
                 }
             }
         } else {
-            binding.productInfoLayout.visibility = View.GONE  // 뷰를 숨김
+            binding.productInfoLayout.visibility = View.GONE
         }
-
 
         binding.productListRV.layoutManager = LinearLayoutManager(this)
 
-        // 어댑터 초기화 및 체크박스 상태 변경 콜백 설정
         val adapter = ProductCartRvAdapter(this, productCartList) {
-            updateTotalPaymentAmount()  // 이 부분이 onItemChanged 콜백의 구현입니다.
+            updateTotalPaymentAmount()
         }
         binding.productListRV.adapter = adapter
 
-        val origin = intent.getStringExtra("origin")
-        when (origin) {
-            "CART" -> loadSelectedProductsFromFirebase() // 선택된 제품들만
-            "DETAILS" -> loadProductsFromFirebase() //전체
+        when (val origin = intent.getStringExtra("origin")) {
+            "CART" -> loadSelectedProductsFromFirebase()
+            "DETAILS" -> loadProductsFromFirebase()
             else -> {
                 Log.e("ProductPay_Activity", "Unknown origin: $origin")
             }
@@ -142,11 +126,8 @@ class ProductPay_Activity : AppCompatActivity() {
             var currentQuantity = binding.quantityTextView.text.toString().toInt()
             currentQuantity++
             binding.quantityTextView.text = currentQuantity.toString()
-            // 상품의 단가 가져오기
             val singleProductPrice = selecteddProduct!!.price.replace(",", "").trim().toInt()
-            // 총 가격 계산: 단가 * 수량
             val totalProductPrice = singleProductPrice * currentQuantity
-            // 가격 포맷팅 후 표시
             val formattedPrice = NumberFormat.getNumberInstance(Locale.US).format(totalProductPrice)
             binding.productPrice.text = formattedPrice
             updateTotalPaymentAmount()
@@ -157,11 +138,8 @@ class ProductPay_Activity : AppCompatActivity() {
             if (currentQuantity > 1) {
                 currentQuantity--
                 binding.quantityTextView.text = currentQuantity.toString()
-                // 상품의 단가 가져오기
                 val singleProductPrice = selecteddProduct!!.price.replace(",", "").trim().toInt()
-                // 총 가격 계산: 단가 * 수량
                 val totalProductPrice = singleProductPrice * currentQuantity
-                // 가격 포맷팅 후 표시
                 val formattedPrice =
                     NumberFormat.getNumberInstance(Locale.US).format(totalProductPrice)
                 binding.productPrice.text = formattedPrice
@@ -174,7 +152,6 @@ class ProductPay_Activity : AppCompatActivity() {
         }
 
         binding.payButton.setOnClickListener {
-            // 배송 정보 입력값 가져오기
             val name = binding.editUserName.text.toString()
             val phoneNumber = binding.editPhone.text.toString()
             val address = binding.editAddress.text.toString()
@@ -187,17 +164,14 @@ class ProductPay_Activity : AppCompatActivity() {
             } else if (!binding.btnCheck1.isChecked || !binding.btnCheck2.isChecked) {
                 Toast.makeText(this, "결제동의를 모두 해주셔야 합니다.", Toast.LENGTH_SHORT).show()
             } else {
-                // 선택한 제품들의 정보 저장할 리스트 생성
                 var selectedProductsList = mutableListOf<ProductInfo>()
-
-                // 선택한 단일 상품 정보 생성 및 리스트에 추가
                 if (selecteddProduct != null) {
                     selectedProductsList.add(
                         ProductInfo(
                             selecteddProduct.key,
                             selecteddProduct.name,
                             selecteddProduct.count,
-                            selecteddProduct.delivery_fee,
+                            selecteddProduct.deliveryFee,
                             (selecteddProduct.price.replace(",", "").trim()
                                 .toInt()) * binding.quantityTextView.text.toString().toInt(),
                             "배송중",
@@ -215,68 +189,58 @@ class ProductPay_Activity : AppCompatActivity() {
                             ProductInfo(
                                 key = product.key,
                                 name = product.name,
-                                count = product.count, // 각 상품의 수량 정보를 반영
-                                deliveryFee = product.delivery_fee,
+                                count = product.count,
+                                deliveryFee = product.deliveryFee,
                                 totalPaymentAmount = totalPaymentAmount,
-                                delivery_status = "배송중",
+                                deliveryStatus = "배송중",
                                 time = time,
                             )
                         )
                         Log.e("selectedProductsList", selectedProductsList.toString())
                     }
-
                 }
 
-                // Firebase Database 참조 가져오기
                 val database = FirebaseDatabase.getInstance().reference
-
-                // 사용자 UID - 실제로는 Firebase Authentication에서 가져올 수 있습니다.
-                val uid = FirebaseAuth.getInstance().uid  // Firebase Auth를 사용하여 실제 UID를 가져오도록 수정하세요
-
-                // 배송 정보와 상품 정보를 하나의 객체로 묶어서 Database에 저장
+                val uid = FirebaseAuth.getInstance().uid
                 val deliveryInfo = DeliveryInfo(
                     name = name,
                     phoneNumber = phoneNumber,
                     address = address,
                     memo = memo,
-                    product_sum = product_sum,
+                    productSum = product_sum,
                     products = selectedProductsList
                 )
 
-                // Database에 주문 정보 저장
                 database.child("orders").child(uid!!).push().setValue(deliveryInfo)
                     .addOnSuccessListener {
-                        // 주문 정보가 성공적으로 저장되었을 때 실행할 코드
                         Toast.makeText(this, "주문이 완료되었습니다.", Toast.LENGTH_SHORT).show()
                     }.addOnFailureListener {
-                        // 주문 정보 저장 실패 시 실행할 코드
                         Toast.makeText(this, "주문이 실패되었습니다. ${it.message}", Toast.LENGTH_SHORT)
                             .show()
                     }
-                startActivity(Intent(this, ProductSuccess_Activity::class.java))
+                startActivity(Intent(this, ProductSuccessActivity::class.java))
             }
         }
     }
 
-    fun inicisPayMent() {
-        val AppId = "6540b69100be04001d8e2864"
-        val user = BootUser().setPhone("010-1234-5678") // 구매자 정보
+    private fun inicisPayMent() {
+        val appId = "6540b69100be04001d8e2864"
+        val user = BootUser().setPhone("010-1234-5678")
         val extra = BootExtra()
-            .setCardQuota("0,2,3") // 일시불, 2개월, 3개월 할부 허용, 할부는 최대 12개월까지 사용됨 (5만원 이상 구매시 할부허용 범위)
+            .setCardQuota("0,2,3")
 
         val price = 1000.0
-
         val pg = "나이스페이"
         val method = "카드"
 
         val items: MutableList<BootItem> = ArrayList()
-        val item1 = BootItem().setName("마우's 스").setId("ITEM_CODE_MOUSE").setQty(1).setPrice(500.0)
+        val item1 = BootItem().setName("마우스").setId("ITEM_CODE_MOUSE").setQty(1).setPrice(500.0)
         val item2 = BootItem().setName("키보드").setId("ITEM_KEYBOARD_MOUSE").setQty(1).setPrice(500.0)
         items.add(item1)
         items.add(item2)
 
         val payload = Payload()
-        payload.setApplicationId(AppId)
+        payload.setApplicationId(appId)
             .setOrderName("부트페이 결제테스트")
             .setPg(pg)
             .setOrderId("1234")
@@ -314,9 +278,7 @@ class ProductPay_Activity : AppCompatActivity() {
 
                 override fun onConfirm(data: String): Boolean {
                     Log.d("bootpay", "confirm: $data")
-                    //                        Bootpay.transactionConfirm(data); //재고가 있어서 결제를 진행하려 할때 true (방법 1)
-                    return true //재고가 있어서 결제를 진행하려 할때 true (방법 2)
-                    //                        return false; //결제를 진행하지 않을때 false
+                    return true
                 }
 
                 override fun onDone(data: String) {
@@ -325,7 +287,6 @@ class ProductPay_Activity : AppCompatActivity() {
             }).requestPayment()
     }
 
-    //전체 상품을 가져오는 함수
     private fun loadProductsFromFirebase() {
         val userUID = FirebaseAuth.getInstance().currentUser?.uid
         val ref = FirebaseDatabase.getInstance().getReference("cart/$userUID")
@@ -339,28 +300,27 @@ class ProductPay_Activity : AppCompatActivity() {
                     val price = productSnapshot.child("price").getValue(String::class.java) ?: ""
                     val time = productSnapshot.child("time").getValue(String::class.java) ?: ""
                     val parcel = productSnapshot.child("parcel").getValue(String::class.java) ?: ""
-                    val delivery_feeObj = productSnapshot.child("delivery_fee").getValue()
-                    val delivery_fee = when (delivery_feeObj) {
-                        is Long -> delivery_feeObj.toInt()
-                        is String -> delivery_feeObj.toIntOrNull() ?: 0
+                    val deliveryFeeObj = productSnapshot.child("delivery_fee").value
+                    val deliveryFee = when (deliveryFeeObj) {
+                        is Long -> deliveryFeeObj.toInt()
+                        is String -> deliveryFeeObj.toIntOrNull() ?: 0
                         else -> 0
                     }
-                    val parcel_day =
+                    val parcelDay =
                         productSnapshot.child("parcel_day").getValue(String::class.java) ?: ""
-                    val countObj = productSnapshot.child("count").getValue()
+                    val countObj = productSnapshot.child("count").value
                     val count = when (countObj) {
                         is Long -> countObj.toInt()
                         is String -> countObj.toIntOrNull() ?: 0
                         else -> 0
                     }
-                    val count_sumObj = productSnapshot.child("count_sum").getValue()
-                    val count_sum = when (count_sumObj) {
-                        is Long -> count_sumObj.toInt()
-                        is String -> count_sumObj.toIntOrNull() ?: 1
+                    val countSumObj = productSnapshot.child("count_sum").value
+                    val countSum = when (countSumObj) {
+                        is Long -> countSumObj.toInt()
+                        is String -> countSumObj.toIntOrNull() ?: 1
                         else -> 1
                     }
 
-                    // 기존 리스트에서 상품 찾기8
                     val existingProduct = productCartList.find { it.key == key }
                     val isSelected =
                         existingProduct?.isSelected ?: productSnapshot.child("isSelected")
@@ -372,10 +332,10 @@ class ProductPay_Activity : AppCompatActivity() {
                         price,
                         time,
                         parcel,
-                        delivery_fee,
-                        parcel_day,
+                        deliveryFee,
+                        parcelDay,
                         count,
-                        count_sum,
+                        countSum,
                         isSelected
                     )
                     updatedList.add(product)
@@ -407,9 +367,7 @@ class ProductPay_Activity : AppCompatActivity() {
         val userUID = FirebaseAuth.getInstance().currentUser?.uid
         val ref = FirebaseDatabase.getInstance().getReference("cart/$userUID")
 
-        // 선택된 제품만 필터링하는 쿼리
         val query = ref
-
         query.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val updatedList = mutableListOf<ProductModel>()
@@ -419,28 +377,26 @@ class ProductPay_Activity : AppCompatActivity() {
                     val price = productSnapshot.child("price").getValue(String::class.java) ?: ""
                     val time = productSnapshot.child("time").getValue(String::class.java) ?: ""
                     val parcel = productSnapshot.child("parcel").getValue(String::class.java) ?: ""
-                    val delivery_feeObj = productSnapshot.child("delivery_fee").getValue()
-                    val delivery_fee = when (delivery_feeObj) {
-                        is Long -> delivery_feeObj.toInt()
-                        is String -> delivery_feeObj.toIntOrNull() ?: 0
+                    val deliveryFeeObj = productSnapshot.child("delivery_fee").value
+                    val deliveryFee = when (deliveryFeeObj) {
+                        is Long -> deliveryFeeObj.toInt()
+                        is String -> deliveryFeeObj.toIntOrNull() ?: 0
                         else -> 0
                     }
-                    val parcel_day =
+                    val parcelDay =
                         productSnapshot.child("parcel_day").getValue(String::class.java) ?: ""
-                    val countObj = productSnapshot.child("count").getValue()
+                    val countObj = productSnapshot.child("count").value
                     val count = when (countObj) {
                         is Long -> countObj.toInt()
                         is String -> countObj.toIntOrNull() ?: 0
                         else -> 0
                     }
-                    val count_sumObj = productSnapshot.child("count_sum").getValue()
-                    val count_sum = when (count_sumObj) {
-                        is Long -> count_sumObj.toInt()
-                        is String -> count_sumObj.toIntOrNull() ?: 1
+                    val countSumObj = productSnapshot.child("count_sum").value
+                    val countSum = when (countSumObj) {
+                        is Long -> countSumObj.toInt()
+                        is String -> countSumObj.toIntOrNull() ?: 1
                         else -> 1
                     }
-
-                    // 기존 리스트에서 상품 찾기
                     val existingProduct = productCartList.find { it.key == key }
                     val isSelected =
                         existingProduct?.isSelected ?: productSnapshot.child("isSelected")
@@ -452,10 +408,10 @@ class ProductPay_Activity : AppCompatActivity() {
                         price,
                         time,
                         parcel,
-                        delivery_fee,
-                        parcel_day,
+                        deliveryFee,
+                        parcelDay,
                         count,
-                        count_sum,
+                        countSum,
                         isSelected
                     )
                     updatedList.add(product)
@@ -479,46 +435,26 @@ class ProductPay_Activity : AppCompatActivity() {
         })
     }
 
-    @SuppressLint("SetTextI18n")
-    private fun updateTotalAmount() {
-        val selectedAmount = productCartList.filter { it.isSelected }.sumBy { it.count_sum }
-        val selectedFee = productCartList.filter { it.isSelected }.sumBy { it.delivery_fee }
-        val totalPayment = selectedAmount
-        val totalDeliveryFee = selectedFee
-        binding.totalPaymentAmount.text =
-            "${NumberFormat.getNumberInstance(Locale.US).format(totalPayment)} 원"
-        binding.totalDeliveryFee.text =
-            "${NumberFormat.getNumberInstance(Locale.US).format(totalDeliveryFee)} 원"
-    }
-
     private fun updateTotalPaymentAmount() {
-        // 선택된 제품의 가격 가져오기
         val productPriceText = binding.productPrice.text.toString().replace(",", "").trim()
         val selectedProductPrice = if (productPriceText.isDigitsOnly()) {
-            productPriceText.toInt()
+            productPriceText.toIntOrNull()
         } else {
             0
         }
 
-        // 체크된 상품들의 가격 합산
         val cartTotal = productCartList.filter { it.isSelected }.sumBy {
             val priceWithoutComma = it.price.replace(",", "").trim().toInt()
             priceWithoutComma * it.count
         }
 
-        val totalAmount = selectedProductPrice + cartTotal
-
-        binding.totalPaymentAmount.text =
-            "${NumberFormat.getNumberInstance(Locale.US).format(totalAmount)} 원"
-
-
-        //배송비 가격합산
+        val totalAmount = selectedProductPrice?.plus(cartTotal)
+        binding.totalPaymentAmount.text = "${NumberFormat.getNumberInstance(Locale.US).format(totalAmount)} 원"
         val productFeeText =
             binding.productDeliveryFee.text.toString().replace("[^0-9]".toRegex(), "").toIntOrNull()
                 ?: 0
-        val selectedFee = productCartList.filter { it.isSelected }.sumBy { it.delivery_fee }
+        val selectedFee = productCartList.filter { it.isSelected }.sumBy { it.deliveryFee }
         val totalDeliveryFee = selectedFee + productFeeText
-        Log.e("totalDeliveryFee", totalDeliveryFee.toString())
         binding.totalDeliveryFee.text =
             "${NumberFormat.getNumberInstance(Locale.US).format(totalDeliveryFee)} 원"
     }

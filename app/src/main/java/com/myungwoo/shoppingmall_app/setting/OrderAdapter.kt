@@ -9,8 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
-import com.myungwoo.shoppingmall_app.Delivery.DeliveryInfo
-import com.myungwoo.shoppingmall_app.Delivery.ProductInfo
+import com.myungwoo.shoppingmall_app.delivery.DeliveryInfo
+import com.myungwoo.shoppingmall_app.delivery.ProductInfo
 import com.myungwoo.shoppingmall_app.databinding.ItemDeliveryBinding
 import com.myungwoo.shoppingmall_app.databinding.ItemDeliveryProductBinding
 import java.text.NumberFormat
@@ -46,7 +46,6 @@ class OrderAdapter(
     }
 }
 
-// ProductInfo 객체의 리스트를 받아와 각 상품 정보를 표시하는 어댑터
 class ProductAdapter(
     private val productInfos: List<ProductInfo>,
     private val context: Context,
@@ -79,8 +78,8 @@ class ProductAdapter(
             }
 
             binding.productName.text = productInfo.name.toString()
-            binding.productPrice.text  = "총 가격 : ${NumberFormat.getNumberInstance(Locale.US).format(productInfo.totalPaymentAmount)} 원"
-            binding.deliveryStatus.text = productInfo.delivery_status.toString()
+            binding.productPrice.text = "총 가격 : ${NumberFormat.getNumberInstance(Locale.US).format(productInfo.totalPaymentAmount)} 원"
+            binding.deliveryStatus.text = productInfo.deliveryStatus.toString()
         }
     }
 }

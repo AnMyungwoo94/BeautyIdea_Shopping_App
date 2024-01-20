@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".product.ProductInput_Activity">
+    tools:context=".product.ProductInputActivity">
 
     <TextView
         android:layout_width="wrap_content"
@@ -15,7 +14,6 @@
         android:layout_marginBottom="20dp"
         android:text="제품 등록하기"
         android:textSize="20sp" />
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -61,7 +59,6 @@
             android:hint="ex) 배송지 : 국내배송 / 해외배송 "
             android:textSize="17sp" />
 
-
         <EditText
             android:id="@+id/deliveryFee"
             android:layout_width="match_parent"
@@ -74,7 +71,6 @@
             android:gravity="center"
             android:hint="ex) 배송비 작성 : 2500"
             android:textSize="17sp" />
-
 
         <EditText
             android:id="@+id/productParcel_day"
@@ -116,7 +112,6 @@
             android:src="@drawable/pictures"
             android:text="사진 선택" />
 
-
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnSave"
             android:layout_width="60dp"
@@ -130,5 +125,4 @@
             android:textStyle="bold" />
 
     </LinearLayout>
-
 </LinearLayout>

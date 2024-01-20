@@ -78,9 +78,9 @@
                     android:id="@+id/getImageArea"
                     android:layout_width="match_parent"
                     android:layout_height="250dp"
-                    android:scaleType="fitCenter"
                     android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp" />
+                    android:layout_marginRight="20dp"
+                    android:scaleType="fitCenter" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -88,15 +88,14 @@
                     android:layout_margin="20dp"
                     android:background="#999999" />
 
-                    <ListView
-                        android:id="@+id/commentLV"
-                        android:layout_width="match_parent"
-                        android:layout_height="600dp"
-                        android:divider="#FFFFFF"
-                        android:dividerHeight="0px" />
+                <ListView
+                    android:id="@+id/commentLV"
+                    android:layout_width="match_parent"
+                    android:layout_height="600dp"
+                    android:divider="#FFFFFF"
+                    android:dividerHeight="0px" />
 
             </LinearLayout>
-
         </ScrollView>
 
         <LinearLayout
@@ -118,9 +117,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/btnwrite" />
-
         </LinearLayout>
-
     </RelativeLayout>
-
 </layout>

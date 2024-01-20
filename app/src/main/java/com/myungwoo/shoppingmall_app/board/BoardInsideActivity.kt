@@ -28,29 +28,20 @@ import com.google.firebase.storage.ktx.storage
 
 class BoardInsideActivity : AppCompatActivity() {
     private val TAG = BoardInsideActivity::class.java.simpleName
-    private  lateinit var binding: ActivityBoardInsideBinding
+    private lateinit var binding: ActivityBoardInsideBinding
     private lateinit var key: String
     private val commentDataList = mutableListOf<CommentModel>()
-    private lateinit var commentAdapter : CommentLVAdapter
+    private lateinit var commentAdapter: CommentLVAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_board_inside )
-
-        //1번째 방법으로 실행했을때
-//        val title = intent.getStringExtra("title").toString()
-//        val content = intent.getStringExtra("content").toString()
-//        val time = intent.getStringExtra("time").toString()
-//
-//        binding.titleArea.text = title
-//        binding.textArea.text = content
-//        binding.timeArea.text = time
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_board_inside)
 
         binding.boardSettingIcon.setOnClickListener {
             showDialog()
         }
-        //2번째 방법으로 값 받아오기
+
         key = intent.getStringExtra("key").toString()
         getBoardData(key)
         getImageData(key)
@@ -65,21 +56,19 @@ class BoardInsideActivity : AppCompatActivity() {
 
     }
 
-    //comment 데이터값 가져오기
-    fun getCommentData(key: String){
+    fun getCommentData(key: String) {
         val postListener = object : ValueEventListener {
-            //Content 데이터읽기
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 commentDataList.clear()
 
-                for (dataModel in dataSnapshot.children){
+                for (dataModel in dataSnapshot.children) {
                     val item = dataModel.getValue(CommentModel::class.java)
                     commentDataList.add(item!!)
-            }
+                }
                 commentAdapter.notifyDataSetChanged()
-        }
+            }
+
             override fun onCancelled(databaseError: DatabaseError) {
-                // Getting Post failed, log a message
                 Log.w(TAG, "loadPost:onCancelled", databaseError.toException())
             }
         }
@@ -88,12 +77,12 @@ class BoardInsideActivity : AppCompatActivity() {
 
     fun insertComment(key: String) {
         FBRef.commentRef.child(key).push()
-            .setValue(CommentModel(binding.commentArea.text.toString(), FBAuth.getTime() ))
+            .setValue(CommentModel(binding.commentArea.text.toString(), FBAuth.getTime()))
         Toast.makeText(this, "댓글 작성완료", Toast.LENGTH_SHORT).show()
         binding.commentArea.setText("")
     }
-    //수정,삭제 다이얼로그 띄우기
-    private fun showDialog(){
+
+    private fun showDialog() {
 
         val dialogView = LayoutInflater.from(this).inflate(R.layout.custom_dialog, null)
         val builder = AlertDialog.Builder(this)
@@ -102,7 +91,7 @@ class BoardInsideActivity : AppCompatActivity() {
 
         val alertDialog = builder.show()
         alertDialog.findViewById<Button>(R.id.editBtn)?.setOnClickListener {
-            Toast.makeText(this, "수정버튼을 눌렀습니다." ,Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "수정버튼을 눌렀습니다.", Toast.LENGTH_SHORT).show()
             val intent = Intent(this, BoardEditActivity::class.java)
             intent.putExtra("key", key)
             startActivity(intent)
@@ -110,34 +99,31 @@ class BoardInsideActivity : AppCompatActivity() {
         }
         alertDialog.findViewById<Button>(R.id.removeBtn)?.setOnClickListener {
             FBRef.boardRef.child(key).removeValue()
-            Toast.makeText(this, "삭제완료" ,Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "삭제완료", Toast.LENGTH_SHORT).show()
             finish()
         }
     }
 
-    private  fun getImageData(key: String){
-        // Reference to an image file in Cloud Storage
+    private fun getImageData(key: String) {
         val storageReference = Firebase.storage.reference.child(key + ".png")
-
-        // ImageView in your Activity
         val imageViewFromFB = binding.getImageArea
 
         storageReference.downloadUrl.addOnCompleteListener(
             OnCompleteListener { task ->
-                if(task.isSuccessful){
+                if (task.isSuccessful) {
                     Glide.with(this)
                         .load(task.result)
                         .into(imageViewFromFB)
-                }else{
+                } else {
                     //이미지가 없으면 이미지 칸은 나오지 않음
-                        binding.getImageArea.isVisible = false
+                    binding.getImageArea.isVisible = false
                 }
             }
         )
     }
-    private fun getBoardData(key: String){
+
+    private fun getBoardData(key: String) {
         val postListener = object : ValueEventListener {
-            //Content 데이터읽기
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 try {
                     val dataModel = dataSnapshot.getValue(BoardModel::class.java)
@@ -150,16 +136,17 @@ class BoardInsideActivity : AppCompatActivity() {
                     val myUid = FBAuth.getUid()
                     val writeUid = dataModel.uid
 
-                    if(myUid.equals(writeUid)){
-                    binding.boardSettingIcon.isVisible = true
+                    if (myUid.equals(writeUid)) {
+                        binding.boardSettingIcon.isVisible = true
 
-                    }else{
+                    } else {
 
                     }
-                }catch(e:Exception){
+                } catch (e: Exception) {
                     Log.d(TAG, "삭제완료")
                 }
             }
+
             override fun onCancelled(databaseError: DatabaseError) {
                 Log.w(TAG, "loadPost:onCancelled", databaseError.toException())
             }
