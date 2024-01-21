@@ -13,4 +13,28 @@
         \n\ndition to adding color, lipsticks can also help enhance the shape of your lips. You can create fuller-looking lips by
         using lip liners or optically minimize their appearance by choosing darker shades.\n\nOverall, lipstick is an essential
         makeup item that not only enhances your natural beauty but also allows you to express your personal style and confidence.</string>
+    <string name="intro_kakao_ok">로그인에 성공하였습니다</string>
+    <string name="join_verify_email">이메일을 입력해주세요</string>
+    <string name="join_verify_pw">패스워드를 입력해주세요</string>
+    <string name="join_verify_pw_confirm">패스워드 확인란을 입력해주세요</string>
+    <string name="join_verify_pw_fail">비밀번호가 일치하지 않습니다</string>
+    <string name="join_verify_pw_pattern">비밀번호를 6라지 이상 입력해주세요</string>
+    <string name="join_auth_fail">실패</string>
+    <string name="login_empty">이메일 혹은 비밀번호를 입력해주세요</string>
+    <string name="login_fail">이메일 혹은 비밀번호를 다시 확인해주세요</string>
+    <string name="board_edit_set_value">수정이 완료되었습니다</string>
+    <string name="board_inside_comment_success">댓글 작성완료</string>
+    <string name="board_inside_dialog_tilte">게시글 수정/삭제</string>
+    <string name="board_inside_modify">수정버튼을 눌렀습니다</string>
+    <string name="board_inside_remove_success">삭제완료</string>
+    <string name="board_write_write_success">게시글 입력완료</string>
+    <string name="product_detail_cart_success">상품이 장바구니에 추가되었습니다</string>
+    <string name="product_detail_cart_fail">장바구니에 추가하는데 실패하였습니다</string>
+    <string name="product_input_success">상품 등록 완료</string>
+    <string name="product_pay_address">배송지 정보를 입력하세요</string>
+    <string name="product_pay_pay_check">결제동의를 모두 해주셔야 합니다</string>
+    <string name="product_pay_order_success">결제동의를 모두 해주셔야 합니다</string>
+    <string name="product_pay_order_fail">주문이 실패 되었습니다</string>
+    <string name="setting_logout_fail">로그아웃 실패</string>
+    <string name="setting_logout_success">로그아웃 성공</string>
 </resources>

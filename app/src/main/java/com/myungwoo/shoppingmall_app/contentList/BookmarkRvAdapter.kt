@@ -49,7 +49,6 @@ class BookmarkRvAdapter(
             } else {
                 bookmarkArea.setImageResource(R.drawable.bookmark_white)
             }
-
             contentTitle.text = item.title
             Glide.with(context).load(item.imageUrl).into(imageViewArea)
         }

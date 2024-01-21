@@ -47,7 +47,7 @@ class OrderAdapter(
 }
 
 class ProductAdapter(
-    private val productInfos: List<ProductInfo>,
+    private val productInfo: List<ProductInfo>,
     private val context: Context,
 ) : RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
 
@@ -58,11 +58,11 @@ class ProductAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val productInfo = productInfos[position]
+        val productInfo = productInfo[position]
         holder.bind(productInfo)
     }
 
-    override fun getItemCount() = productInfos.size
+    override fun getItemCount() = productInfo.size
 
     inner class ViewHolder(private val binding: ItemDeliveryProductBinding) : RecyclerView.ViewHolder(binding.root) {
 
@@ -72,11 +72,9 @@ class ProductAdapter(
             val pictureRef = Firebase.storage.reference.child("${productInfo.key}.png")
             pictureRef.downloadUrl.addOnCompleteListener {
                 if (it.isSuccessful) {
-                    Log.e("pictureAdapter", "Success")
                     Glide.with(context).load(it.result).into(binding.stuffImage)
                 }
             }
-
             binding.productName.text = productInfo.name.toString()
             binding.productPrice.text = "총 가격 : ${NumberFormat.getNumberInstance(Locale.US).format(productInfo.totalPaymentAmount)} 원"
             binding.deliveryStatus.text = productInfo.deliveryStatus.toString()

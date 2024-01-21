@@ -17,6 +17,7 @@ import java.text.NumberFormat
 import java.util.*
 
 class ProductDetailActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityProductDetailBinding
     private var count: Int = 1
     private var countSum: Int = 0
@@ -78,13 +79,13 @@ class ProductDetailActivity : AppCompatActivity() {
 
                 database.child("cart").child(uid).child(key).setValue(updatedProduct)
                     .addOnSuccessListener {
-                        Toast.makeText(this, "상품이 장바구니에 추가되었습니다.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, R.string.product_detail_cart_success, Toast.LENGTH_SHORT).show()
                         val intent = Intent(this, ProductCartActivity::class.java)
                         intent.putExtra("SELECTED_PRODUCT_PAY", receivedData)
                         startActivity(intent)
                     }
                     .addOnFailureListener {
-                        Toast.makeText(this, "장바구니에 추가하는 데 실패했습니다.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, R.string.product_detail_cart_fail, Toast.LENGTH_SHORT).show()
                     }
             }
         }
@@ -98,7 +99,6 @@ class ProductDetailActivity : AppCompatActivity() {
         }
         updateQuantityAndTotalPrice()
     }
-
 
     private fun updateQuantityAndTotalPrice() {
         findViewById<TextView>(R.id.quantity_text_view).text = count.toString()

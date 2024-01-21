@@ -33,7 +33,7 @@ class BoardWriteActivity : AppCompatActivity() {
             val key = FBRef.boardRef.push().key.toString()
             FBRef.boardRef.child(key).setValue(BoardModel(title, content, uid, time))
 
-            Toast.makeText(this, "게시글 입력완료", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, R.string.board_write_write_success, Toast.LENGTH_SHORT).show()
             if (isImageUpload == true) {
                 imageUpload(key)
             }
@@ -50,7 +50,7 @@ class BoardWriteActivity : AppCompatActivity() {
     private fun imageUpload(key: String) {
         val storage = Firebase.storage
         val storageRef = storage.reference
-        val mountainsRef = storageRef.child(key + ".png")
+        val mountainsRef = storageRef.child("$key.png")
 
         val imageView = binding.imageArea
         imageView.isDrawingCacheEnabled = true
@@ -60,9 +60,9 @@ class BoardWriteActivity : AppCompatActivity() {
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
         val data = baos.toByteArray()
 
-        var uploadTask = mountainsRef.putBytes(data)
+        val uploadTask = mountainsRef.putBytes(data)
         uploadTask.addOnFailureListener {
-        }.addOnSuccessListener { taskSnapshot ->
+        }.addOnSuccessListener {
         }
     }
 

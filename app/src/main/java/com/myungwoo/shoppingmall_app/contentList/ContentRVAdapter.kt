@@ -14,18 +14,17 @@ import com.myungwoo.shoppingmall_app.utils.FBAuth
 import com.myungwoo.shoppingmall_app.utils.FBRef
 
 class ContentRVAdapter(
-    val context: Context, val items: ArrayList<ContentModel>,
+    val context: Context, private val items: ArrayList<ContentModel>,
     private val keyList: ArrayList<String>,
     val bookmarkIdList: MutableList<String>
 ) : RecyclerView.Adapter<ContentRVAdapter.Viewholder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContentRVAdapter.Viewholder {
-        val v = LayoutInflater.from(parent.context).inflate(R.layout.content_rv_item, parent, false)
-        return Viewholder(v)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.content_rv_item, parent, false)
+        return Viewholder(view)
     }
 
     override fun onBindViewHolder(holder: ContentRVAdapter.Viewholder, position: Int) {
-
         holder.bindItems(items[position], keyList[position])
     }
 

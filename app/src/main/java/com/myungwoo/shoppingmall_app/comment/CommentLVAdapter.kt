@@ -26,11 +26,11 @@ class CommentLVAdapter(private val commentList: MutableList<CommentModel>) : Bas
             view = LayoutInflater.from(parent!!.context).inflate(R.layout.comment_list_item, parent, false)
         }
         val title = view!!.findViewById<TextView>(R.id.titleArea)
-        val time = view!!.findViewById<TextView>(R.id.timeArea)
+        val time = view.findViewById<TextView>(R.id.timeArea)
 
         title!!.text = commentList[position].commentTitle
         time!!.text = commentList[position].commentCreatedTime
 
-        return view!!
+        return view
     }
 }

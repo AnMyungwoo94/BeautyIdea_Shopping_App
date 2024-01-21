@@ -15,7 +15,7 @@ import java.text.NumberFormat
 import java.util.*
 
 class ProductRvAdapter(
-    val context: Context, val items: MutableList<ProductModel>
+    val context: Context, private val items: MutableList<ProductModel>
 ) : RecyclerView.Adapter<ProductRvAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductRvAdapter.ViewHolder {
@@ -39,7 +39,6 @@ class ProductRvAdapter(
         val pictureRef = Firebase.storage.reference.child("${itemsData.key}.png")
         pictureRef.downloadUrl.addOnCompleteListener {
             if (it.isSuccessful) {
-                Log.e("pictureAdapter", "Success")
                 Glide.with(context).load(it.result).into(binding.imageArea)
             }
         }

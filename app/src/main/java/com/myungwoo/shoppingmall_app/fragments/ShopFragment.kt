@@ -31,10 +31,10 @@ import com.google.firebase.database.ValueEventListener
 class ShopFragment : Fragment() {
 
     private lateinit var binding: FragmentShopBinding
-    private var sliderHandler = Handler()
     private lateinit var runnable: Runnable
+    private lateinit var productRvAdapter: ProductRvAdapter
+    private var sliderHandler = Handler()
     private val itemKeyList = ArrayList<String>()
-    lateinit var productrvAdapter: ProductRvAdapter
     private val productList = mutableListOf<ProductModel>()
 
     override fun onCreateView(
@@ -70,9 +70,9 @@ class ShopFragment : Fragment() {
         }
 
         val rv: RecyclerView = binding.mainRV
-        productrvAdapter = ProductRvAdapter(requireContext(), productList)
+        productRvAdapter = ProductRvAdapter(requireContext(), productList)
         rv.layoutManager = GridLayoutManager(requireContext(), 2)
-        rv.adapter = productrvAdapter
+        rv.adapter = productRvAdapter
         getCategoryDataProduct()
 
         val images = listOf(R.drawable.shop_img, R.drawable.shop_img2, R.drawable.shop_img3)
@@ -104,7 +104,7 @@ class ShopFragment : Fragment() {
                     itemKeyList.add(dataModel.key.toString())
                     productList.add(item!!)
                 }
-                productrvAdapter.notifyDataSetChanged()
+                productRvAdapter.notifyDataSetChanged()
             }
 
             override fun onCancelled(databaseError: DatabaseError) {

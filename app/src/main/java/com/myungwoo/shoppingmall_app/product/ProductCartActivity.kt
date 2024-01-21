@@ -16,6 +16,7 @@ import java.text.NumberFormat
 import java.util.*
 
 class ProductCartActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityProductCartBinding
     private var productCartList = mutableListOf<ProductModel>()
 
@@ -24,8 +25,8 @@ class ProductCartActivity : AppCompatActivity() {
         binding = ActivityProductCartBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val selecteddProduct = intent.getSerializableExtra("SELECTED_PRODUCT") as? ProductModel
-        Log.e("ProductCart_Activity", selecteddProduct.toString())
+        val selectedProduct = intent.getSerializableExtra("SELECTED_PRODUCT") as? ProductModel
+        Log.e("ProductCart_Activity", selectedProduct.toString())
 
         binding.productRecyclerview.layoutManager = LinearLayoutManager(this)
 

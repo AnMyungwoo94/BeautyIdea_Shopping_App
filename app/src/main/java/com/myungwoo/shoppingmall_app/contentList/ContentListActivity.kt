@@ -14,10 +14,9 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 
 class ContentListActivity : AppCompatActivity() {
-    lateinit var myRef: DatabaseReference
-
-    val bookmarkIdList = mutableListOf<String>()
-    lateinit var rvAdapter: ContentRVAdapter
+    private lateinit var myRef: DatabaseReference
+    private val bookmarkIdList = mutableListOf<String>()
+    private lateinit var rvAdapter: ContentRVAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,7 +49,6 @@ class ContentListActivity : AppCompatActivity() {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
 
                 for (dataModel in dataSnapshot.children) {
-                    Log.d("ContentListActivity", dataModel.key.toString())
                     val item = dataModel.getValue(ContentModel::class.java)
                     items.add(item!!)
                     itemKeyList.add(dataModel.key.toString())

@@ -24,7 +24,7 @@ class TalkFragment : Fragment() {
 
     private lateinit var binding: FragmentTalkBinding
     private lateinit var boardRVAdapter: BoardListRvAdapter
-    private val TAG = TalkFragment::class.java.simpleName
+    private val tag = TalkFragment::class.java.simpleName
     private val boardDataList = mutableListOf<BoardModel>()
     private val boardKeyList = mutableListOf<String>()
 
@@ -37,7 +37,7 @@ class TalkFragment : Fragment() {
         boardRVAdapter = BoardListRvAdapter(boardDataList)
         binding.boardListView.adapter = boardRVAdapter
 
-        binding.boardListView.setOnItemClickListener { parent, view, position, id ->
+        binding.boardListView.setOnItemClickListener { _, _, position, _ ->
             val intent = Intent(context, BoardInsideActivity::class.java)
             intent.putExtra("key", boardKeyList[position])
             startActivity(intent)
@@ -72,7 +72,7 @@ class TalkFragment : Fragment() {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 boardDataList.clear()
                 for (dataModel in dataSnapshot.children) {
-                    Log.d(TAG, dataModel.toString())
+                    Log.d(tag, dataModel.toString())
                     val item = dataModel.getValue(BoardModel::class.java)
                     boardDataList.add(item!!)
                     boardKeyList.add(dataModel.key.toString())
@@ -80,11 +80,10 @@ class TalkFragment : Fragment() {
                 boardKeyList.reverse()
                 boardDataList.reverse()
                 boardRVAdapter.notifyDataSetChanged()
-
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
-                Log.w(TAG, "loadPost:onCancelled", databaseError.toException())
+                Log.w(tag, "loadPost:onCancelled", databaseError.toException())
             }
         }
         FBRef.boardRef.addValueEventListener(postListener)

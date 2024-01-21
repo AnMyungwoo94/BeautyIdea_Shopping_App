@@ -18,6 +18,8 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.storage
+import com.myungwoo.shoppingmall_app.BuildConfig
+import com.myungwoo.shoppingmall_app.R
 import com.myungwoo.shoppingmall_app.delivery.DeliveryInfo
 import com.myungwoo.shoppingmall_app.delivery.ProductInfo
 import com.myungwoo.shoppingmall_app.databinding.ActivityProductPayBinding
@@ -35,7 +37,7 @@ import java.util.*
 class ProductPayActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProductPayBinding
     private var productCartList = mutableListOf<ProductModel>()
-    private var count_sum_cart: Serializable = ""
+    private var countSumCart: Serializable = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,28 +45,27 @@ class ProductPayActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.btnCard.setOnClickListener {
-            inicisPayMent()
+            inicisPayment()
         }
 
         val selectedProducts: List<ProductModel> =
             intent.getSerializableExtra("SELECTED_PRODUCTS") as? ArrayList<ProductModel> ?: listOf()
 
         //제품 상세페이지에서 구매하기 버튼을 눌렸을 경우
-        val selecteddProduct = intent.getSerializableExtra("SELECTED_PRODUCT_PAY") as? ProductModel
+        val selectedProduct = intent.getSerializableExtra("SELECTED_PRODUCT_PAY") as? ProductModel
         val count = intent.getSerializableExtra("COUNT")
 
-        intent.getSerializableExtra("COUNT_SUM")?.let { countSumCart ->
-            count_sum_cart = intent.getSerializableExtra("COUNT_SUM")!!
+        intent.getSerializableExtra("COUNT_SUM")?.let {
+            countSumCart = intent.getSerializableExtra("COUNT_SUM")!!
         }
-        Log.e("count_sum_cart", count_sum_cart.toString())
 
-        if (selecteddProduct != null) {
+        if (selectedProduct != null) {
             binding.productInfoLayout.visibility = View.VISIBLE
-            binding.productName.text = selecteddProduct.name
+            binding.productName.text = selectedProduct.name
             binding.productPrice.text =
-                "${NumberFormat.getNumberInstance(Locale.US).format(count_sum_cart)} "
+                "${NumberFormat.getNumberInstance(Locale.US).format(countSumCart)} "
             binding.quantityTextView.text = count.toString()
-            val deliveryFee = selecteddProduct.deliveryFee
+            val deliveryFee = selectedProduct.deliveryFee
             if (deliveryFee != 0) {
                 binding.productDeliveryFee.text =
                     "배송비 ${NumberFormat.getNumberInstance(Locale.US).format(deliveryFee)} 원"
@@ -73,7 +74,7 @@ class ProductPayActivity : AppCompatActivity() {
             }
 
             val storageRef: StorageReference = Firebase.storage.reference
-            selecteddProduct.let { product ->
+            selectedProduct.let { product ->
                 val productKey = product.key
                 val pictureRef = storageRef.child("$productKey.png")
 
@@ -126,7 +127,7 @@ class ProductPayActivity : AppCompatActivity() {
             var currentQuantity = binding.quantityTextView.text.toString().toInt()
             currentQuantity++
             binding.quantityTextView.text = currentQuantity.toString()
-            val singleProductPrice = selecteddProduct!!.price.replace(",", "").trim().toInt()
+            val singleProductPrice = selectedProduct!!.price.replace(",", "").trim().toInt()
             val totalProductPrice = singleProductPrice * currentQuantity
             val formattedPrice = NumberFormat.getNumberInstance(Locale.US).format(totalProductPrice)
             binding.productPrice.text = formattedPrice
@@ -138,7 +139,7 @@ class ProductPayActivity : AppCompatActivity() {
             if (currentQuantity > 1) {
                 currentQuantity--
                 binding.quantityTextView.text = currentQuantity.toString()
-                val singleProductPrice = selecteddProduct!!.price.replace(",", "").trim().toInt()
+                val singleProductPrice = selectedProduct!!.price.replace(",", "").trim().toInt()
                 val totalProductPrice = singleProductPrice * currentQuantity
                 val formattedPrice =
                     NumberFormat.getNumberInstance(Locale.US).format(totalProductPrice)
@@ -156,23 +157,23 @@ class ProductPayActivity : AppCompatActivity() {
             val phoneNumber = binding.editPhone.text.toString()
             val address = binding.editAddress.text.toString()
             val memo = binding.deliveryMemo.text.toString()
-            val product_sum = binding.totalPaymentAmount.text.toString()
+            val productSum = binding.totalPaymentAmount.text.toString()
             val time = FBAuth.getTime()
 
             if (name.isEmpty() || phoneNumber.isEmpty() || address.isEmpty()) {
-                Toast.makeText(this, "배송지 정보를 입력하세요", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, R.string.product_pay_address, Toast.LENGTH_SHORT).show()
             } else if (!binding.btnCheck1.isChecked || !binding.btnCheck2.isChecked) {
-                Toast.makeText(this, "결제동의를 모두 해주셔야 합니다.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, R.string.product_pay_pay_check, Toast.LENGTH_SHORT).show()
             } else {
                 var selectedProductsList = mutableListOf<ProductInfo>()
-                if (selecteddProduct != null) {
+                if (selectedProduct != null) {
                     selectedProductsList.add(
                         ProductInfo(
-                            selecteddProduct.key,
-                            selecteddProduct.name,
-                            selecteddProduct.count,
-                            selecteddProduct.deliveryFee,
-                            (selecteddProduct.price.replace(",", "").trim()
+                            selectedProduct.key,
+                            selectedProduct.name,
+                            selectedProduct.count,
+                            selectedProduct.deliveryFee,
+                            (selectedProduct.price.replace(",", "").trim()
                                 .toInt()) * binding.quantityTextView.text.toString().toInt(),
                             "배송중",
                             time
@@ -207,15 +208,15 @@ class ProductPayActivity : AppCompatActivity() {
                     phoneNumber = phoneNumber,
                     address = address,
                     memo = memo,
-                    productSum = product_sum,
+                    productSum = productSum,
                     products = selectedProductsList
                 )
 
                 database.child("orders").child(uid!!).push().setValue(deliveryInfo)
                     .addOnSuccessListener {
-                        Toast.makeText(this, "주문이 완료되었습니다.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, R.string.product_pay_order_success, Toast.LENGTH_SHORT).show()
                     }.addOnFailureListener {
-                        Toast.makeText(this, "주문이 실패되었습니다. ${it.message}", Toast.LENGTH_SHORT)
+                        Toast.makeText(this, R.string.product_pay_order_fail, Toast.LENGTH_SHORT)
                             .show()
                     }
                 startActivity(Intent(this, ProductSuccessActivity::class.java))
@@ -223,8 +224,8 @@ class ProductPayActivity : AppCompatActivity() {
         }
     }
 
-    private fun inicisPayMent() {
-        val appId = "6540b69100be04001d8e2864"
+    private fun inicisPayment() {
+        val appId = BuildConfig.inicis
         val user = BootUser().setPhone("010-1234-5678")
         val extra = BootExtra()
             .setCardQuota("0,2,3")
@@ -241,7 +242,7 @@ class ProductPayActivity : AppCompatActivity() {
 
         val payload = Payload()
         payload.setApplicationId(appId)
-            .setOrderName("부트페이 결제테스트")
+            .setOrderName("부트페이 결제 테스트")
             .setPg(pg)
             .setOrderId("1234")
             .setMethod(method)

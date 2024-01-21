@@ -42,7 +42,6 @@ class HomeFragment : Fragment() {
         val shake = AnimationUtils.loadAnimation(context, R.anim.shake_animation)
         viewToShake.startAnimation(shake)
 
-
         binding.shoppingBtn.setOnClickListener {
             it.findNavController().navigate(R.id.action_homeFragment2_to_shopFragment)
         }

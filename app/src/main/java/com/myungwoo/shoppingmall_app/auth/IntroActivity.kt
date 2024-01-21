@@ -56,7 +56,6 @@ class IntroActivity : AppCompatActivity() {
         googleSignInClient = GoogleSignIn.getClient(this, gso)
         firebaseAuth = FirebaseAuth.getInstance()
 
-
         binding.kakaoBtn.setOnClickListener {
             val context = application.applicationContext
 
@@ -78,7 +77,7 @@ class IntroActivity : AppCompatActivity() {
                                     KakaoUserInfo.setKakaoEmail(email)
                                 }
 
-                                Toast.makeText(this, "로그인에 성공하였습니다", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(this, R.string.intro_kakao_ok, Toast.LENGTH_SHORT).show()
 
                                 FirebaseAuth.getInstance().signInAnonymously()
                                     .addOnCompleteListener(this) { task ->
@@ -125,7 +124,6 @@ class IntroActivity : AppCompatActivity() {
             toMainActivity(firebaseAuth.currentUser)
         }
     }
-
 
     public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)

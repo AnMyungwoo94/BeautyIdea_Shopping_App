@@ -12,6 +12,7 @@ import com.myungwoo.shoppingmall_app.utils.FBAuth
 import com.myungwoo.shoppingmall_app.utils.FBRef
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import com.myungwoo.shoppingmall_app.R
 import java.io.ByteArrayOutputStream
 
 class ProductInputActivity : AppCompatActivity() {
@@ -31,21 +32,20 @@ class ProductInputActivity : AppCompatActivity() {
             val name = binding.productName.text.toString()
             val price = binding.productPrice.text.toString()
             val parcel = binding.productParcel.text.toString()
-            val parcel_day = binding.productParcelDay.text.toString()
-            val delivery_fee = binding.deliveryFee.text.toString().toInt()
+            val parcelDay = binding.productParcelDay.text.toString()
+            val deliveryFee = binding.deliveryFee.text.toString().toInt()
             val count = 1
-            val count_sum = 0
+            val countSum = 0
 
             key = FBRef.productRef.push().key.toString()
             FBRef.productRef.child(key)
-                .setValue(ProductModel(key, name, price, time, parcel, delivery_fee, parcel_day, count, count_sum, isImageUpload))
+                .setValue(ProductModel(key, name, price, time, parcel, deliveryFee, parcelDay, count, countSum, isImageUpload))
 
-            Toast.makeText(this, "게시글 입력완료", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, R.string.product_input_success, Toast.LENGTH_SHORT).show()
             if (isImageUpload) {
                 imageUpload(key)
             }
             finish()
-
         }
         binding.ProductPicture.setOnClickListener {
             val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
@@ -57,7 +57,7 @@ class ProductInputActivity : AppCompatActivity() {
     private fun imageUpload(key: String) {
         val storage = Firebase.storage
         val storageRef = storage.reference
-        val mountainsRef = storageRef.child(key + ".png")
+        val mountainsRef = storageRef.child("$key.png")
 
         val imageView = binding.ProductPicture
         imageView.isDrawingCacheEnabled = true
@@ -69,7 +69,7 @@ class ProductInputActivity : AppCompatActivity() {
 
         val uploadTask = mountainsRef.putBytes(data)
         uploadTask.addOnFailureListener {
-        }.addOnSuccessListener { taskSnapshot ->
+        }.addOnSuccessListener {
         }
     }
 

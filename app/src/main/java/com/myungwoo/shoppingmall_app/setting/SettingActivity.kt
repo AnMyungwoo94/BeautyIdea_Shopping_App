@@ -27,8 +27,8 @@ class SettingActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var binding: ActivitySettingBinding
-    private val user = FirebaseAuth.getInstance().currentUser
     private lateinit var orderAdapter: OrderAdapter
+    private val user = FirebaseAuth.getInstance().currentUser
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,9 +55,9 @@ class SettingActivity : AppCompatActivity() {
             } else {
                 UserApiClient.instance.logout { error ->
                     if (error != null) {
-                        Toast.makeText(this, "로그아웃 실패 $error", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, R.string.setting_logout_fail, Toast.LENGTH_SHORT).show()
                     } else {
-                        Toast.makeText(this, "로그아웃 성공", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, R.string.setting_logout_success, Toast.LENGTH_SHORT).show()
                     }
                     val intent = Intent(this, IntroActivity::class.java)
                     startActivity(intent.addFlags(FLAG_ACTIVITY_CLEAR_TOP))
@@ -145,8 +145,8 @@ class SettingActivity : AppCompatActivity() {
     }
 
     private fun performFirebaseLogout() {
-        auth.signOut() // Firebase 로그아웃
-        Toast.makeText(this, "로그아웃 성공", Toast.LENGTH_SHORT).show()
+        auth.signOut()
+        Toast.makeText(this, R.string.setting_logout_success, Toast.LENGTH_SHORT).show()
         val intent = Intent(this, IntroActivity::class.java)
         intent.flags =
             Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP

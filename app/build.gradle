@@ -22,6 +22,7 @@ android {
         multiDexEnabled true
 
         buildConfigField "String", "kakao_native_app_key", properties['kakao_native_app_key']
+        buildConfigField "String", "inicis", properties['inicis']
         resValue "string", "kakao_auth_host", properties['kakao_auth_host']
     }
 

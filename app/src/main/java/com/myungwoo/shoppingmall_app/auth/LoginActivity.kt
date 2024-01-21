@@ -5,12 +5,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import com.myungwoo.shoppingmall_app.MainActivity
 import com.myungwoo.shoppingmall_app.R
 import com.myungwoo.shoppingmall_app.databinding.ActivityLoginBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.myungwoo.shoppingmall_app.MainActivity
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
@@ -26,17 +26,17 @@ class LoginActivity : AppCompatActivity() {
             val password = binding.passwordArea.text.toString()
 
             if (email.isEmpty() && password.isEmpty()) {
-                Toast.makeText(this, "이메일 혹은 비밀번호를 입력해주세요", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, R.string.login_empty, Toast.LENGTH_SHORT).show()
             } else {
                 auth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this) { task ->
                         if (task.isSuccessful) {
-                            val intent = Intent(this, com.myungwoo.shoppingmall_app.MainActivity::class.java)
+                            val intent = Intent(this, MainActivity::class.java)
                             intent.flags =
                                 Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                             startActivity(intent)
                         } else {
-                            Toast.makeText(this, "이메일 혹은 비밀번호를 다시 확인해주세요", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this, R.string.login_fail, Toast.LENGTH_SHORT).show()
                         }
                     }
             }
