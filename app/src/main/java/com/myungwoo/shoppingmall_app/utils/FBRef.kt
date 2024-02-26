@@ -14,6 +14,7 @@ class FBRef {
         val boardRef = database.getReference("board")
         val commentRef = database.getReference("comment")
         val productRef = database.getReference("product")
+        val couponRef = database.getReference("coupon")
         val deliveryRef = database.getReference("orders").child(user!!.uid)
     }
 }

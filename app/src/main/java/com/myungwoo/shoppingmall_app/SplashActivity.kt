@@ -24,7 +24,7 @@ class SplashActivity : AppCompatActivity() {
             }, 3000)
         } else {
             Handler().postDelayed({
-                startActivity(Intent(this, com.myungwoo.shoppingmall_app.MainActivity::class.java))
+                startActivity(Intent(this, MainActivity::class.java))
                 finish()
             }, 3000)
         }

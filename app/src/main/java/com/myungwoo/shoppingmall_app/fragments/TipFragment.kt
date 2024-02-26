@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import com.myungwoo.shoppingmall_app.R
 import com.myungwoo.shoppingmall_app.contentList.ContentListActivity
+import com.myungwoo.shoppingmall_app.databinding.FragmentTalkBinding
 import com.myungwoo.shoppingmall_app.databinding.FragmentTipBinding
 
 class TipFragment : Fragment() {
@@ -19,8 +20,7 @@ class TipFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_tip, container, false)
+        binding = FragmentTipBinding.inflate(inflater)
 
         binding.categoryALl.setOnClickListener {
             val intent = Intent(context, ContentListActivity::class.java)
@@ -64,9 +64,9 @@ class TipFragment : Fragment() {
             startActivity(intent)
         }
 
-        binding.homeTap.setOnClickListener {
-            it.findNavController().navigate(R.id.action_tipFragment_to_homeFragment2)
-        }
+//        binding.homeTap.setOnClickListener {
+//            it.findNavController().navigate(R.id.action_tipFragment_to_homeFragment2)
+//        }
 
         binding.talkTap.setOnClickListener {
             it.findNavController().navigate(R.id.action_tipFragment_to_talkFragment)

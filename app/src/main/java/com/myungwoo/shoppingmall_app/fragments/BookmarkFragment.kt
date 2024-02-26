@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
+import androidx.databinding.DataBindingUtil.setContentView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -32,7 +32,7 @@ class BookmarkFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_bookmark, container, false)
+        binding = FragmentBookmarkBinding.inflate(inflater)
 
         getBookmarkData()
 
@@ -41,9 +41,9 @@ class BookmarkFragment : Fragment() {
         rv.adapter = rvAdapter
         rv.layoutManager = GridLayoutManager(requireContext(), 2)
 
-        binding.homeTap.setOnClickListener {
-            it.findNavController().navigate(R.id.action_bookmarkFragment_to_homeFragment)
-        }
+//        binding.homeTap.setOnClickListener {
+//            it.findNavController().navigate(R.id.action_bookmarkFragment_to_homeFragment)
+//        }
 
         binding.tipTap.setOnClickListener {
             it.findNavController().navigate(R.id.action_bookmarkFragment_to_tipFragment)

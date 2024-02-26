@@ -11,7 +11,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
-import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -27,21 +26,25 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
+import com.myungwoo.shoppingmall_app.product.CouponModel
+import com.myungwoo.shoppingmall_app.product.CouponRvAdapter
 
 class ShopFragment : Fragment() {
 
     private lateinit var binding: FragmentShopBinding
     private lateinit var runnable: Runnable
     private lateinit var productRvAdapter: ProductRvAdapter
+    private lateinit var couponRvAdapter: CouponRvAdapter
     private var sliderHandler = Handler()
     private val itemKeyList = ArrayList<String>()
     private val productList = mutableListOf<ProductModel>()
+    private val couponList = mutableListOf<CouponModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_shop, container, false)
+        binding = FragmentShopBinding.inflate(inflater)
 
         val currentUserEmail = FirebaseAuth.getInstance().currentUser?.email
         if (currentUserEmail != "admin1@admin.com") {
@@ -53,9 +56,9 @@ class ShopFragment : Fragment() {
             }
         }
 
-        binding.homeTap.setOnClickListener {
-            it.findNavController().navigate(R.id.action_shopFragment_to_homeFragment)
-        }
+//        binding.homeTap.setOnClickListener {
+//            it.findNavController().navigate(R.id.action_shopFragment_to_homeFragment)
+//        }
 
         binding.tipTap.setOnClickListener {
             it.findNavController().navigate(R.id.action_shopFragment_to_tipFragment)
@@ -69,11 +72,16 @@ class ShopFragment : Fragment() {
             it.findNavController().navigate(R.id.action_shopFragment_to_talkFragment)
         }
 
-        val rv: RecyclerView = binding.mainRV
+        val rvProduct: RecyclerView = binding.mainRVproduct
         productRvAdapter = ProductRvAdapter(requireContext(), productList)
-        rv.layoutManager = GridLayoutManager(requireContext(), 2)
-        rv.adapter = productRvAdapter
+        rvProduct.layoutManager = GridLayoutManager(requireContext(), 2)
+        rvProduct.adapter = productRvAdapter
         getCategoryDataProduct()
+
+        val rvCoupon: RecyclerView = binding.mainRVcoupon
+        couponRvAdapter = CouponRvAdapter(requireContext(), couponList)
+        rvCoupon.adapter = couponRvAdapter
+        getCouponData()
 
         val images = listOf(R.drawable.shop_img, R.drawable.shop_img2, R.drawable.shop_img3)
         val sliderViewPager = binding.sliderViewPager
@@ -94,6 +102,23 @@ class ShopFragment : Fragment() {
         autoSlideViewPager()
 
         return binding.root
+    }
+
+    private fun getCouponData() {
+        val postListener = object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for (dataModel in dataSnapshot.children) {
+                    val item = dataModel.getValue(CouponModel::class.java)
+                    couponList.add(item!!)
+                }
+                couponRvAdapter.notifyDataSetChanged()
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                Log.w("쿠폰 목록 물러오기", "loadPost:onCancelled", databaseError.toException())
+            }
+        }
+        FBRef.couponRef.addValueEventListener(postListener)
     }
 
     private fun getCategoryDataProduct() {

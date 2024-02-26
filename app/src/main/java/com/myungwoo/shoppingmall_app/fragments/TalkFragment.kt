@@ -19,6 +19,7 @@ import com.myungwoo.shoppingmall_app.utils.FBRef
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
+import com.myungwoo.shoppingmall_app.databinding.FragmentHomeBinding
 
 class TalkFragment : Fragment() {
 
@@ -32,7 +33,7 @@ class TalkFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_talk, container, false)
+        binding = FragmentTalkBinding.inflate(inflater)
 
         boardRVAdapter = BoardListRvAdapter(boardDataList)
         binding.boardListView.adapter = boardRVAdapter
@@ -48,9 +49,9 @@ class TalkFragment : Fragment() {
             startActivity(intent)
 
         }
-        binding.homeTap.setOnClickListener {
-            it.findNavController().navigate(R.id.action_talkFragment_to_homeFragment2)
-        }
+//        binding.homeTap.setOnClickListener {
+//            it.findNavController().navigate(R.id.action_talkFragment_to_homeFragment2)
+//        }
 
         binding.tipTap.setOnClickListener {
             it.findNavController().navigate(R.id.action_talkFragment_to_tipFragment)

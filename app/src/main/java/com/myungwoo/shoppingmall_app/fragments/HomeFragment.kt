@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.myungwoo.shoppingmall_app.R
+import com.myungwoo.shoppingmall_app.databinding.FragmentBookmarkBinding
 import com.myungwoo.shoppingmall_app.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
@@ -19,8 +20,7 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
+        binding = FragmentHomeBinding.inflate(inflater)
 
         binding.tipTap.setOnClickListener {
             it.findNavController().navigate(R.id.action_homeFragment2_to_tipFragment)

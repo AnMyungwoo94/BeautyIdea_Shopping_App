@@ -1,261 +1,254 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:backgroundTint="@color/white"
+    tools:context=".fragments.TipFragment">
 
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".fragments.TipFragment">
+        android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="70dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="120dp">
+
+                <ImageView
+                    android:id="@+id/categoryALl"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/category1_all" />
+
+                <ImageView
+                    android:id="@+id/categoryLip"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/category2_lip" />
+
+                <ImageView
+                    android:id="@+id/categoryBlusher"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/category3_blusher" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.3"
+                    android:gravity="center"
+                    android:text="All" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.3"
+                    android:gravity="center"
+                    android:text="lip" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.9"
+                    android:gravity="center"
+                    android:text="blusher" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_marginTop="20dp">
+
+                <ImageView
+                    android:id="@+id/categoryMascara"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/category4_mascara" />
+
+                <ImageView
+                    android:id="@+id/categoryNail"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/category5_nail" />
+
+                <ImageView
+                    android:id="@+id/categoryShadow"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/category6_shadow" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="mascara" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="nail" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.9"
+                    android:gravity="center"
+                    android:text="shadow" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_marginTop="20dp">
+
+                <ImageView
+                    android:id="@+id/categorySkin"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/category7_skin" />
+
+                <ImageView
+                    android:id="@+id/categorySun"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/category8_sun" />
+
+                <ImageView
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="skin" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="sun" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="70dp"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="120dp">
-
-                    <ImageView
-                        android:id="@+id/categoryALl"
-                        android:layout_width="120dp"
-                        android:layout_height="120dp"
-                        android:layout_weight="1"
-                        android:src="@drawable/category1_all" />
-
-                    <ImageView
-                        android:id="@+id/categoryLip"
-                        android:layout_width="120dp"
-                        android:layout_height="120dp"
-                        android:layout_weight="1"
-                        android:src="@drawable/category2_lip" />
-
-                    <ImageView
-                        android:id="@+id/categoryBlusher"
-                        android:layout_width="120dp"
-                        android:layout_height="120dp"
-                        android:layout_weight="1"
-                        android:src="@drawable/category3_blusher" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1.3"
-                        android:gravity="center"
-                        android:text="All" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1.3"
-                        android:gravity="center"
-                        android:text="lip" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.9"
-                        android:gravity="center"
-                        android:text="blusher" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="120dp"
-                    android:layout_marginTop="20dp">
-
-                    <ImageView
-                        android:id="@+id/categoryMascara"
-                        android:layout_width="120dp"
-                        android:layout_height="120dp"
-                        android:layout_weight="1"
-                        android:src="@drawable/category4_mascara" />
-
-                    <ImageView
-                        android:id="@+id/categoryNail"
-                        android:layout_width="120dp"
-                        android:layout_height="120dp"
-                        android:layout_weight="1"
-                        android:src="@drawable/category5_nail" />
-
-                    <ImageView
-                        android:id="@+id/categoryShadow"
-                        android:layout_width="120dp"
-                        android:layout_height="120dp"
-                        android:layout_weight="1"
-                        android:src="@drawable/category6_shadow" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="mascara" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="nail" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.9"
-                        android:gravity="center"
-                        android:text="shadow" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="120dp"
-                    android:layout_marginTop="20dp">
-
-                    <ImageView
-                        android:id="@+id/categorySkin"
-                        android:layout_width="120dp"
-                        android:layout_height="120dp"
-                        android:layout_weight="1"
-                        android:src="@drawable/category7_skin" />
-
-                    <ImageView
-                        android:id="@+id/categorySun"
-                        android:layout_width="120dp"
-                        android:layout_height="120dp"
-                        android:layout_weight="1"
-                        android:src="@drawable/category8_sun" />
-
-                    <ImageView
-                        android:layout_width="120dp"
-                        android:layout_height="120dp"
-                        android:layout_weight="1" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="skin" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="sun" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="" />
-                </LinearLayout>
-            </LinearLayout>
+                android:layout_weight="1" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="3dp"
-                app:layout_constraintBottom_toTopOf="@+id/linearLayout">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@color/mainColor" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1" />
-            </LinearLayout>
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/black" />
 
             <LinearLayout
-                android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:background="@color/white"
-                android:weightSum="5"
-                app:layout_constraintBottom_toBottomOf="parent">
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
 
-                <ImageView
-                    android:id="@+id/storeTap"
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:src="@drawable/store_icon" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+        </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/tipTap"
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:src="@drawable/tip_icon" />
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@color/white"
+            android:weightSum="4"
+            app:layout_constraintBottom_toBottomOf="parent">
 
-                <ImageView
-                    android:id="@+id/homeTap"
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:src="@drawable/home_icon" />
+            <ImageView
+                android:id="@+id/storeTap"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:src="@drawable/store_icon" />
 
-                <ImageView
-                    android:id="@+id/talkTap"
-                    android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:src="@drawable/community_icon" />
+            <ImageView
+                android:id="@+id/tipTap"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:src="@drawable/tip_icon" />
 
-                <ImageView
-                    android:id="@+id/bookmarkTap"
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:src="@drawable/bookmark_icon" />
-            </LinearLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </FrameLayout>
-</layout>
+            <!--                <ImageView-->
+            <!--                    android:id="@+id/homeTap"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="30dp"-->
+            <!--                    android:layout_gravity="center"-->
+            <!--                    android:layout_weight="1"-->
+            <!--                    android:src="@drawable/home_icon" />-->
+
+            <ImageView
+                android:id="@+id/talkTap"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:src="@drawable/community_icon" />
+
+            <ImageView
+                android:id="@+id/bookmarkTap"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:src="@drawable/bookmark_icon" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

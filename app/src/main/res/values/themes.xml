@@ -31,4 +31,5 @@
     <style name="Theme.ShoppingMall_App.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.ShoppingMall_App.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
 </resources>
