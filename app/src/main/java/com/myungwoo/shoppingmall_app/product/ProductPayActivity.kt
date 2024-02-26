@@ -451,7 +451,7 @@ class ProductPayActivity : AppCompatActivity() {
 
         val totalAmount = selectedProductPrice?.plus(cartTotal)
         if (totalAmount != null) {
-            binding.totalPaymentAmount.text = "${NumberFormat.getNumberInstance(Locale.US).format(totalAmount).toInt()} 원"
+            binding.totalPaymentAmount.text = "${NumberFormat.getNumberInstance(Locale.US).format(totalAmount)} 원"
         }
         val productFeeText =
             binding.productDeliveryFee.text.toString().replace("[^0-9]".toRegex(), "").toIntOrNull()

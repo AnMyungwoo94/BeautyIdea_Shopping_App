@@ -94,7 +94,6 @@
                     android:layout_height="600dp"
                     android:divider="#FFFFFF"
                     android:dividerHeight="0px" />
-
             </LinearLayout>
         </ScrollView>
 

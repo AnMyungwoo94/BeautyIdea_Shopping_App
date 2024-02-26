@@ -11,6 +11,7 @@ import com.myungwoo.shoppingmall_app.databinding.ActivityJoinBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.myungwoo.shoppingmall_app.databinding.ActivityMainBinding
 
 class JoinActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
@@ -19,7 +20,8 @@ class JoinActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         auth = Firebase.auth
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_join)
+        binding = ActivityJoinBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         binding.joinBtn.setOnClickListener {
             var isGoToJoin = true

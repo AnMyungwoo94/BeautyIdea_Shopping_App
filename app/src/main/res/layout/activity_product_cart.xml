@@ -18,11 +18,11 @@
 
         <ImageButton
             android:id="@+id/backButton"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:background="?android:selectableItemBackground"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_x" />
+            android:src="@drawable/baseline_arrow_back_ios_24" />
 
         <TextView
             android:layout_width="0dp"

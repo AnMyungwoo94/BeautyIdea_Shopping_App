@@ -14,6 +14,7 @@ import com.myungwoo.shoppingmall_app.utils.FBAuth
 import com.myungwoo.shoppingmall_app.utils.FBRef
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import com.myungwoo.shoppingmall_app.databinding.ActivityMainBinding
 import java.io.ByteArrayOutputStream
 
 class BoardWriteActivity : AppCompatActivity() {
@@ -22,7 +23,8 @@ class BoardWriteActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_board_write)
+        binding = ActivityBoardWriteBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         binding.writeBtn.setOnClickListener {
             val title = binding.titleArea.text.toString()
