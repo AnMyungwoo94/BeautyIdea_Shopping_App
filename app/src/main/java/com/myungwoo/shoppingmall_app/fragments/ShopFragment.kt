@@ -47,7 +47,7 @@ class ShopFragment : Fragment() {
         binding = FragmentShopBinding.inflate(inflater)
 
         val currentUserEmail = FirebaseAuth.getInstance().currentUser?.email
-        if (currentUserEmail != "anmy121212@gmail.com") {
+        if (currentUserEmail != "admin1@admin1@") {
             binding.floatingActionButton.visibility = View.GONE
         } else {
             binding.floatingActionButton.setOnClickListener {

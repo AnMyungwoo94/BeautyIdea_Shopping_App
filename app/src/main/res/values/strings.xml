@@ -37,4 +37,12 @@
     <string name="product_pay_order_fail">주문이 실패 되었습니다</string>
     <string name="setting_logout_fail">로그아웃 실패</string>
     <string name="setting_logout_success">로그아웃 성공</string>
+    <string name="lip">lip</string>
+    <string name="blusher">blusher</string>
+    <string name="mascara">mascara</string>
+    <string name="nail">nail</string>
+    <string name="shadow">shadow</string>
+    <string name="skin">skin</string>
+    <string name="sun">sun</string>
+    <string name="etc">etc</string>
 </resources>
