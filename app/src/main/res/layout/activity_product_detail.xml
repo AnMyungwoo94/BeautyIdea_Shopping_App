@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".product.ProductDetailActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -198,11 +199,11 @@
             android:gravity="center"
             android:textSize="14sp"
             android:textStyle="bold"
-            tools:text="120,000"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/textView5"
             app:layout_constraintStart_toEndOf="@+id/textView4"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="120,000" />
 
         <TextView
             android:id="@+id/textView5"
@@ -217,7 +218,7 @@
             app:layout_constraintEnd_toStartOf="@+id/btn_pay"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_pay"
             android:layout_width="80dp"
             android:layout_height="60dp"
@@ -229,7 +230,7 @@
             app:layout_constraintEnd_toStartOf="@+id/btn_basket"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_basket"
             android:layout_width="80dp"
             android:layout_height="60dp"
@@ -276,7 +277,7 @@
             app:layout_constraintStart_toStartOf="@+id/selected_product_name"
             app:layout_constraintTop_toBottomOf="@+id/selected_product_name" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/minus_btn"
             android:layout_width="40dp"
             android:layout_height="40dp"
@@ -293,7 +294,7 @@
             app:layout_constraintEnd_toStartOf="@+id/plus_btn"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/plus_btn"
             android:layout_width="40dp"
             android:layout_height="40dp"

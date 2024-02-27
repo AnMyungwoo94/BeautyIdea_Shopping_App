@@ -2,9 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical">
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/editBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -12,7 +13,7 @@
         android:background="@drawable/background_radius_yellow"
         android:text="수정버튼" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/removeBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

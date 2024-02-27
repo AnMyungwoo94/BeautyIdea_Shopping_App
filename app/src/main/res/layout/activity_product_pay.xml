@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF">
+    android:background="@color/white">
 
     <LinearLayout
         android:id="@+id/topBar"
@@ -28,9 +28,9 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:layout_marginEnd="15dp"
             android:text="결제정보"
             android:textSize="20sp" />
 
@@ -63,6 +63,7 @@
                     android:id="@+id/product_image"
                     android:layout_width="80dp"
                     android:layout_height="90dp"
+                    android:scaleType="centerCrop"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -93,7 +94,7 @@
                     app:layout_constraintStart_toEndOf="@+id/product_image"
                     app:layout_constraintTop_toBottomOf="@+id/product_price" />
 
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/minus_btn"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
@@ -111,7 +112,7 @@
                     app:layout_constraintEnd_toStartOf="@+id/plus_btn"
                     app:layout_constraintTop_toBottomOf="@+id/product_price" />
 
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/plus_btn"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
@@ -229,6 +230,7 @@
                     android:layout_height="40dp"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/edit_background"
+                    android:padding="5dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/address"
                     app:layout_constraintTop_toBottomOf="@+id/edit_phone" />
@@ -251,6 +253,7 @@
                     android:layout_height="40dp"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/edit_background"
+                    android:padding="5dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/delivery_memo"
                     app:layout_constraintTop_toBottomOf="@+id/edit_address" />
@@ -268,106 +271,12 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/userInfo">
-
-                <TextView
-                    android:id="@+id/title_how_to_pay"
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:layout_marginStart="10dp"
-                    android:gravity="center_vertical"
-                    android:text="결제 방식"
-                    android:textSize="17sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout6"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout4">
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_account"
-                    android:layout_width="120dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="60dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/button_color_change"
-                    android:text="계좌간편결제"
-                    android:textColor="@color/black"
-                    android:textSize="13sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_card"
-                    android:layout_width="120dp"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/button_color_change"
-                    android:text="신용/체크 카드"
-                    android:textColor="@color/black"
-                    android:textSize="13sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/btn_account"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_phone"
-                    android:layout_width="120dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="60dp"
-                    android:layout_marginTop="20dp"
-                    android:background="@drawable/button_color_change"
-                    android:text="휴대폰"
-                    android:textColor="@color/black"
-                    android:textSize="13sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/btn_account" />
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_no_bankbook"
-                    android:layout_width="120dp"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="20dp"
-                    android:background="@drawable/button_color_change"
-                    android:text="무통장"
-                    android:textColor="@color/black"
-                    android:textSize="13sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/btn_phone"
-                    app:layout_constraintTop_toBottomOf="@+id/btn_card" />
-
-                <View
-                    android:id="@+id/pay"
-                    android:layout_width="match_parent"
-                    android:layout_height="4px"
-                    android:layout_marginTop="20dp"
-                    android:background="@color/light_gray"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/btn_phone" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout6">
+                app:layout_constraintTop_toBottomOf="@+id/userInfo">
 
                 <CheckBox
                     android:id="@+id/btn_check_1"
@@ -501,7 +410,7 @@
                 android:textSize="18sp" />
         </LinearLayout>
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/payButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

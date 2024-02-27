@@ -6,6 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:background="@color/white"
         tools:context=".auth.LoginActivity">
 
         <LinearLayout
@@ -66,7 +67,7 @@
                 android:layout_marginRight="10dp"
                 android:background="#999999" />
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/loginBtn"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"

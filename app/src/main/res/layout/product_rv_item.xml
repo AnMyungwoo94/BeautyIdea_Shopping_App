@@ -5,7 +5,10 @@
     android:id="@+id/product_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="10dp">
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp"
+    android:layout_marginBottom="10dp"
+    android:background="@color/white">
 
     <FrameLayout
         android:id="@+id/framelayout"
