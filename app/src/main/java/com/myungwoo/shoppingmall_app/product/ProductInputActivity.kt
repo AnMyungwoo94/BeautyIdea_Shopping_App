@@ -33,13 +33,14 @@ class ProductInputActivity : AppCompatActivity() {
             val price = binding.productPrice.text.toString()
             val parcel = binding.productParcel.text.toString()
             val parcelDay = binding.productParcelDay.text.toString()
+            val category = binding.productCategory.text.toString()
             val deliveryFee = binding.deliveryFee.text.toString().toInt()
             val count = 1
             val countSum = 0
 
             key = FBRef.productRef.push().key.toString()
             FBRef.productRef.child(key)
-                .setValue(ProductModel(key, name, price, time, parcel, deliveryFee, parcelDay, count, countSum, isImageUpload))
+                .setValue(ProductModel(key, name, price, time, parcel, deliveryFee, parcelDay, category, count, countSum, isImageUpload))
 
             Toast.makeText(this, R.string.product_input_success, Toast.LENGTH_SHORT).show()
             if (isImageUpload) {

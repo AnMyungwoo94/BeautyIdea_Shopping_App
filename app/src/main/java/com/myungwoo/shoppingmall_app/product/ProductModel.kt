@@ -8,8 +8,9 @@ data class ProductModel(
     val parcel: String = "",
     val deliveryFee: Int = 0,
     val parcelDay: String = "",
+    val category: String = "",
     var count: Int = 0,
-    var countSum: Int = 1,
+    var count_sum: Int = 1,
     var isSelected: Boolean = false
 ) : java.io.Serializable {
     fun getTotalPrice(): Int {
