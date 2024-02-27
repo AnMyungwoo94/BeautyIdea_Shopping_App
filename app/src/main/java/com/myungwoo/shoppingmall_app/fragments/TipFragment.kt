@@ -64,9 +64,9 @@ class TipFragment : Fragment() {
             startActivity(intent)
         }
 
-//        binding.homeTap.setOnClickListener {
-//            it.findNavController().navigate(R.id.action_tipFragment_to_homeFragment2)
-//        }
+        binding.categoryTap.setOnClickListener {
+            it.findNavController().navigate(R.id.action_tipFragment_to_categoryFragment)
+        }
 
         binding.talkTap.setOnClickListener {
             it.findNavController().navigate(R.id.action_tipFragment_to_talkFragment)

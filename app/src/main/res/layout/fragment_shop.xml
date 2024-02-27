@@ -4,25 +4,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:backgroundTint="@color/white">
+    android:background="@color/white">
+
+    <com.google.android.material.search.SearchBar
+        android:id="@+id/sb_search"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#DDDDDD"
+        android:hint="상품을 검색하세요"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/cart_icon" />
 
     <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/line"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/sb_search">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
                 app:cardCornerRadius="6dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -52,6 +67,14 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="8dp"
+                android:text="쿠폰 목록"
+                android:textSize="16sp" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/mainRVcoupon"
                 android:layout_width="match_parent"
@@ -63,11 +86,19 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/item_coupon" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="8dp"
+                android:text="제품 목록"
+                android:textSize="16sp" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/mainRVproduct"
                 layout_constrainedHeight="true"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="match_parent" />
         </LinearLayout>
     </ScrollView>
 
@@ -80,14 +111,18 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/black" />
+            android:layout_weight="1" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/black" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -105,11 +140,11 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="@color/white"
-        android:weightSum="4"
+        android:weightSum="5"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <ImageView
-            android:id="@+id/storeTap"
+            android:id="@+id/categoryTap"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_gravity="center"
@@ -124,14 +159,13 @@
             android:layout_weight="1"
             android:src="@drawable/tip_icon" />
 
-        <!--            <ImageView-->
-        <!--                android:id="@+id/homeTap"-->
-        <!--                android:layout_width="match_parent"-->
-        <!--                android:layout_height="30dp"-->
-        <!--                android:layout_gravity="center"-->
-        <!--                android:layout_weight="1"-->
-        <!--                android:src="@drawable/home_icon" />-->
-
+        <ImageView
+            android:id="@+id/storeTap"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:src="@drawable/home_icon" />
 
         <ImageView
             android:id="@+id/talkTap"

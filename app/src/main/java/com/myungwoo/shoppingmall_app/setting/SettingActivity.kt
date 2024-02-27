@@ -18,10 +18,13 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import com.kakao.sdk.user.UserApiClient
+import com.myungwoo.shoppingmall_app.MainActivity
 import com.myungwoo.shoppingmall_app.delivery.DeliveryInfo
 import com.myungwoo.shoppingmall_app.delivery.ProductInfo
 import com.myungwoo.shoppingmall_app.auth.KakaoUserInfo
 import com.myungwoo.shoppingmall_app.databinding.ActivitySettingBinding
+import com.myungwoo.shoppingmall_app.fragments.ShopFragment
+import com.myungwoo.shoppingmall_app.product.ProductSuccessActivity
 
 class SettingActivity : AppCompatActivity() {
 
@@ -35,6 +38,10 @@ class SettingActivity : AppCompatActivity() {
         binding = ActivitySettingBinding.inflate(layoutInflater)
         setContentView(binding.root)
         auth = Firebase.auth
+
+        binding.backButton.setOnClickListener {
+            startActivity(Intent(this, MainActivity::class.java))
+        }
 
         val logoutBtn = findViewById<Button>(R.id.logoutBtn)
         logoutBtn.setOnClickListener {
@@ -93,10 +100,6 @@ class SettingActivity : AppCompatActivity() {
             binding.userEmail.text = kakaoName
         }
 
-        binding.backButton.setOnClickListener {
-            finish()
-        }
-
         val userUID = FirebaseAuth.getInstance().currentUser?.uid
         val ref = FirebaseDatabase.getInstance().getReference("orders/$userUID")
 
@@ -152,4 +155,11 @@ class SettingActivity : AppCompatActivity() {
             Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
         startActivity(intent)
     }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        startActivity(Intent(this, MainActivity::class.java))
+    }
+
 }
+

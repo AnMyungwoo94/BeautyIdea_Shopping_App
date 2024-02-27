@@ -41,9 +41,9 @@ class BookmarkFragment : Fragment() {
         rv.adapter = rvAdapter
         rv.layoutManager = GridLayoutManager(requireContext(), 2)
 
-//        binding.homeTap.setOnClickListener {
-//            it.findNavController().navigate(R.id.action_bookmarkFragment_to_homeFragment)
-//        }
+        binding.categoryTap.setOnClickListener {
+            it.findNavController().navigate(R.id.action_bookmarkFragment_to_categoryFragment)
+        }
 
         binding.tipTap.setOnClickListener {
             it.findNavController().navigate(R.id.action_bookmarkFragment_to_tipFragment)

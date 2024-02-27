@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
@@ -16,10 +15,8 @@ import com.myungwoo.shoppingmall_app.R
 import com.myungwoo.shoppingmall_app.databinding.ActivityBoardInsideBinding
 import com.myungwoo.shoppingmall_app.comment.CommentLVAdapter
 import com.myungwoo.shoppingmall_app.comment.CommentModel
-import com.myungwoo.shoppingmall_app.contentList.ContentModel
 import com.myungwoo.shoppingmall_app.utils.FBAuth
 import com.myungwoo.shoppingmall_app.utils.FBRef
-import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener

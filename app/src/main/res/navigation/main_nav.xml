@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_bookmarkFragment_to_talkFragment"
             app:destination="@id/talkFragment" />
+        <action
+            android:id="@+id/action_bookmarkFragment_to_categoryFragment"
+            app:destination="@id/categoryFragment" />
     </fragment>
 
     <fragment
@@ -41,6 +44,12 @@
         <action
             android:id="@+id/action_shopFragment_to_bookmarkFragment"
             app:destination="@id/bookmarkFragment" />
+        <action
+            android:id="@+id/action_shopFragment_to_searchResultFragment"
+            app:destination="@id/searchResultFragment" />
+        <action
+            android:id="@+id/action_shopFragment_to_categoryFragment"
+            app:destination="@id/categoryFragment" />
     </fragment>
 
     <fragment
@@ -60,6 +69,9 @@
         <action
             android:id="@+id/action_talkFragment_to_bookmarkFragment"
             app:destination="@id/bookmarkFragment" />
+        <action
+            android:id="@+id/action_talkFragment_to_categoryFragment"
+            app:destination="@id/categoryFragment" />
     </fragment>
 
     <fragment
@@ -79,6 +91,9 @@
         <action
             android:id="@+id/action_tipFragment_to_talkFragment"
             app:destination="@id/talkFragment" />
+        <action
+            android:id="@+id/action_tipFragment_to_categoryFragment"
+            app:destination="@id/categoryFragment" />
     </fragment>
 
     <fragment
@@ -97,5 +112,30 @@
         <action
             android:id="@+id/action_homeFragment2_to_talkFragment"
             app:destination="@id/talkFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchResultFragment"
+        android:name="com.myungwoo.shoppingmall_app.fragments.SearchResultFragment"
+        android:label="SearchResultFragment" >
+        <action
+            android:id="@+id/action_searchResultFragment_to_shopFragment"
+            app:destination="@id/shopFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/categoryFragment"
+        android:name="com.myungwoo.shoppingmall_app.fragments.CategoryFragment"
+        android:label="CategoryFragment">
+        <action
+            android:id="@+id/action_categoryFragment_to_shopFragment"
+            app:destination="@id/shopFragment" />
+        <action
+            android:id="@+id/action_categoryFragment_to_bookmarkFragment"
+            app:destination="@id/bookmarkFragment" />
+        <action
+            android:id="@+id/action_categoryFragment_to_talkFragment"
+            app:destination="@id/talkFragment" />
+        <action
+            android:id="@+id/action_categoryFragment_to_tipFragment"
+            app:destination="@id/tipFragment" />
     </fragment>
 </navigation>

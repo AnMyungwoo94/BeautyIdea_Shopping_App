@@ -47,7 +47,7 @@ class ShopFragment : Fragment() {
         binding = FragmentShopBinding.inflate(inflater)
 
         val currentUserEmail = FirebaseAuth.getInstance().currentUser?.email
-        if (currentUserEmail != "admin1@admin.com") {
+        if (currentUserEmail != "anmy121212@gmail.com") {
             binding.floatingActionButton.visibility = View.GONE
         } else {
             binding.floatingActionButton.setOnClickListener {
@@ -56,9 +56,9 @@ class ShopFragment : Fragment() {
             }
         }
 
-//        binding.homeTap.setOnClickListener {
-//            it.findNavController().navigate(R.id.action_shopFragment_to_homeFragment)
-//        }
+        binding.categoryTap.setOnClickListener {
+            it.findNavController().navigate(R.id.action_shopFragment_to_categoryFragment)
+        }
 
         binding.tipTap.setOnClickListener {
             it.findNavController().navigate(R.id.action_shopFragment_to_tipFragment)
@@ -72,9 +72,13 @@ class ShopFragment : Fragment() {
             it.findNavController().navigate(R.id.action_shopFragment_to_talkFragment)
         }
 
+        binding.sbSearch.setOnClickListener {
+            it.findNavController().navigate(R.id.action_shopFragment_to_searchResultFragment)
+        }
+
         val rvProduct: RecyclerView = binding.mainRVproduct
         productRvAdapter = ProductRvAdapter(requireContext(), productList)
-        rvProduct.layoutManager = GridLayoutManager(requireContext(), 2)
+        rvProduct.layoutManager = GridLayoutManager(requireContext(), 3)
         rvProduct.adapter = productRvAdapter
         getCategoryDataProduct()
 
@@ -115,7 +119,7 @@ class ShopFragment : Fragment() {
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
-                Log.w("쿠폰 목록 물러오기", "loadPost:onCancelled", databaseError.toException())
+                Log.w("쿠폰 목록 불러오기", "loadPost:onCancelled", databaseError.toException())
             }
         }
         FBRef.couponRef.addValueEventListener(postListener)
@@ -124,6 +128,7 @@ class ShopFragment : Fragment() {
     private fun getCategoryDataProduct() {
         val postListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
+                productList.clear()
                 for (dataModel in dataSnapshot.children) {
                     val item = dataModel.getValue(ProductModel::class.java)
                     itemKeyList.add(dataModel.key.toString())

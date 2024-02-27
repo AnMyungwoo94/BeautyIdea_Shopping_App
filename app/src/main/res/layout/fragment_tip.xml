@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:backgroundTint="@color/white"
+    android:background="@color/white"
     tools:context=".fragments.TipFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -200,6 +200,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
         </LinearLayout>
 
         <LinearLayout
@@ -207,11 +212,12 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:background="@color/white"
-            android:weightSum="4"
+            android:weightSum="5"
             app:layout_constraintBottom_toBottomOf="parent">
 
+
             <ImageView
-                android:id="@+id/storeTap"
+                android:id="@+id/categoryTap"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:layout_gravity="center"
@@ -226,13 +232,13 @@
                 android:layout_weight="1"
                 android:src="@drawable/tip_icon" />
 
-            <!--                <ImageView-->
-            <!--                    android:id="@+id/homeTap"-->
-            <!--                    android:layout_width="match_parent"-->
-            <!--                    android:layout_height="30dp"-->
-            <!--                    android:layout_gravity="center"-->
-            <!--                    android:layout_weight="1"-->
-            <!--                    android:src="@drawable/home_icon" />-->
+            <ImageView
+                android:id="@+id/storeTap"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:src="@drawable/home_icon" />
 
             <ImageView
                 android:id="@+id/talkTap"
