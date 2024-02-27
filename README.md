@@ -34,12 +34,16 @@
 |:-----:|:-----:|
 |<img width="250" src="https://github.com/AnMyungwoo94/BeautyIdea_Shopping_App/assets/126849689/6849d8c0-eccf-419a-8e78-1c405862d99f.gif">|<img width="250" src="https://github.com/AnMyungwoo94/BeautyIdea_Shopping_App/assets/126849689/ceb57942-f76f-4a58-b571-1141755fd5ad.gif">|
 
-### 쇼핑
+### 홈 화면 및 상품 카테고리
 
-|상세페이지 및 장바구니|구매페이지|마이페이지|
+|홈화면 및 검색|상품 카테고리|
+|:-----:|:-----:|
+|<img width="250" src="https://github.com/AnMyungwoo94/BeautyIdea_Shopping_App/assets/126849689/a85bff5c-e33a-444a-9a39-e25f7ca9986d.gif">|<img width="250" src="https://github.com/AnMyungwoo94/BeautyIdea_Shopping_App/assets/126849689/102d149f-2f36-47c5-95ce-686d95a52b6d.gif">|
+
+### 장바구니 및 구매페이지, 마이페이지
+|장바구니|구매 페이지|마이 페이지|
 |:-----:|:-----:|:-----:|
-|<img width="250" src="https://github.com/AnMyungwoo94/BeautyIdea_Shopping_App/assets/126849689/65ec5a95-9c46-4a3a-984f-94375d35cc98.gif">|<img width="250" src="https://github.com/AnMyungwoo94/BeautyIdea_Shopping_App/assets/126849689/7ddeaafe-e8a4-4324-9d35-972d5036c02d.gif">|<img width="250" src="https://github.com/AnMyungwoo94/BeautyIdea_Shopping_App/assets/126849689/a60dca28-6812-4294-a1e4-43cf4575d0d6.gif" />|
-
+|<img width="230" src="https://github.com/AnMyungwoo94/BeautyIdea_Shopping_App/assets/126849689/3539eef2-a27c-404f-b5e2-a47e5c497c8e.gif">|<img width="270" src="https://github.com/AnMyungwoo94/BeautyIdea_Shopping_App/assets/126849689/7ddeaafe-e8a4-4324-9d35-972d5036c02d.gif">|<img width="270" src="https://github.com/AnMyungwoo94/BeautyIdea_Shopping_App/assets/126849689/a60dca28-6812-4294-a1e4-43cf4575d0d6.gif" />|
 
 ### 상품등록, 커뮤니티, 북마크
 
