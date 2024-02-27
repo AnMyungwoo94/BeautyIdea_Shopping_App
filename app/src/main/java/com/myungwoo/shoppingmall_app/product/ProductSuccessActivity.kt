@@ -1,8 +1,8 @@
 package com.myungwoo.shoppingmall_app.product
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.myungwoo.shoppingmall_app.databinding.ActivityProductSuccessBinding
 import com.myungwoo.shoppingmall_app.setting.SettingActivity
 
@@ -16,5 +16,9 @@ class ProductSuccessActivity : AppCompatActivity() {
         binding.btnMypage.setOnClickListener {
             startActivity(Intent(this, SettingActivity::class.java))
         }
+    }
+
+    override fun onBackPressed() {
+//        super.onBackPressed()
     }
 }

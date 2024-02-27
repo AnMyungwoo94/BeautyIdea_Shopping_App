@@ -44,9 +44,9 @@ class ProductPayActivity : AppCompatActivity() {
         binding = ActivityProductPayBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.btnCard.setOnClickListener {
-            inicisPayment()
-        }
+//        binding.btnCard.setOnClickListener {
+//            inicisPayment()
+//        }
 
         val selectedProducts: List<ProductModel> =
             intent.getSerializableExtra("SELECTED_PRODUCTS") as? ArrayList<ProductModel> ?: listOf()
@@ -214,7 +214,7 @@ class ProductPayActivity : AppCompatActivity() {
 
                 database.child("orders").child(uid!!).push().setValue(deliveryInfo)
                     .addOnSuccessListener {
-                        Toast.makeText(this, R.string.product_pay_order_success, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "주문이 완료 되었습니다.", Toast.LENGTH_SHORT).show()
                     }.addOnFailureListener {
                         Toast.makeText(this, R.string.product_pay_order_fail, Toast.LENGTH_SHORT)
                             .show()
@@ -301,6 +301,7 @@ class ProductPayActivity : AppCompatActivity() {
                     val price = productSnapshot.child("price").getValue(String::class.java) ?: ""
                     val time = productSnapshot.child("time").getValue(String::class.java) ?: ""
                     val parcel = productSnapshot.child("parcel").getValue(String::class.java) ?: ""
+                    val category = productSnapshot.child("category").getValue(String::class.java) ?: ""
                     val deliveryFeeObj = productSnapshot.child("delivery_fee").value
                     val deliveryFee = when (deliveryFeeObj) {
                         is Long -> deliveryFeeObj.toInt()
@@ -335,6 +336,7 @@ class ProductPayActivity : AppCompatActivity() {
                         parcel,
                         deliveryFee,
                         parcelDay,
+                        category,
                         count,
                         countSum,
                         isSelected
@@ -378,6 +380,7 @@ class ProductPayActivity : AppCompatActivity() {
                     val price = productSnapshot.child("price").getValue(String::class.java) ?: ""
                     val time = productSnapshot.child("time").getValue(String::class.java) ?: ""
                     val parcel = productSnapshot.child("parcel").getValue(String::class.java) ?: ""
+                    val category = productSnapshot.child("category").getValue(String::class.java) ?: ""
                     val deliveryFeeObj = productSnapshot.child("delivery_fee").value
                     val deliveryFee = when (deliveryFeeObj) {
                         is Long -> deliveryFeeObj.toInt()
@@ -411,6 +414,7 @@ class ProductPayActivity : AppCompatActivity() {
                         parcel,
                         deliveryFee,
                         parcelDay,
+                        category,
                         count,
                         countSum,
                         isSelected
@@ -439,20 +443,21 @@ class ProductPayActivity : AppCompatActivity() {
     private fun updateTotalPaymentAmount() {
         val productPriceText = binding.productPrice.text.toString().replace(",", "").trim()
         val selectedProductPrice = if (productPriceText.isDigitsOnly()) {
-            productPriceText.toIntOrNull()
+            productPriceText.toIntOrNull() ?: 0
         } else {
             0
         }
-
-        val cartTotal = productCartList.filter { it.isSelected }.sumBy {
-            val priceWithoutComma = it.price.replace(",", "").trim().toInt()
-            priceWithoutComma * it.count
+        val cartTotal = if (productCartList.any { it.isSelected }) {
+            productCartList.filter { it.isSelected }.sumBy {
+                val priceWithoutComma = it.price.replace(",", "").trim().toInt()
+                priceWithoutComma * it.count
+            }
+        } else {
+            0
         }
+        val totalAmount = selectedProductPrice.plus(cartTotal)
+        binding.totalPaymentAmount.text = "${NumberFormat.getNumberInstance(Locale.US).format(totalAmount)} 원"
 
-        val totalAmount = selectedProductPrice?.plus(cartTotal)
-        if (totalAmount != null) {
-            binding.totalPaymentAmount.text = "${NumberFormat.getNumberInstance(Locale.US).format(totalAmount)} 원"
-        }
         val productFeeText =
             binding.productDeliveryFee.text.toString().replace("[^0-9]".toRegex(), "").toIntOrNull()
                 ?: 0

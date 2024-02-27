@@ -68,20 +68,18 @@ class ProductDetailActivity : AppCompatActivity() {
             }
         }
         binding.btnBasket.setOnClickListener {
-
             val database = FirebaseDatabase.getInstance().reference
 
             val user = FirebaseAuth.getInstance().currentUser
             user?.let {
                 val uid = it.uid
                 val key = receivedData.key
-                val updatedProduct = receivedData.copy(count = count, countSum = countSum)
+                val updatedProduct = receivedData.copy(count = count, count_sum = countSum)
 
                 database.child("cart").child(uid).child(key).setValue(updatedProduct)
                     .addOnSuccessListener {
                         Toast.makeText(this, R.string.product_detail_cart_success, Toast.LENGTH_SHORT).show()
                         val intent = Intent(this, ProductCartActivity::class.java)
-                        intent.putExtra("SELECTED_PRODUCT_PAY", receivedData)
                         startActivity(intent)
                     }
                     .addOnFailureListener {

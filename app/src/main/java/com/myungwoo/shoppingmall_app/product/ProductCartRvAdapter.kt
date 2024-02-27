@@ -29,8 +29,9 @@ class ProductCartRvAdapter(
         val product = items[position]
 
         with(holder.binding) {
+            Log.e("ddddd", product.count_sum.toString())
             productName.text = product.name
-            productPrice.text = "${NumberFormat.getNumberInstance(Locale.US).format(product.countSum)}"
+            productPrice.text = "${NumberFormat.getNumberInstance(Locale.US).format(product.count_sum)}"
             quantityTextView.text = product.count.toString()
             val deliveryFee = product.deliveryFee
             if (deliveryFee != 0) {
@@ -52,8 +53,8 @@ class ProductCartRvAdapter(
             minusBtn.setOnClickListener {
                 if (product.count > 1) {
                     product.count -= 1
-                    product.countSum = product.getTotalPrice()
-                    productPrice.text = "${NumberFormat.getNumberInstance(Locale.US).format(product.countSum)}"
+                    product.count_sum = product.getTotalPrice()
+                    productPrice.text = "${NumberFormat.getNumberInstance(Locale.US).format(product.count_sum)}"
                     updateProductInFirebase(product)  // Firebase 업데이트
                     quantityTextView.text = product.count.toString()
                     onItemChanged()
@@ -62,8 +63,8 @@ class ProductCartRvAdapter(
 
             plusBtn.setOnClickListener {
                 product.count += 1
-                product.countSum = product.getTotalPrice()
-                productPrice.text = "${NumberFormat.getNumberInstance(Locale.US).format(product.countSum)}"
+                product.count_sum = product.getTotalPrice()
+                productPrice.text = "${NumberFormat.getNumberInstance(Locale.US).format(product.count_sum)}"
                 updateProductInFirebase(product)
                 quantityTextView.text = product.count.toString()
                 onItemChanged()
@@ -87,7 +88,7 @@ class ProductCartRvAdapter(
         val userUID = FirebaseAuth.getInstance().currentUser?.uid
         val ref = FirebaseDatabase.getInstance().getReference("cart/$userUID/${product.key}")
         ref.child("count").setValue(product.count.toString())
-        ref.child("count_sum").setValue(product.countSum.toString())
+        ref.child("count_sum").setValue(product.count_sum.toString())
     }
 
     override fun getItemCount(): Int = items.size

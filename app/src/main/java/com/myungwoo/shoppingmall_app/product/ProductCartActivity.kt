@@ -19,23 +19,18 @@ class ProductCartActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityProductCartBinding
     private var productCartList = mutableListOf<ProductModel>()
+    private val adapter = ProductCartRvAdapter(this, productCartList) {
+        updateTotalAmount()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityProductCartBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val selectedProduct = intent.getSerializableExtra("SELECTED_PRODUCT") as? ProductModel
-        Log.e("ProductCart_Activity", selectedProduct.toString())
-
-        binding.productRecyclerview.layoutManager = LinearLayoutManager(this)
-
-        val adapter = ProductCartRvAdapter(this, productCartList) {
-            updateTotalAmount()
-        }
-        binding.productRecyclerview.adapter = adapter
-
         loadProductsFromFirebase()
+        binding.productRecyclerview.adapter = adapter
+        binding.productRecyclerview.layoutManager = LinearLayoutManager(this)
 
         binding.backButton.setOnClickListener {
             finish()
@@ -62,6 +57,7 @@ class ProductCartActivity : AppCompatActivity() {
                     val price = productSnapshot.child("price").getValue(String::class.java) ?: ""
                     val time = productSnapshot.child("time").getValue(String::class.java) ?: ""
                     val parcel = productSnapshot.child("parcel").getValue(String::class.java) ?: ""
+                    val category = productSnapshot.child("category").getValue(String::class.java) ?: ""
                     val deliveryFeeObj = productSnapshot.child("delivery_fee").value
                     val deliveryFee = when (deliveryFeeObj) {
                         is Long -> deliveryFeeObj.toInt()
@@ -83,7 +79,7 @@ class ProductCartActivity : AppCompatActivity() {
                     }
                     val existingProduct = productCartList.find { it.key == key }
                     val isSelected = existingProduct?.isSelected ?: productSnapshot.child("isSelected").getValue(Boolean::class.java) ?: false
-                    val product = ProductModel(key, name, price, time, parcel, deliveryFee, parcelDay, count, countSum, isSelected)
+                    val product = ProductModel(key, name, price, time, parcel, deliveryFee, parcelDay, category, count, countSum, isSelected)
                     updatedList.add(product)
                 }
                 productCartList.clear()
@@ -99,7 +95,7 @@ class ProductCartActivity : AppCompatActivity() {
     }
 
     private fun updateTotalAmount() {
-        val selectedAmount = productCartList.filter { it.isSelected }.sumBy { it.countSum }
+        val selectedAmount = productCartList.filter { it.isSelected }.sumBy { it.count_sum }
         val selectedFee = productCartList.filter { it.isSelected }.sumBy { it.deliveryFee }
         binding.totalPaymentAmount.text = "${NumberFormat.getNumberInstance(Locale.US).format(selectedAmount)} 원"
         binding.totalDeliveryFee.text = "${NumberFormat.getNumberInstance(Locale.US).format(selectedFee)} 원"

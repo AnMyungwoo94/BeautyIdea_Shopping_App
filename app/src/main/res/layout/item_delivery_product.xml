@@ -1,57 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:background="@color/white">
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <TextView
+        android:id="@+id/deliveryDate"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp">
+        android:layout_height="20dp"
+        android:layout_marginStart="7dp"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/deliveryDate"
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:layout_marginStart="7dp"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <ImageView
+        android:id="@+id/stuffImage"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="15dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/deliveryDate" />
 
-        <ImageView
-            android:id="@+id/stuffImage"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginStart="15dp"
-            android:scaleType="centerCrop"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/deliveryDate" />
+    <TextView
+        android:id="@+id/productName"
+        android:layout_width="200dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="10dp"
+        android:textSize="15sp"
+        app:layout_constraintStart_toEndOf="@+id/stuffImage"
+        app:layout_constraintTop_toBottomOf="@+id/deliveryDate" />
 
-        <TextView
-            android:id="@+id/productName"
-            android:layout_width="200dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="10dp"
-            android:textSize="15sp"
-            app:layout_constraintStart_toEndOf="@+id/stuffImage"
-            app:layout_constraintTop_toBottomOf="@+id/deliveryDate" />
+    <TextView
+        android:id="@+id/productPrice"
+        android:layout_width="200dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="10dp"
+        android:textSize="15sp"
+        app:layout_constraintStart_toEndOf="@+id/stuffImage"
+        app:layout_constraintTop_toBottomOf="@+id/productName" />
 
-        <TextView
-            android:id="@+id/productPrice"
-            android:layout_width="200dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="10dp"
-            android:textSize="15sp"
-            app:layout_constraintStart_toEndOf="@+id/stuffImage"
-            app:layout_constraintTop_toBottomOf="@+id/productName" />
-
-        <TextView
-            android:id="@+id/deliveryStatus"
-            android:layout_width="200dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="10dp"
-            android:textSize="17sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/stuffImage"
-            app:layout_constraintTop_toBottomOf="@+id/productPrice" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
+    <TextView
+        android:id="@+id/deliveryStatus"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="10dp"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/stuffImage"
+        app:layout_constraintTop_toBottomOf="@+id/productPrice" />
+</androidx.constraintlayout.widget.ConstraintLayout>
