@@ -7,7 +7,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />  <!-- 이니시스 결제 -->
 
     <application
-        android:name=".auth.MyApplication"
+        android:name=".ui.auth.MyApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -18,52 +18,52 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="33">
         <activity
-            android:name=".product.ProductSuccessActivity"
+            android:name=".ui.product.ProductSuccessActivity"
             android:exported="false" />
         <activity
             android:name=".mypick.MyPickActivity"
             android:exported="false" />
         <activity
-            android:name=".product.ProductPayActivity"
+            android:name=".ui.product.ProductPayActivity"
             android:exported="false" />
         <activity
-            android:name=".product.ProductCartActivity"
+            android:name=".ui.cart.ProductCartActivity"
             android:exported="false" />
         <activity
-            android:name=".product.ProductDetailActivity"
+            android:name=".ui.product.ProductDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".product.ProductInputActivity"
+            android:name=".ui.product.ProductInputActivity"
             android:exported="false" />
         <activity
-            android:name=".setting.SettingActivity"
+            android:name=".ui.setting.SettingActivity"
             android:exported="false" />
         <activity
-            android:name=".board.BoardEditActivity"
+            android:name=".ui.board.BoardEditActivity"
             android:exported="false" />
         <activity
-            android:name=".board.BoardInsideActivity"
+            android:name=".ui.board.BoardInsideActivity"
             android:exported="false" />
         <activity
-            android:name=".board.BoardWriteActivity"
+            android:name=".ui.board.BoardWriteActivity"
             android:exported="false" />
         <activity
-            android:name=".contentList.ContentShowActivity"
+            android:name=".ui.tipList.ContentShowActivity"
             android:exported="false" />
         <activity
-            android:name=".contentList.ContentListActivity"
+            android:name=".ui.tipList.ContentListActivity"
             android:exported="false" />
         <activity
-            android:name=".auth.JoinActivity"
+            android:name=".ui.auth.JoinActivity"
             android:exported="false" />
         <activity
-            android:name=".auth.LoginActivity"
+            android:name=".ui.auth.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".auth.IntroActivity"
+            android:name=".ui.auth.IntroActivity"
             android:exported="false" />
         <activity
-            android:name=".SplashActivity"
+            android:name=".ui.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -72,7 +72,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:exported="false" />
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"

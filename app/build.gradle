@@ -76,4 +76,5 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     implementation "com.kakao.sdk:v2-user:2.15.0"
     implementation("androidx.viewpager2:viewpager2:1.0.0")
+    implementation 'com.google.android.recaptcha:recaptcha:18.4.0'
 }
