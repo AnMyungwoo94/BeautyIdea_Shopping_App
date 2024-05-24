@@ -3,6 +3,7 @@ package com.myungwoo.shoppingmall_app.ui.auth
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -26,22 +27,22 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.myungwoo.shoppingmall_app.R
-import com.myungwoo.shoppingmall_app.databinding.ActivityJoinBinding
 import com.myungwoo.shoppingmall_app.ui.MainActivity
 
 class JoinActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
-    private lateinit var binding: ActivityJoinBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        auth = Firebase.auth
-        binding = ActivityJoinBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        binding.composeView.setContent {
+        setContent {
             MaterialTheme {
-                JoinActivityCompose(auth)
+                auth = Firebase.auth
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colors.background
+                ) {
+                    JoinActivityCompose(auth)
+                }
             }
         }
     }
