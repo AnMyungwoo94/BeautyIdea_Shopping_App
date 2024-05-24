@@ -2,14 +2,12 @@ package com.myungwoo.shoppingmall_app.ui.setting
 
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.myungwoo.shoppingmall_app.R
-import com.myungwoo.shoppingmall_app.ui.auth.IntroActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
@@ -18,11 +16,13 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import com.kakao.sdk.user.UserApiClient
-import com.myungwoo.shoppingmall_app.ui.MainActivity
+import com.myungwoo.shoppingmall_app.R
 import com.myungwoo.shoppingmall_app.data.DeliveryInfo
 import com.myungwoo.shoppingmall_app.data.ProductInfo
-import com.myungwoo.shoppingmall_app.ui.auth.KakaoUserInfo
 import com.myungwoo.shoppingmall_app.databinding.ActivitySettingBinding
+import com.myungwoo.shoppingmall_app.ui.MainActivity
+import com.myungwoo.shoppingmall_app.ui.auth.IntroActivity
+import com.myungwoo.shoppingmall_app.ui.auth.KakaoUserInfo
 
 class SettingActivity : AppCompatActivity() {
 

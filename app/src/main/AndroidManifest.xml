@@ -21,9 +21,6 @@
             android:name=".ui.product.ProductSuccessActivity"
             android:exported="false" />
         <activity
-            android:name=".mypick.MyPickActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.product.ProductPayActivity"
             android:exported="false" />
         <activity
@@ -61,9 +58,6 @@
             android:exported="false" />
         <activity
             android:name=".ui.auth.IntroActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -72,22 +66,27 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".ui.SplashActivity"
+            android:exported="false">
+
+        </activity>
+        <activity
             android:name=".ui.MainActivity"
             android:exported="false" />
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.VIEW" />-->
 
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
+            <!--                <category android:name="android.intent.category.DEFAULT" />-->
+            <!--                <category android:name="android.intent.category.BROWSABLE" />-->
 
-                <!-- Redirect URI: "kakao${NATIVE_APP_KEY}://oauth" -->
-                <data
-                    android:host="oauth"
-                    android:scheme="@string/kakao_auth_host" />
-            </intent-filter>
+            <!--                &lt;!&ndash; Redirect URI: "kakao${NATIVE_APP_KEY}://oauth" &ndash;&gt;-->
+            <!--                <data-->
+            <!--                    android:host="oauth"-->
+            <!--                    android:scheme="@string/kakao_auth_host" />-->
+            <!--            </intent-filter>-->
         </activity>
     </application>
 

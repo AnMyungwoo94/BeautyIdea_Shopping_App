@@ -2,20 +2,20 @@ package com.myungwoo.shoppingmall_app.ui.category
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.myungwoo.shoppingmall_app.utils.ShopCategory
-import com.myungwoo.shoppingmall_app.databinding.FragmentShopCategoryBinding
-import com.myungwoo.shoppingmall_app.data.ProductModel
 import com.myungwoo.shoppingmall_app.common.ProductRvAdapter
+import com.myungwoo.shoppingmall_app.data.ProductModel
+import com.myungwoo.shoppingmall_app.databinding.FragmentShopCategoryBinding
+import com.myungwoo.shoppingmall_app.utils.ShopCategory
 
 class ShopCategoryFragment : Fragment() {
 

@@ -1,9 +1,9 @@
 package com.myungwoo.shoppingmall_app.utils
 
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.ktx.Firebase
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Calendar
+import java.util.Locale
 
 class FBAuth {
     companion object {

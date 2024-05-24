@@ -3,17 +3,17 @@ package com.myungwoo.shoppingmall_app.ui.board
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 import com.myungwoo.shoppingmall_app.R
+import com.myungwoo.shoppingmall_app.data.BoardModel
 import com.myungwoo.shoppingmall_app.databinding.ActivityBoardWriteBinding
 import com.myungwoo.shoppingmall_app.utils.FBAuth
 import com.myungwoo.shoppingmall_app.utils.FBRef
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.ktx.storage
-import com.myungwoo.shoppingmall_app.data.BoardModel
 import java.io.ByteArrayOutputStream
 
 class BoardWriteActivity : AppCompatActivity() {

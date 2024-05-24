@@ -18,7 +18,6 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.storage
-import com.myungwoo.shoppingmall_app.BuildConfig
 import com.myungwoo.shoppingmall_app.R
 import com.myungwoo.shoppingmall_app.data.DeliveryInfo
 import com.myungwoo.shoppingmall_app.data.ProductInfo
@@ -28,13 +27,7 @@ import com.myungwoo.shoppingmall_app.ui.cart.ProductCartRvAdapter
 import com.myungwoo.shoppingmall_app.utils.FBAuth
 import java.io.Serializable
 import java.text.NumberFormat
-import kr.co.bootpay.android.Bootpay
-import kr.co.bootpay.android.events.BootpayEventListener
-import kr.co.bootpay.android.models.BootExtra
-import kr.co.bootpay.android.models.BootItem
-import kr.co.bootpay.android.models.BootUser
-import kr.co.bootpay.android.models.Payload
-import java.util.*
+import java.util.Locale
 
 class ProductPayActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProductPayBinding
@@ -226,69 +219,69 @@ class ProductPayActivity : AppCompatActivity() {
         }
     }
 
-    private fun inicisPayment() {
-        val appId = BuildConfig.inicis
-        val user = BootUser().setPhone("010-1234-5678")
-        val extra = BootExtra()
-            .setCardQuota("0,2,3")
-
-        val price = 1000.0
-        val pg = "나이스페이"
-        val method = "카드"
-
-        val items: MutableList<BootItem> = ArrayList()
-        val item1 = BootItem().setName("마우스").setId("ITEM_CODE_MOUSE").setQty(1).setPrice(500.0)
-        val item2 = BootItem().setName("키보드").setId("ITEM_KEYBOARD_MOUSE").setQty(1).setPrice(500.0)
-        items.add(item1)
-        items.add(item2)
-
-        val payload = Payload()
-        payload.setApplicationId(appId)
-            .setOrderName("부트페이 결제 테스트")
-            .setPg(pg)
-            .setOrderId("1234")
-            .setMethod(method)
-            .setPrice(price)
-            .setUser(user)
-            .setExtra(extra).items = items
-
-        val map: MutableMap<String, Any> = HashMap()
-        map["1"] = "abcdef"
-        map["2"] = "abcdef55"
-        map["3"] = 1234
-        payload.metadata = map
-
-        Bootpay.init(supportFragmentManager, applicationContext)
-            .setPayload(payload)
-            .setEventListener(object : BootpayEventListener {
-                override fun onCancel(data: String) {
-                    Log.d("bootpay", "cancel: $data")
-                }
-
-                override fun onError(data: String) {
-                    Log.d("bootpay", "error: $data")
-                }
-
-                override fun onClose() {
-                    Log.d("bootpay", "close")
-                    Bootpay.removePaymentWindow()
-                }
-
-
-                override fun onIssued(data: String) {
-                    Log.d("bootpay", "issued: $data")
-                }
-
-                override fun onConfirm(data: String): Boolean {
-                    Log.d("bootpay", "confirm: $data")
-                    return true
-                }
-
-                override fun onDone(data: String) {
-                    Log.d("done", data)
-                }
-            }).requestPayment()
-    }
+//    private fun inicisPayment() {
+//        val appId = BuildConfig.inicis
+//        val user = BootUser().setPhone("010-1234-5678")
+//        val extra = BootExtra()
+//            .setCardQuota("0,2,3")
+//
+//        val price = 1000.0
+//        val pg = "나이스페이"
+//        val method = "카드"
+//
+//        val items: MutableList<BootItem> = ArrayList()
+//        val item1 = BootItem().setName("마우스").setId("ITEM_CODE_MOUSE").setQty(1).setPrice(500.0)
+//        val item2 = BootItem().setName("키보드").setId("ITEM_KEYBOARD_MOUSE").setQty(1).setPrice(500.0)
+//        items.add(item1)
+//        items.add(item2)
+//
+//        val payload = Payload()
+//        payload.setApplicationId(appId)
+//            .setOrderName("부트페이 결제 테스트")
+//            .setPg(pg)
+//            .setOrderId("1234")
+//            .setMethod(method)
+//            .setPrice(price)
+//            .setUser(user)
+//            .setExtra(extra).items = items
+//
+//        val map: MutableMap<String, Any> = HashMap()
+//        map["1"] = "abcdef"
+//        map["2"] = "abcdef55"
+//        map["3"] = 1234
+//        payload.metadata = map
+//
+//        Bootpay.init(supportFragmentManager, applicationContext)
+//            .setPayload(payload)
+//            .setEventListener(object : BootpayEventListener {
+//                override fun onCancel(data: String) {
+//                    Log.d("bootpay", "cancel: $data")
+//                }
+//
+//                override fun onError(data: String) {
+//                    Log.d("bootpay", "error: $data")
+//                }
+//
+//                override fun onClose() {
+//                    Log.d("bootpay", "close")
+//                    Bootpay.removePaymentWindow()
+//                }
+//
+//
+//                override fun onIssued(data: String) {
+//                    Log.d("bootpay", "issued: $data")
+//                }
+//
+//                override fun onConfirm(data: String): Boolean {
+//                    Log.d("bootpay", "confirm: $data")
+//                    return true
+//                }
+//
+//                override fun onDone(data: String) {
+//                    Log.d("done", data)
+//                }
+//            }).requestPayment()
+//    }
 
     private fun loadProductsFromFirebase() {
         val userUID = FirebaseAuth.getInstance().currentUser?.uid

@@ -8,8 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import com.myungwoo.shoppingmall_app.R
-import com.myungwoo.shoppingmall_app.utils.ShopCategory
 import com.myungwoo.shoppingmall_app.databinding.FragmentCategoryBinding
+import com.myungwoo.shoppingmall_app.utils.ShopCategory
 
 class CategoryFragment : Fragment() {
 

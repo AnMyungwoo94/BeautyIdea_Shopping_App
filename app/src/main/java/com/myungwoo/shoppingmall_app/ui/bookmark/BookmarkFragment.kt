@@ -2,22 +2,22 @@ package com.myungwoo.shoppingmall_app.ui.bookmark
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.myungwoo.shoppingmall_app.R
-import com.myungwoo.shoppingmall_app.databinding.FragmentBookmarkBinding
-import com.myungwoo.shoppingmall_app.ui.tipList.BookmarkRvAdapter
-import com.myungwoo.shoppingmall_app.data.ContentModel
-import com.myungwoo.shoppingmall_app.utils.FBAuth
-import com.myungwoo.shoppingmall_app.utils.FBRef
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
+import com.myungwoo.shoppingmall_app.R
+import com.myungwoo.shoppingmall_app.data.ContentModel
+import com.myungwoo.shoppingmall_app.databinding.FragmentBookmarkBinding
+import com.myungwoo.shoppingmall_app.ui.tipList.BookmarkRvAdapter
+import com.myungwoo.shoppingmall_app.utils.FBAuth
+import com.myungwoo.shoppingmall_app.utils.FBRef
 
 class BookmarkFragment : Fragment() {
 

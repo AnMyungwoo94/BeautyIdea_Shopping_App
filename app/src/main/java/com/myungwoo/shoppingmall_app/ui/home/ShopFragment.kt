@@ -4,28 +4,28 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
-import com.myungwoo.shoppingmall_app.R
-import com.myungwoo.shoppingmall_app.databinding.FragmentShopBinding
-import com.myungwoo.shoppingmall_app.ui.product.ProductInputActivity
-import com.myungwoo.shoppingmall_app.data.ProductModel
-import com.myungwoo.shoppingmall_app.common.ProductRvAdapter
-import com.myungwoo.shoppingmall_app.utils.FBRef
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
+import com.myungwoo.shoppingmall_app.R
+import com.myungwoo.shoppingmall_app.common.ProductRvAdapter
 import com.myungwoo.shoppingmall_app.data.CouponModel
+import com.myungwoo.shoppingmall_app.data.ProductModel
+import com.myungwoo.shoppingmall_app.databinding.FragmentShopBinding
+import com.myungwoo.shoppingmall_app.ui.product.ProductInputActivity
+import com.myungwoo.shoppingmall_app.utils.FBRef
 
 class ShopFragment : Fragment() {
 

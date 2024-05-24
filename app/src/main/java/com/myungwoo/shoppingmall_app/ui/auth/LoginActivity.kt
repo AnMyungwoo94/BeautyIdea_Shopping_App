@@ -1,15 +1,15 @@
 package com.myungwoo.shoppingmall_app.ui.auth
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import com.myungwoo.shoppingmall_app.R
-import com.myungwoo.shoppingmall_app.databinding.ActivityLoginBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.myungwoo.shoppingmall_app.R
+import com.myungwoo.shoppingmall_app.databinding.ActivityLoginBinding
 import com.myungwoo.shoppingmall_app.ui.MainActivity
 
 class LoginActivity : AppCompatActivity() {

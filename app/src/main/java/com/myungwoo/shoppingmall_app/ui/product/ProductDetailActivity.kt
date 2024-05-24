@@ -7,16 +7,16 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
-import com.myungwoo.shoppingmall_app.R
-import com.myungwoo.shoppingmall_app.databinding.ActivityProductDetailBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import com.myungwoo.shoppingmall_app.R
 import com.myungwoo.shoppingmall_app.data.ProductModel
+import com.myungwoo.shoppingmall_app.databinding.ActivityProductDetailBinding
 import com.myungwoo.shoppingmall_app.ui.cart.ProductCartActivity
 import java.text.NumberFormat
-import java.util.*
+import java.util.Locale
 
 class ProductDetailActivity : AppCompatActivity() {
 

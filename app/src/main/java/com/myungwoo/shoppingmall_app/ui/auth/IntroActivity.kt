@@ -21,9 +21,9 @@ import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.user.UserApiClient
-import com.myungwoo.shoppingmall_app.ui.MainActivity
 import com.myungwoo.shoppingmall_app.R
 import com.myungwoo.shoppingmall_app.databinding.ActivityIntroBinding
+import com.myungwoo.shoppingmall_app.ui.MainActivity
 
 class IntroActivity : AppCompatActivity() {
     private lateinit var binding: ActivityIntroBinding

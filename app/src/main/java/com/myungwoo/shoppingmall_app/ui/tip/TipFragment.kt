@@ -2,14 +2,14 @@ package com.myungwoo.shoppingmall_app.ui.tip
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.myungwoo.shoppingmall_app.R
-import com.myungwoo.shoppingmall_app.ui.tipList.ContentListActivity
 import com.myungwoo.shoppingmall_app.databinding.FragmentTipBinding
+import com.myungwoo.shoppingmall_app.ui.tipList.ContentListActivity
 
 class TipFragment : Fragment() {
     private lateinit var binding: FragmentTipBinding

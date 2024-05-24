@@ -2,20 +2,20 @@ package com.myungwoo.shoppingmall_app.ui.cart
 
 import android.content.ContentValues.TAG
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.myungwoo.shoppingmall_app.databinding.ActivityProductCartBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.myungwoo.shoppingmall_app.data.ProductModel
+import com.myungwoo.shoppingmall_app.databinding.ActivityProductCartBinding
 import com.myungwoo.shoppingmall_app.ui.product.ProductPayActivity
 import java.text.NumberFormat
-import java.util.*
+import java.util.Locale
 
 class ProductCartActivity : AppCompatActivity() {
 

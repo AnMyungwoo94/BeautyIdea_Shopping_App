@@ -1,18 +1,18 @@
 package com.myungwoo.shoppingmall_app.ui.tipList
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.myungwoo.shoppingmall_app.R
-import com.myungwoo.shoppingmall_app.utils.FBAuth
-import com.myungwoo.shoppingmall_app.utils.FBRef
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
+import com.myungwoo.shoppingmall_app.R
 import com.myungwoo.shoppingmall_app.data.ContentModel
+import com.myungwoo.shoppingmall_app.utils.FBAuth
+import com.myungwoo.shoppingmall_app.utils.FBRef
 
 class ContentListActivity : AppCompatActivity() {
     private lateinit var myRef: DatabaseReference

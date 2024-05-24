@@ -13,7 +13,7 @@ import com.myungwoo.shoppingmall_app.data.ProductInfo
 import com.myungwoo.shoppingmall_app.databinding.ItemDeliveryBinding
 import com.myungwoo.shoppingmall_app.databinding.ItemDeliveryProductBinding
 import java.text.NumberFormat
-import java.util.*
+import java.util.Locale
 
 class OrderAdapter(
     private val deliveryInfos: List<DeliveryInfo>,

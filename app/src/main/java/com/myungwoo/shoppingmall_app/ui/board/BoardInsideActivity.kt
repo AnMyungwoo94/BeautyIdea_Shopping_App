@@ -1,27 +1,27 @@
 package com.myungwoo.shoppingmall_app.ui.board
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
-import com.myungwoo.shoppingmall_app.R
-import com.myungwoo.shoppingmall_app.databinding.ActivityBoardInsideBinding
-import com.myungwoo.shoppingmall_app.data.CommentModel
-import com.myungwoo.shoppingmall_app.utils.FBAuth
-import com.myungwoo.shoppingmall_app.utils.FBRef
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import com.myungwoo.shoppingmall_app.R
 import com.myungwoo.shoppingmall_app.data.BoardModel
+import com.myungwoo.shoppingmall_app.data.CommentModel
+import com.myungwoo.shoppingmall_app.databinding.ActivityBoardInsideBinding
+import com.myungwoo.shoppingmall_app.utils.FBAuth
+import com.myungwoo.shoppingmall_app.utils.FBRef
 
 class BoardInsideActivity : AppCompatActivity() {
     private lateinit var binding: ActivityBoardInsideBinding

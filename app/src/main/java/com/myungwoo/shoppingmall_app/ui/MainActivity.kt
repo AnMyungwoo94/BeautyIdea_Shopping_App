@@ -1,14 +1,14 @@
 package com.myungwoo.shoppingmall_app.ui
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.myungwoo.shoppingmall_app.databinding.ActivityMainBinding
-import com.myungwoo.shoppingmall_app.ui.setting.SettingActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.myungwoo.shoppingmall_app.databinding.ActivityMainBinding
 import com.myungwoo.shoppingmall_app.ui.cart.ProductCartActivity
+import com.myungwoo.shoppingmall_app.ui.setting.SettingActivity
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding

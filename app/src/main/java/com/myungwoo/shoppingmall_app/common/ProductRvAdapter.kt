@@ -13,7 +13,7 @@ import com.myungwoo.shoppingmall_app.databinding.ProductRvItemBinding
 import com.myungwoo.shoppingmall_app.ui.product.ProductDetailActivity
 import java.io.Serializable
 import java.text.NumberFormat
-import java.util.*
+import java.util.Locale
 
 class ProductRvAdapter(
     val context: Context, private val items: MutableList<ProductModel>

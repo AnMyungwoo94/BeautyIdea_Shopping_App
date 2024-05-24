@@ -6,14 +6,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.myungwoo.shoppingmall_app.databinding.ProductcartItemBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import com.myungwoo.shoppingmall_app.data.ProductModel
+import com.myungwoo.shoppingmall_app.databinding.ProductcartItemBinding
 import java.text.NumberFormat
-import java.util.*
+import java.util.Locale
 
 class ProductCartRvAdapter(
     val context: Context,

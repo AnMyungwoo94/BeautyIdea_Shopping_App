@@ -3,17 +3,17 @@ package com.myungwoo.shoppingmall_app.ui.product
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.widget.Toast
-import com.myungwoo.shoppingmall_app.databinding.ActivityProductInputBinding
-import com.myungwoo.shoppingmall_app.utils.FBAuth
-import com.myungwoo.shoppingmall_app.utils.FBRef
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import com.myungwoo.shoppingmall_app.R
 import com.myungwoo.shoppingmall_app.data.ProductModel
+import com.myungwoo.shoppingmall_app.databinding.ActivityProductInputBinding
+import com.myungwoo.shoppingmall_app.utils.FBAuth
+import com.myungwoo.shoppingmall_app.utils.FBRef
 import java.io.ByteArrayOutputStream
 
 class ProductInputActivity : AppCompatActivity() {

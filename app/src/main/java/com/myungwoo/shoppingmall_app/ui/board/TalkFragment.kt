@@ -3,18 +3,18 @@ package com.myungwoo.shoppingmall_app.ui.board
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import com.myungwoo.shoppingmall_app.R
-import com.myungwoo.shoppingmall_app.databinding.FragmentTalkBinding
-import com.myungwoo.shoppingmall_app.data.BoardModel
-import com.myungwoo.shoppingmall_app.utils.FBRef
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
+import com.myungwoo.shoppingmall_app.R
+import com.myungwoo.shoppingmall_app.data.BoardModel
+import com.myungwoo.shoppingmall_app.databinding.FragmentTalkBinding
+import com.myungwoo.shoppingmall_app.utils.FBRef
 
 class TalkFragment : Fragment() {
 
