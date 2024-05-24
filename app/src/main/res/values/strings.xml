@@ -19,7 +19,8 @@
     <string name="join_verify_pw_confirm">패스워드 확인란을 입력해주세요</string>
     <string name="join_verify_pw_fail">비밀번호가 일치하지 않습니다</string>
     <string name="join_verify_pw_pattern">비밀번호를 6라지 이상 입력해주세요</string>
-    <string name="join_auth_fail">실패</string>
+    <string name="join_auth_btn">회원가입</string>
+    <string name="join_auth_fail">동일한 아이디가 존재합니다</string>
     <string name="login_empty">이메일 혹은 비밀번호를 입력해주세요</string>
     <string name="login_fail">이메일 혹은 비밀번호를 다시 확인해주세요</string>
     <string name="board_edit_set_value">수정이 완료되었습니다</string>
