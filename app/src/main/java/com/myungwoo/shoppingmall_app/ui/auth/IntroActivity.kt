@@ -1,170 +1,252 @@
 package com.myungwoo.shoppingmall_app.ui.auth
 
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.compose.setContent
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.kakao.sdk.auth.model.OAuthToken
-import com.kakao.sdk.common.model.ClientError
-import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.user.UserApiClient
 import com.myungwoo.shoppingmall_app.R
-import com.myungwoo.shoppingmall_app.databinding.ActivityIntroBinding
 import com.myungwoo.shoppingmall_app.ui.MainActivity
 
 class IntroActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityIntroBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
-    private lateinit var firebaseAuth: FirebaseAuth
-    private val RC_SIGN_IN = 99
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         auth = Firebase.auth
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_intro)
-        binding.loginBtn.setOnClickListener {
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
-        }
-
-        binding.joinBtn.setOnClickListener {
-            val intent = Intent(this, JoinActivity::class.java)
-            startActivity(intent)
-        }
-
-        binding.googleBtn.setOnClickListener { signIn() }
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
             .build()
         googleSignInClient = GoogleSignIn.getClient(this, gso)
-        firebaseAuth = FirebaseAuth.getInstance()
 
-        binding.kakaoBtn.setOnClickListener {
-            val context = application.applicationContext
-
-            val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
-                if (error != null) {
-                    Log.e(TAG, "카카오 로그인 실패", error)
-                } else if (token != null) {
-                    UserApiClient.instance.me { user, meError ->
-                        if (meError != null) {
-                            Log.e(TAG, "카카오 사용자 정보 가져오기 실패", meError)
-                        } else if (user != null) {
-                            val email = user.kakaoAccount?.email
-                            val nickname = user.kakaoAccount?.profile?.nickname
-
-                            if (nickname != null) {
-                                KakaoUserInfo.setKakaoNickName(nickname)
-
-                                if (email != null) {
-                                    KakaoUserInfo.setKakaoEmail(email)
-                                }
-
-                                Toast.makeText(this, R.string.intro_kakao_ok, Toast.LENGTH_SHORT).show()
-
-                                FirebaseAuth.getInstance().signInAnonymously()
-                                    .addOnCompleteListener(this) { task ->
-                                        if (task.isSuccessful) {
-                                            Log.i(TAG, "Firebase 인증 성공: ${FirebaseAuth.getInstance().currentUser?.uid}")
-                                            startActivity(Intent(this, MainActivity::class.java))
-                                            finish()
-                                        } else {
-                                            Log.e(TAG, "Firebase 인증 실패", task.exception)
-                                        }
-                                    }
-                            } else {
-                                Log.e(TAG, "닉네임 정보가 없습니다.")
-                            }
-                        }
-                    }
-                }
-            }
-
-            if (UserApiClient.instance.isKakaoTalkLoginAvailable(context)) {
-                UserApiClient.instance.loginWithKakaoTalk(context) { token, error ->
-                    if (error != null) {
-                        Log.e(TAG, "카카오톡으로 로그인 실패", error)
-
-                        if (error is ClientError && error.reason == ClientErrorCause.Cancelled) {
-                            return@loginWithKakaoTalk
-                        }
-
-                        UserApiClient.instance.loginWithKakaoAccount(context, callback = callback)
-                    } else if (token != null) {
-                        Log.i(TAG, "카카오톡으로 로그인 성공 ${token.accessToken}")
-                    }
-                }
-            } else {
-                UserApiClient.instance.loginWithKakaoAccount(context, callback = callback)
+        setContent {
+            MaterialTheme {
+                IntroScreen(
+                    onLoginClick = { navigateToLogin() },
+                    onJoinClick = { navigateToJoin() },
+                    onGoogleSignInClick = { signInWithGoogle() },
+                    onKakaoSignInClick = { signInWithKakao() }
+                )
             }
         }
     }
 
-    public override fun onStart() {
-        super.onStart()
-        val account = GoogleSignIn.getLastSignedInAccount(this)
-        if (account !== null) {
-            toMainActivity(firebaseAuth.currentUser)
+    private fun navigateToLogin() {
+        startActivity(Intent(this, LoginActivity::class.java))
+    }
+
+    private fun navigateToJoin() {
+        startActivity(Intent(this, JoinActivity::class.java))
+    }
+
+    private val googleSignInLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+        try {
+            val account = task.getResult(ApiException::class.java)
+            firebaseAuthWithGoogle(account!!)
+        } catch (e: ApiException) {
+            Log.w("IntroActivity", "Google sign in failed", e)
         }
     }
 
-    public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == RC_SIGN_IN) {
-            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-            try {
-                val account = task.getResult(ApiException::class.java)
-                firebaseAuthWithGoogle(account!!)
-
-            } catch (e: ApiException) {
-                Log.w("LoginActivity", "Google sign in failed", e)
-            }
-        }
+    private fun signInWithGoogle() {
+        val signInIntent = googleSignInClient.signInIntent
+        googleSignInLauncher.launch(signInIntent)
     }
 
     private fun firebaseAuthWithGoogle(acct: GoogleSignInAccount) {
-        Log.d("LoginActivity", "firebaseAuthWithGoogle:" + acct.id!!)
         val credential = GoogleAuthProvider.getCredential(acct.idToken, null)
-        firebaseAuth.signInWithCredential(credential)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    Log.w("LoginActivity", "firebaseAuthWithGoogle 성공", task.exception)
-                    toMainActivity(firebaseAuth?.currentUser)
-                } else {
-                    Log.w("LoginActivity", "firebaseAuthWithGoogle 실패", task.exception)
-                }
+        auth.signInWithCredential(credential).addOnCompleteListener(this) { task ->
+            if (task.isSuccessful) {
+                toMainActivity()
+            } else {
+                Log.w("IntroActivity", "firebaseAuthWithGoogle 실패", task.exception)
             }
-    }
-
-    private fun toMainActivity(user: FirebaseUser?) {
-        if (user != null) {
-            startActivity(Intent(this, MainActivity::class.java))
-            finish()
         }
     }
 
-    private fun signIn() {
-        val signInIntent = googleSignInClient.signInIntent
-        startActivityForResult(signInIntent, RC_SIGN_IN)
+    private fun signInWithKakao() {
+        val context = this.applicationContext
+        val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
+            if (error != null) {
+                Log.e("IntroActivity", "카카오 로그인 실패", error)
+            } else if (token != null) {
+                UserApiClient.instance.me { user, meError ->
+                    if (meError != null) {
+                        Log.e("IntroActivity", "카카오 사용자 정보 가져오기 실패", meError)
+                    } else if (user != null) {
+                        val email = user.kakaoAccount?.email
+                        val nickname = user.kakaoAccount?.profile?.nickname
+                        if (nickname != null) {
+                            // 카카오 사용자 정보를 Firebase에 저장하거나 다음 화면으로 이동
+                            Toast.makeText(this, "카카오 로그인 성공", Toast.LENGTH_SHORT).show()
+                            FirebaseAuth.getInstance().signInAnonymously()
+                                .addOnCompleteListener(this) { task ->
+                                    if (task.isSuccessful) {
+                                        Log.i("IntroActivity", "Firebase 인증 성공")
+                                        toMainActivity()
+                                    } else {
+                                        Log.e("IntroActivity", "Firebase 인증 실패", task.exception)
+                                    }
+                                }
+                        }
+                    }
+                }
+            }
+        }
+
+        UserApiClient.instance.loginWithKakaoAccount(context, callback = callback)
+    }
+
+    private fun toMainActivity() {
+        startActivity(Intent(this, MainActivity::class.java))
+        finish()
     }
 }
 
+@Composable
+fun IntroScreen(
+    onLoginClick: () -> Unit,
+    onJoinClick: () -> Unit,
+    onGoogleSignInClick: () -> Unit,
+    onKakaoSignInClick: () -> Unit
+) {
+    Surface(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.White)
+    ) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center,
+            modifier = Modifier.padding(16.dp)
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.main_icon),
+                contentDescription = null,
+                modifier = Modifier.size(150.dp)
+            )
+            Spacer(modifier = Modifier.padding(32.dp))
+            Button(
+                onClick = onLoginClick,
+                colors = ButtonDefaults.buttonColors(
+                    backgroundColor = Color.Transparent
+                ),
+                elevation = null,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(70.dp)
 
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.login_email),
+                    contentDescription = "Email Login Icon",
+                    modifier = Modifier.fillMaxSize()
+                )
+            }
+            Button(
+                onClick = onKakaoSignInClick,
+                colors = ButtonDefaults.buttonColors(
+                    backgroundColor = Color.Transparent
+                ),
+                elevation = null,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(70.dp)
+
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.login_kakao),
+                    contentDescription = "Kakao Login Icon",
+                    modifier = Modifier.fillMaxSize()
+                )
+            }
+            Button(
+                onClick = onGoogleSignInClick,
+                colors = ButtonDefaults.buttonColors(
+                    backgroundColor = Color.Transparent
+                ),
+                elevation = null,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(70.dp)
+
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.login_google),
+                    contentDescription = "Google Login Icon",
+                    modifier = Modifier.fillMaxSize()
+                )
+            }
+            Button(
+                onClick = onJoinClick,
+                colors = ButtonDefaults.buttonColors(
+                    backgroundColor = Color.Transparent
+                ),
+                elevation = null,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(70.dp)
+
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.login_sign),
+                    contentDescription = "Join Login Icon",
+                    modifier = Modifier.fillMaxSize()
+                )
+            }
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun IntroScreenPreview() {
+    MaterialTheme {
+        IntroScreen(
+            onLoginClick = {},
+            onJoinClick = {},
+            onGoogleSignInClick = {},
+            onKakaoSignInClick = {}
+        )
+    }
+}
