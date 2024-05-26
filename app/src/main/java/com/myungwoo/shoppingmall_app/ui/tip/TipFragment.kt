@@ -8,9 +8,19 @@ import android.view.ViewGroup
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,13 +28,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
 import com.myungwoo.shoppingmall_app.R
 import com.myungwoo.shoppingmall_app.ui.tipList.ContentListActivity
 
@@ -58,11 +66,6 @@ fun TipFragmentContent() {
         ) {
             CategorySection()
         }
-        NavigationSection(
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-
-        )
     }
 }
 
@@ -104,7 +107,7 @@ fun CategorySection() {
             ) {
                 row.forEach { (_, category) ->
                     Text(
-                        text = category.replace("category", "").capitalize(),
+                        text = category.replace("category", ""),
                         modifier = Modifier.weight(1f),
                         textAlign = TextAlign.Center
                     )
@@ -137,46 +140,6 @@ fun CategoryItem(imageRes: Int, category: String) {
             contentDescription = null,
             modifier = Modifier.size(120.dp),
             contentScale = ContentScale.Crop
-        )
-    }
-}
-
-@Composable
-fun NavigationSection(modifier: Modifier = Modifier) {
-    Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .height(50.dp)
-            .background(Color.White),
-        horizontalArrangement = Arrangement.SpaceAround
-    ) {
-        NavigationItem(R.drawable.store_icon, R.id.action_tipFragment_to_categoryFragment)
-        NavigationItem(R.drawable.tip_icon, R.id.action_tipFragment_to_talkFragment)
-        NavigationItem(R.drawable.home_icon, R.id.action_tipFragment_to_bookmarkFragment)
-        NavigationItem(R.drawable.community_icon, R.id.action_tipFragment_to_shopFragment)
-        NavigationItem(R.drawable.bookmark_icon, R.id.action_tipFragment_to_shopFragment)
-    }
-}
-
-@Composable
-fun NavigationItem(iconRes: Int, navAction: Int) {
-    val view = LocalView.current
-    Box(
-        modifier = Modifier
-            .size(50.dp)
-            .fillMaxSize()
-            .clickable {
-                view
-                    .findNavController()
-                    .navigate(navAction)
-            },
-        contentAlignment = Alignment.Center
-    ) {
-        Image(
-            painter = painterResource(id = iconRes),
-            contentDescription = null,
-            modifier = Modifier.size(30.dp),
-            contentScale = ContentScale.FillBounds
         )
     }
 }
