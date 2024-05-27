@@ -78,7 +78,7 @@ fun TipContentItem(
         )
 
         val bookmarkIcon = if (bookmarkIdList.contains(key)) {
-            com.myungwoo.shoppingmall_app.R.drawable.bookmark_color
+            R.drawable.bookmark_color
         } else {
             R.drawable.bookmark_white
         }
