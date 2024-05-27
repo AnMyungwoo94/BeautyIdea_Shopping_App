@@ -68,8 +68,7 @@
     <fragment
         android:id="@+id/tipFragment"
         android:name="com.myungwoo.shoppingmall_app.ui.tip.TipFragment"
-        android:label="fragment_tip"
-        tools:layout="@layout/fragment_tip">
+        android:label="fragment_tip">
         <action
             android:id="@+id/action_tipFragment_to_shopFragment"
             app:destination="@id/shopFragment" />

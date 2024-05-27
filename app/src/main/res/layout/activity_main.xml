@@ -10,21 +10,27 @@
         android:id="@+id/topBarComposeView"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
+        app:layout_constraintBottom_toTopOf="@+id/fragmentContainerView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView"
         android:name="androidx.navigation.fragment.NavHostFragment"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@+id/topBarComposeView"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavComposeView"
         app:defaultNavHost="true"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavComposeView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topBarComposeView"
         app:navGraph="@navigation/main_nav" />
 
     <androidx.compose.ui.platform.ComposeView
         android:id="@+id/bottomNavComposeView"
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        app:layout_constraintTop_toBottomOf="@+id/fragmentContainerView"
         app:layout_constraintBottom_toBottomOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
