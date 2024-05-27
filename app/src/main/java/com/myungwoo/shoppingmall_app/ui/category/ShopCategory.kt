@@ -1,4 +1,4 @@
-package com.myungwoo.shoppingmall_app.utils
+package com.myungwoo.shoppingmall_app.ui.category
 
 import com.myungwoo.shoppingmall_app.R
 
