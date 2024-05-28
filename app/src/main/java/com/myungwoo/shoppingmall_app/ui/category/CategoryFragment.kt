@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,7 +14,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -34,22 +32,18 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.storage.FirebaseStorage
+import com.myungwoo.shoppingmall_app.common.ProductItem
 import com.myungwoo.shoppingmall_app.data.ProductModel
 import com.myungwoo.shoppingmall_app.ui.product.ProductDetailActivity
-import com.skydoves.landscapist.glide.GlideImage
-import kotlinx.coroutines.tasks.await
 
 class CategoryFragment : Fragment() {
     override fun onCreateView(
@@ -150,44 +144,5 @@ fun CategoryContentScreen(category: ShopCategory) {
                 }
             }
         }
-    }
-}
-
-@Composable
-fun ProductItem(item: ProductModel, onClick: (ProductModel) -> Unit) {
-    var imageUrl by remember { mutableStateOf<String?>(null) }
-
-    LaunchedEffect(item.key) {
-        val storageRef = FirebaseStorage.getInstance().reference.child("${item.key}.png")
-        imageUrl = storageRef.downloadUrl.await().toString()
-    }
-    Column(
-        modifier = Modifier
-            .background(Color.White)
-            .clickable { onClick(item) }
-            .padding(8.dp)
-    ) {
-        imageUrl?.let {
-            GlideImage(
-                imageModel = it,
-                contentDescription = null,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(150.dp),
-                contentScale = ContentScale.Crop
-            )
-        }
-        Text(
-            text = item.name,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.fillMaxWidth(),
-            color = Color.Black
-        )
-        Text(
-            text = item.price,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.fillMaxWidth(),
-            color = Color.Black
-        )
     }
 }
