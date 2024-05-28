@@ -41,7 +41,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.myungwoo.shoppingmall_app.common.ProductItem
+import com.myungwoo.shoppingmall_app.common.compose.component.ProductItem
 import com.myungwoo.shoppingmall_app.data.ProductModel
 import com.myungwoo.shoppingmall_app.ui.product.ProductDetailActivity
 
