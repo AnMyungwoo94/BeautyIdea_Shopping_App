@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -20,7 +19,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
@@ -44,8 +42,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
-import coil.compose.rememberAsyncImagePainter
-import coil.request.ImageRequest
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -55,6 +51,7 @@ import com.myungwoo.shoppingmall_app.R
 import com.myungwoo.shoppingmall_app.data.BoardModel
 import com.myungwoo.shoppingmall_app.utils.FBAuth
 import com.myungwoo.shoppingmall_app.utils.FBRef
+import com.skydoves.landscapist.glide.GlideImage
 import kotlinx.coroutines.tasks.await
 
 class TalkFragment : Fragment() {
@@ -65,7 +62,7 @@ class TalkFragment : Fragment() {
         return ComposeView(requireContext()).apply {
             setContent {
                 MaterialTheme {
-                    TalkFragmentContent()
+                    TalkScreen()
                 }
             }
         }
@@ -73,7 +70,7 @@ class TalkFragment : Fragment() {
 }
 
 @Composable
-fun TalkFragmentContent() {
+fun TalkScreen() {
     val context = LocalContext.current
     val boardDataList = remember { mutableStateListOf<BoardModel>() }
     val boardKeyList = remember { mutableStateListOf<String>() }
@@ -93,8 +90,8 @@ fun TalkFragmentContent() {
         ) {
             items(boardDataList) { boardItem ->
                 val position = boardDataList.indexOf(boardItem)
-                
-                BoardItem(boardItem, boardKeyList[position]) {
+
+                BoardData(boardItem, boardKeyList[position]) {
                     val intent = Intent(context, BoardInsideActivity::class.java)
                     intent.putExtra("key", boardKeyList[position])
                     context.startActivity(intent)
@@ -105,7 +102,7 @@ fun TalkFragmentContent() {
 }
 
 @Composable
-fun BoardItem(boardItem: BoardModel, key: String, onClick: () -> Unit) {
+fun BoardData(boardItem: BoardModel, key: String, onClick: () -> Unit) {
     var imageUrl by remember { mutableStateOf<String?>(null) }
 
     LaunchedEffect(key) {
@@ -116,7 +113,11 @@ fun BoardItem(boardItem: BoardModel, key: String, onClick: () -> Unit) {
             null
         }
     }
+    BoardItem(boardItem, imageUrl, onClick)
+}
 
+@Composable
+fun BoardItem(boardItem: BoardModel, imageUrl: String?, onClick: () -> Unit) {
     Spacer(modifier = Modifier.padding(3.dp))
     Card(
         modifier = Modifier
@@ -124,13 +125,8 @@ fun BoardItem(boardItem: BoardModel, key: String, onClick: () -> Unit) {
             .padding(horizontal = 16.dp)
             .height(250.dp)
             .clickable { onClick() },
-        shape = RoundedCornerShape(20.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = Color.White
-        ),
-        elevation = CardDefaults.cardElevation(
-            defaultElevation = 3.dp
-        )
+        colors = CardDefaults.cardColors(containerColor = Color.White),
+        elevation = CardDefaults.cardElevation(defaultElevation = 3.dp)
     ) {
         Column(
             modifier = Modifier.padding(16.dp)
@@ -142,28 +138,13 @@ fun BoardItem(boardItem: BoardModel, key: String, onClick: () -> Unit) {
                         .background(Color(0xFFFFD400))
                 )
             }
-            imageUrl?.let {
-                Image(
-                    painter = rememberAsyncImagePainter(
-                        model = ImageRequest.Builder(LocalContext.current)
-                            .data(it)
-                            .placeholder(R.drawable.home_img2)
-                            .error(R.drawable.home_img2)
-                            .build()
-                    ),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(130.dp),
-                    contentScale = ContentScale.Crop
-                )
-            } ?: Image(
-                painter = painterResource(id = R.drawable.home_img2),
-                contentDescription = null,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(130.dp),
-                contentScale = ContentScale.Crop
+            GlideImage(
+                imageModel = imageUrl ?: R.drawable.home_img,
+                contentDescription = "커뮤니티 이미지",
+                modifier = Modifier.fillMaxWidth().height(130.dp),
+                contentScale = ContentScale.Crop,
+                placeHolder = painterResource(id = R.drawable.home_img),
+                error = painterResource(id = R.drawable.home_img)
             )
             Text(
                 text = boardItem.title,
