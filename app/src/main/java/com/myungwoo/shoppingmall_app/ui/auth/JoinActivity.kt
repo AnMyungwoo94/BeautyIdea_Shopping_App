@@ -3,8 +3,8 @@ package com.myungwoo.shoppingmall_app.ui.auth
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -16,13 +16,12 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.material.TextFieldDefaults
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -47,18 +46,14 @@ import com.myungwoo.shoppingmall_app.ui.MainActivity
 
 private lateinit var auth: FirebaseAuth
 
-class JoinActivity : AppCompatActivity() {
+class JoinActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             MaterialTheme {
                 auth = Firebase.auth
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
-                ) {
-                    JoinActivityCompose()
-                }
+                JoinActivityCompose()
+
             }
         }
     }
@@ -89,7 +84,7 @@ fun JoinActivityCompose() {
         Image(
             modifier = Modifier.size(100.dp),
             painter = painterResource(id = R.drawable.join_icon),
-            contentDescription = "사과"
+            contentDescription = "회원가입 아이콘"
         )
         Spacer(modifier = Modifier.padding(16.dp))
 
@@ -183,7 +178,8 @@ fun JoinActivityCompose() {
                 .fillMaxWidth()
                 .height(50.dp),
             colors = ButtonDefaults.buttonColors(
-                backgroundColor = Color.White
+                containerColor = Color.White,
+                contentColor = Color.Black
             ),
             border = BorderStroke(1.dp, Color.Black)
 

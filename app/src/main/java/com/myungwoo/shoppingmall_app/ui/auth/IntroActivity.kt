@@ -17,10 +17,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -169,7 +169,7 @@ fun IntroScreen(
             Button(
                 onClick = onLoginClick,
                 colors = ButtonDefaults.buttonColors(
-                    backgroundColor = Color.Transparent
+                    containerColor = Color.Transparent
                 ),
                 elevation = null,
                 modifier = Modifier
@@ -186,7 +186,7 @@ fun IntroScreen(
             Button(
                 onClick = onKakaoSignInClick,
                 colors = ButtonDefaults.buttonColors(
-                    backgroundColor = Color.Transparent
+                    containerColor = Color.Transparent
                 ),
                 elevation = null,
                 modifier = Modifier
@@ -203,7 +203,7 @@ fun IntroScreen(
             Button(
                 onClick = onGoogleSignInClick,
                 colors = ButtonDefaults.buttonColors(
-                    backgroundColor = Color.Transparent
+                    containerColor = Color.Transparent
                 ),
                 elevation = null,
                 modifier = Modifier
@@ -220,7 +220,7 @@ fun IntroScreen(
             Button(
                 onClick = onJoinClick,
                 colors = ButtonDefaults.buttonColors(
-                    backgroundColor = Color.Transparent
+                    containerColor = Color.Transparent
                 ),
                 elevation = null,
                 modifier = Modifier

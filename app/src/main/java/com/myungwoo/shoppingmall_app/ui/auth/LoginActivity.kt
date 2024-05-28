@@ -15,12 +15,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Text
 import androidx.compose.material.TextFieldDefaults
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -42,12 +42,9 @@ import com.google.firebase.ktx.Firebase
 import com.myungwoo.shoppingmall_app.R
 import com.myungwoo.shoppingmall_app.ui.MainActivity
 
-private lateinit var auth: FirebaseAuth
 class LoginActivity : ComponentActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        auth = Firebase.auth
 
         setContent {
             MaterialTheme {
@@ -121,6 +118,7 @@ fun LoginScreen() {
                 if (email.isEmpty() && password.isEmpty()) {
                     Toast.makeText(context, R.string.login_empty, Toast.LENGTH_SHORT).show()
                 } else {
+                    val auth: FirebaseAuth = Firebase.auth
                     auth.signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener { task ->
                             if (task.isSuccessful) {
@@ -138,7 +136,10 @@ fun LoginScreen() {
             modifier = Modifier
                 .fillMaxWidth()
                 .height(50.dp),
-            colors = ButtonDefaults.buttonColors(backgroundColor = Color.White)
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color.White,
+                contentColor = Color.Black
+            )
         ) {
             Text("로그인", fontSize = 15.sp)
         }

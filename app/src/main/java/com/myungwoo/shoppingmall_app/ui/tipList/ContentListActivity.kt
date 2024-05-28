@@ -21,7 +21,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -40,9 +39,6 @@ import com.myungwoo.shoppingmall_app.data.ContentModel
 import com.myungwoo.shoppingmall_app.utils.FBAuth
 import com.myungwoo.shoppingmall_app.utils.FBRef
 
-private lateinit var myRef: DatabaseReference
-private val bookmarkIdList = mutableStateListOf<String>()
-
 class ContentListActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,12 +53,12 @@ class ContentListActivity : ComponentActivity() {
 
 @Composable
 fun ContentListScreen() {
+    val context = LocalContext.current as Activity
     var items by remember { mutableStateOf(listOf<ContentModel>()) }
     var itemKeyList by remember { mutableStateOf(listOf<String>()) }
-    val context = LocalContext.current as Activity
+    var bookmarkIdList by remember { mutableStateOf(listOf<String>()) }
 
-    val category = context.intent.getStringExtra("category")
-    myRef = when (category) {
+    val myRef: DatabaseReference = when (context.intent.getStringExtra("category")) {
         "categoryALl" -> FBRef.content.child("categoryALl")
         "categoryLip" -> FBRef.content.child("categoryLip")
         "categoryBlusher" -> FBRef.content.child("categoryBlusher")
@@ -99,7 +95,9 @@ fun ContentListScreen() {
             }
         }
         myRef.addValueEventListener(postListener)
-        getBookmarkData()
+        getBookmarkData { bookmarks ->
+            bookmarkIdList = bookmarks
+        }
     }
 
     Column(
@@ -140,13 +138,14 @@ fun ContentListScreen() {
     }
 }
 
-private fun getBookmarkData() {
+private fun getBookmarkData(bookmarkIdList: (List<String>) -> Unit) {
     val postListener = object : ValueEventListener {
         override fun onDataChange(dataSnapshot: DataSnapshot) {
-            bookmarkIdList.clear()
+            val bookmarks = mutableListOf<String>()
             for (dataModel in dataSnapshot.children) {
-                bookmarkIdList.add(dataModel.key.toString())
+                bookmarks.add(dataModel.key.toString())
             }
+            bookmarkIdList(bookmarks)
         }
 
         override fun onCancelled(databaseError: DatabaseError) {
