@@ -22,7 +22,7 @@ import com.myungwoo.shoppingmall_app.data.ProductInfo
 import com.myungwoo.shoppingmall_app.databinding.ActivitySettingBinding
 import com.myungwoo.shoppingmall_app.ui.MainActivity
 import com.myungwoo.shoppingmall_app.ui.auth.IntroActivity
-import com.myungwoo.shoppingmall_app.ui.auth.KakaoUserInfo
+import com.myungwoo.shoppingmall_app.ui.auth.kakao.KakaoUserInfo
 
 class SettingActivity : AppCompatActivity() {
 

@@ -1,4 +1,4 @@
-package com.myungwoo.shoppingmall_app.ui.auth
+package com.myungwoo.shoppingmall_app.ui.auth.kakao
 
 import android.app.Application
 
