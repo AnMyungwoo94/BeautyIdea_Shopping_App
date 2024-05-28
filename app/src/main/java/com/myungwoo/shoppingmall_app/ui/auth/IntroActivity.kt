@@ -76,32 +76,9 @@ class IntroActivity : AppCompatActivity() {
         startActivity(Intent(this, JoinActivity::class.java))
     }
 
-    private val googleSignInLauncher = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult()
-    ) { result ->
-        val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
-        try {
-            val account = task.getResult(ApiException::class.java)
-            firebaseAuthWithGoogle(account!!)
-        } catch (e: ApiException) {
-            Log.w("IntroActivity", "Google sign in failed", e)
-        }
-    }
-
     private fun signInWithGoogle() {
         val signInIntent = googleSignInClient.signInIntent
         googleSignInLauncher.launch(signInIntent)
-    }
-
-    private fun firebaseAuthWithGoogle(acct: GoogleSignInAccount) {
-        val credential = GoogleAuthProvider.getCredential(acct.idToken, null)
-        auth.signInWithCredential(credential).addOnCompleteListener(this) { task ->
-            if (task.isSuccessful) {
-                toMainActivity()
-            } else {
-                Log.w("IntroActivity", "firebaseAuthWithGoogle 실패", task.exception)
-            }
-        }
     }
 
     private fun signInWithKakao() {
@@ -114,7 +91,7 @@ class IntroActivity : AppCompatActivity() {
                     if (meError != null) {
                         Log.e("IntroActivity", "카카오 사용자 정보 가져오기 실패", meError)
                     } else if (user != null) {
-                        val email = user.kakaoAccount?.email
+                        //val email = user.kakaoAccount?.email
                         val nickname = user.kakaoAccount?.profile?.nickname
                         if (nickname != null) {
                             // 카카오 사용자 정보를 Firebase에 저장하거나 다음 화면으로 이동
@@ -135,6 +112,30 @@ class IntroActivity : AppCompatActivity() {
         }
 
         UserApiClient.instance.loginWithKakaoAccount(context, callback = callback)
+    }
+
+    private val googleSignInLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+        try {
+            val account = task.getResult(ApiException::class.java)
+            firebaseAuthWithGoogle(account!!)
+        } catch (e: ApiException) {
+            Log.w("IntroActivity", "Google sign in failed", e)
+        }
+    }
+
+
+    private fun firebaseAuthWithGoogle(acct: GoogleSignInAccount) {
+        val credential = GoogleAuthProvider.getCredential(acct.idToken, null)
+        auth.signInWithCredential(credential).addOnCompleteListener(this) { task ->
+            if (task.isSuccessful) {
+                toMainActivity()
+            } else {
+                Log.w("IntroActivity", "firebaseAuthWithGoogle 실패", task.exception)
+            }
+        }
     }
 
     private fun toMainActivity() {
@@ -166,75 +167,35 @@ fun IntroScreen(
                 modifier = Modifier.size(150.dp)
             )
             Spacer(modifier = Modifier.padding(32.dp))
-            Button(
-                onClick = onLoginClick,
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Color.Transparent
-                ),
-                elevation = null,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(70.dp)
-
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.login_email),
-                    contentDescription = "Email Login Icon",
-                    modifier = Modifier.fillMaxSize()
-                )
-            }
-            Button(
-                onClick = onKakaoSignInClick,
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Color.Transparent
-                ),
-                elevation = null,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(70.dp)
-
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.login_kakao),
-                    contentDescription = "Kakao Login Icon",
-                    modifier = Modifier.fillMaxSize()
-                )
-            }
-            Button(
-                onClick = onGoogleSignInClick,
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Color.Transparent
-                ),
-                elevation = null,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(70.dp)
-
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.login_google),
-                    contentDescription = "Google Login Icon",
-                    modifier = Modifier.fillMaxSize()
-                )
-            }
-            Button(
-                onClick = onJoinClick,
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Color.Transparent
-                ),
-                elevation = null,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(70.dp)
-
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.login_sign),
-                    contentDescription = "Join Login Icon",
-                    modifier = Modifier.fillMaxSize()
-                )
-            }
+            LoginClickBtn(onLoginClick, LoginBtn.EMAil)
+            LoginClickBtn(onJoinClick, LoginBtn.GOOGLE)
+            LoginClickBtn(onGoogleSignInClick, LoginBtn.KAKAO)
+            LoginClickBtn(onKakaoSignInClick, LoginBtn.JOIN)
         }
+    }
+}
+
+@Composable
+fun LoginClickBtn(
+    onClick: () -> Unit,
+    loginBtnEnum: LoginBtn,
+) {
+    Button(
+        onClick = onClick,
+        colors = ButtonDefaults.buttonColors(
+            containerColor = Color.Transparent
+        ),
+        elevation = null,
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(70.dp)
+
+    ) {
+        Image(
+            painter = painterResource(loginBtnEnum.resId),
+            contentDescription = loginBtnEnum.contentDescription,
+            modifier = Modifier.fillMaxSize()
+        )
     }
 }
 
@@ -248,5 +209,13 @@ fun IntroScreenPreview() {
             onGoogleSignInClick = {},
             onKakaoSignInClick = {}
         )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun LoginClickBtnPreview() {
+    MaterialTheme {
+        LoginClickBtn(onClick = {}, loginBtnEnum = LoginBtn.EMAil)
     }
 }
