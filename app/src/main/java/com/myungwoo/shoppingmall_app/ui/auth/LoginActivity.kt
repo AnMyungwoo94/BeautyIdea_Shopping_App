@@ -15,8 +15,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
@@ -31,7 +29,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -41,11 +38,11 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.myungwoo.shoppingmall_app.R
 import com.myungwoo.shoppingmall_app.ui.MainActivity
+import com.myungwoo.shoppingmall_app.ui.auth.component.AuthOutlinedTextField
 
 class LoginActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContent {
             MaterialTheme {
                 LoginScreen()
@@ -58,7 +55,6 @@ class LoginActivity : ComponentActivity() {
 fun LoginScreen() {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
-    val context = LocalContext.current
 
     Column(
         modifier = Modifier
@@ -87,69 +83,62 @@ fun LoginScreen() {
             textAlign = TextAlign.Center
         )
         Spacer(modifier = Modifier.height(30.dp))
-        OutlinedTextField(
-            colors = TextFieldDefaults.outlinedTextFieldColors(
-                focusedBorderColor = Color.DarkGray,
-                focusedLabelColor = Color.DarkGray,
-                cursorColor = Color.DarkGray
-            ),
-            value = email,
-            onValueChange = { email = it },
-            label = { Text("Email") },
-            modifier = Modifier
-                .fillMaxWidth()
-        )
-        OutlinedTextField(
-            colors = TextFieldDefaults.outlinedTextFieldColors(
-                focusedBorderColor = Color.DarkGray,
-                focusedLabelColor = Color.DarkGray,
-                cursorColor = Color.DarkGray
-            ),
-            value = password,
-            onValueChange = { password = it },
-            label = { Text("password") },
-            modifier = Modifier
-                .fillMaxWidth(),
-            visualTransformation = PasswordVisualTransformation()
-        )
+        AuthOutlinedTextField(value = email, onValueChange = { email = it }, label = "Email")
+        AuthOutlinedTextField(value = password, onValueChange = { password = it }, label = "Password", isPassword = true)
         Spacer(modifier = Modifier.padding(16.dp))
-        Button(
-            onClick = {
-                if (email.isEmpty() && password.isEmpty()) {
-                    Toast.makeText(context, R.string.login_empty, Toast.LENGTH_SHORT).show()
-                } else {
-                    val auth: FirebaseAuth = Firebase.auth
-                    auth.signInWithEmailAndPassword(email, password)
-                        .addOnCompleteListener { task ->
-                            if (task.isSuccessful) {
-                                val intent = Intent(context, MainActivity::class.java)
-                                Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                                context.startActivity(intent)
-                            } else {
-                                Toast.makeText(context, R.string.login_fail, Toast.LENGTH_SHORT)
-                                    .show()
-                            }
-                        }
-                }
-            },
-            border = BorderStroke(1.dp, Color.Black),
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(50.dp),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color.White,
-                contentColor = Color.Black
-            )
-        ) {
-            Text("로그인", fontSize = 15.sp)
-        }
+        LoginBtn(email, password)
     }
 }
+
+@Composable
+fun LoginBtn(email: String, password: String) {
+    val context = LocalContext.current
+
+    Button(
+        onClick = {
+            if (email.isEmpty() && password.isEmpty()) {
+                Toast.makeText(context, R.string.login_empty, Toast.LENGTH_SHORT).show()
+            } else {
+                val auth: FirebaseAuth = Firebase.auth
+                auth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            val intent = Intent(context, MainActivity::class.java)
+                            Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                            context.startActivity(intent)
+                        } else {
+                            Toast.makeText(context, R.string.login_fail, Toast.LENGTH_SHORT)
+                                .show()
+                        }
+                    }
+            }
+        },
+        border = BorderStroke(1.dp, Color.Black),
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(50.dp),
+        colors = ButtonDefaults.buttonColors(
+            containerColor = Color.White,
+            contentColor = Color.Black
+        )
+    ) {
+        Text("로그인", fontSize = 15.sp)
+    }
+}
+
 
 @Preview(showBackground = true)
 @Composable
 fun LoginScreenPreview() {
     MaterialTheme {
         LoginScreen()
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun TestPreview() {
+    MaterialTheme {
+        LoginBtn("", "")
     }
 }

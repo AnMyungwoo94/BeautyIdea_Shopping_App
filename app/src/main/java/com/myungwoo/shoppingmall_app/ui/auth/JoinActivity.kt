@@ -15,9 +15,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
@@ -33,39 +30,31 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.myungwoo.shoppingmall_app.R
 import com.myungwoo.shoppingmall_app.ui.MainActivity
-
-private lateinit var auth: FirebaseAuth
+import com.myungwoo.shoppingmall_app.ui.auth.component.AuthOutlinedTextField
 
 class JoinActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             MaterialTheme {
-                auth = Firebase.auth
-                JoinActivityCompose()
-
+                JoinScreen()
             }
         }
     }
 }
 
 @Composable
-fun JoinActivityCompose() {
+fun JoinScreen() {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var passwordCheck by remember { mutableStateOf("") }
-    var isGoToJoin by remember { mutableStateOf(true) }
-    val context = LocalContext.current
 
     Column(
         modifier = Modifier
@@ -80,112 +69,80 @@ fun JoinActivityCompose() {
             color = Color.Black,
             modifier = Modifier.padding(bottom = 16.dp, top = 16.dp)
         )
-
         Image(
             modifier = Modifier.size(100.dp),
             painter = painterResource(id = R.drawable.join_icon),
             contentDescription = "회원가입 아이콘"
         )
         Spacer(modifier = Modifier.padding(16.dp))
-
-        OutlinedTextField(
-            colors = TextFieldDefaults.outlinedTextFieldColors(
-                focusedBorderColor = Color.DarkGray,
-                focusedLabelColor = Color.DarkGray,
-                cursorColor = Color.DarkGray
-            ),
-            value = email,
-            onValueChange = { email = it },
-            label = { Text("Email") },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 10.dp)
-        )
-        OutlinedTextField(
-            colors = TextFieldDefaults.outlinedTextFieldColors(
-                focusedBorderColor = Color.DarkGray,
-                focusedLabelColor = Color.DarkGray,
-                cursorColor = Color.DarkGray
-            ),
-            value = password,
-            onValueChange = { password = it },
-            label = { Text("Password") },
-            visualTransformation = PasswordVisualTransformation(),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-            modifier = Modifier
-                .fillMaxWidth()
-        )
-        OutlinedTextField(
-            colors = TextFieldDefaults.outlinedTextFieldColors(
-                focusedBorderColor = Color.DarkGray,
-                focusedLabelColor = Color.DarkGray,
-                cursorColor = Color.DarkGray
-            ),
-            value = passwordCheck,
-            onValueChange = { passwordCheck = it },
-            label = { Text("Password Check") },
-            visualTransformation = PasswordVisualTransformation(),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-            modifier = Modifier
-                .fillMaxWidth()
-        )
+        AuthOutlinedTextField(value = email, onValueChange = { email = it }, label = "Email")
+        AuthOutlinedTextField(value = password, onValueChange = { password = it }, label = "Password", isPassword = true)
+        AuthOutlinedTextField(value = passwordCheck, onValueChange = { passwordCheck = it }, label = "Password Check", isPassword = true)
         Spacer(modifier = Modifier.padding(16.dp))
-        Button(
-            onClick = {
-                isGoToJoin = true
+        JoinBtn(email, password, passwordCheck)
+    }
+}
 
-                if (email.isEmpty()) {
-                    Toast.makeText(context, R.string.join_verify_email, Toast.LENGTH_SHORT).show()
-                    isGoToJoin = false
-                }
+@Composable
+fun JoinBtn(email: String, password: String, passwordCheck: String) {
+    var isGoToJoin by remember { mutableStateOf(true) }
+    val context = LocalContext.current
 
-                if (password.isEmpty()) {
-                    Toast.makeText(context, R.string.join_verify_pw, Toast.LENGTH_SHORT).show()
-                    isGoToJoin = false
-                }
+    Button(
+        onClick = {
+            isGoToJoin = true
 
-                if (passwordCheck.isEmpty()) {
-                    Toast.makeText(context, R.string.join_verify_pw_confirm, Toast.LENGTH_SHORT)
-                        .show()
-                    isGoToJoin = false
-                }
+            if (email.isEmpty()) {
+                Toast.makeText(context, R.string.join_verify_email, Toast.LENGTH_SHORT).show()
+                isGoToJoin = false
+            }
 
-                if (password != passwordCheck) {
-                    Toast.makeText(context, R.string.join_verify_pw_fail, Toast.LENGTH_SHORT).show()
-                    isGoToJoin = false
-                }
+            if (password.isEmpty()) {
+                Toast.makeText(context, R.string.join_verify_pw, Toast.LENGTH_SHORT).show()
+                isGoToJoin = false
+            }
 
-                if (password.length < 6) {
-                    Toast.makeText(context, R.string.join_verify_pw_pattern, Toast.LENGTH_SHORT)
-                        .show()
-                    isGoToJoin = false
-                }
+            if (passwordCheck.isEmpty()) {
+                Toast.makeText(context, R.string.join_verify_pw_confirm, Toast.LENGTH_SHORT)
+                    .show()
+                isGoToJoin = false
+            }
 
-                if (isGoToJoin) {
-                    auth.createUserWithEmailAndPassword(email, password)
-                        .addOnCompleteListener { task ->
-                            if (task.isSuccessful) {
-                                val intent = Intent(context, MainActivity::class.java)
-                                context.startActivity(intent)
-                            } else {
-                                Toast.makeText(context, R.string.join_auth_fail, Toast.LENGTH_SHORT)
-                                    .show()
-                            }
+            if (password != passwordCheck) {
+                Toast.makeText(context, R.string.join_verify_pw_fail, Toast.LENGTH_SHORT).show()
+                isGoToJoin = false
+            }
+
+            if (password.length < 6) {
+                Toast.makeText(context, R.string.join_verify_pw_pattern, Toast.LENGTH_SHORT)
+                    .show()
+                isGoToJoin = false
+            }
+
+            if (isGoToJoin) {
+                Firebase.auth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            val intent = Intent(context, MainActivity::class.java)
+                            context.startActivity(intent)
+                        } else {
+                            Toast.makeText(context, R.string.join_auth_fail, Toast.LENGTH_SHORT)
+                                .show()
                         }
-                }
-            },
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(50.dp),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color.White,
-                contentColor = Color.Black
-            ),
-            border = BorderStroke(1.dp, Color.Black)
+                    }
+            }
+        },
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(50.dp),
+        colors = ButtonDefaults.buttonColors(
+            containerColor = Color.White,
+            contentColor = Color.Black
+        ),
+        border = BorderStroke(1.dp, Color.Black)
 
-        ) {
-            Text("작성완료")
-        }
+    ) {
+        Text("작성완료")
     }
 }
 
@@ -193,6 +150,14 @@ fun JoinActivityCompose() {
 @Composable
 fun JoinActivityComposePreview() {
     MaterialTheme {
-        JoinActivityCompose()
+        JoinScreen()
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun JoinBtnPreview() {
+    MaterialTheme {
+        JoinBtn(email = "", password = "", passwordCheck = "")
     }
 }

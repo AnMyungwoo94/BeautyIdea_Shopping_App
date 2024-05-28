@@ -168,9 +168,9 @@ fun IntroScreen(
             )
             Spacer(modifier = Modifier.padding(32.dp))
             LoginClickBtn(onLoginClick, LoginBtn.EMAil)
-            LoginClickBtn(onJoinClick, LoginBtn.GOOGLE)
-            LoginClickBtn(onGoogleSignInClick, LoginBtn.KAKAO)
-            LoginClickBtn(onKakaoSignInClick, LoginBtn.JOIN)
+            LoginClickBtn(onGoogleSignInClick, LoginBtn.GOOGLE)
+            LoginClickBtn(onKakaoSignInClick, LoginBtn.KAKAO)
+            LoginClickBtn(onJoinClick, LoginBtn.JOIN)
         }
     }
 }
