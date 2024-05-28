@@ -54,22 +54,6 @@ class ShopFragment : Fragment() {
             }
         }
 
-        binding.categoryTap.setOnClickListener {
-            it.findNavController().navigate(R.id.action_shopFragment_to_categoryFragment)
-        }
-
-        binding.tipTap.setOnClickListener {
-            it.findNavController().navigate(R.id.action_shopFragment_to_tipFragment)
-        }
-
-        binding.bookmarkTap.setOnClickListener {
-            it.findNavController().navigate(R.id.action_shopFragment_to_bookmarkFragment)
-        }
-
-        binding.talkTap.setOnClickListener {
-            it.findNavController().navigate(R.id.action_shopFragment_to_talkFragment)
-        }
-
         binding.sbSearch.setOnClickListener {
             it.findNavController().navigate(R.id.action_shopFragment_to_searchResultFragment)
         }
