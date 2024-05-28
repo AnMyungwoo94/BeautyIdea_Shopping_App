@@ -1,5 +1,6 @@
 package com.myungwoo.shoppingmall_app.ui
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Image
@@ -37,8 +38,10 @@ import com.myungwoo.shoppingmall_app.R
 import com.myungwoo.shoppingmall_app.databinding.ActivityMainBinding
 import com.myungwoo.shoppingmall_app.ui.board.TalkFragment
 import com.myungwoo.shoppingmall_app.ui.bookmark.BookmarkFragment
+import com.myungwoo.shoppingmall_app.ui.cart.ProductCartActivity
 import com.myungwoo.shoppingmall_app.ui.category.CategoryFragment
 import com.myungwoo.shoppingmall_app.ui.home.ShopFragment
+import com.myungwoo.shoppingmall_app.ui.setting.SettingActivity
 import com.myungwoo.shoppingmall_app.ui.tip.TipFragment
 
 class MainActivity : AppCompatActivity() {
@@ -70,6 +73,7 @@ fun MainScreen(navController: NavHostController) {
 
 @Composable
 fun TopBar() {
+    val context = LocalContext.current
     TopAppBar(
         title = {
             Image(
@@ -80,8 +84,14 @@ fun TopBar() {
             )
         },
         actions = {
-            AppBarAction(R.drawable.cart_icon) { /* Navigate to cart */ }
-            AppBarAction(R.drawable.mypage_icon) { /* Navigate to settings */ }
+            AppBarAction(R.drawable.cart_icon) {
+                val intent = Intent(context, ProductCartActivity::class.java)
+                context.startActivity(intent)
+            }
+            AppBarAction(R.drawable.mypage_icon) {
+                val intent = Intent(context, SettingActivity::class.java)
+                context.startActivity(intent)
+            }
         },
         backgroundColor = Color.White
     )
