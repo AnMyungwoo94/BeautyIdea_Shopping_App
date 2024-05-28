@@ -35,6 +35,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
+import com.myungwoo.shoppingmall_app.common.compose.component.TipBookmarkItem
 import com.myungwoo.shoppingmall_app.data.ContentModel
 import com.myungwoo.shoppingmall_app.utils.FBAuth
 import com.myungwoo.shoppingmall_app.utils.FBRef
@@ -122,7 +123,7 @@ fun ContentListScreen() {
                     horizontalArrangement = Arrangement.spacedBy(16.dp),
                 ) {
                     rowItems.forEach { item ->
-                        TipContentItem(
+                        TipBookmarkItem(
                             item = item,
                             key = itemKeyList[items.indexOf(item)],
                             bookmarkIdList = bookmarkIdList,

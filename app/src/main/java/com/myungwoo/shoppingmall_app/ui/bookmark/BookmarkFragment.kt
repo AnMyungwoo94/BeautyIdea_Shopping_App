@@ -31,13 +31,12 @@ import androidx.fragment.app.Fragment
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
+import com.myungwoo.shoppingmall_app.common.compose.component.TipBookmarkItem
 import com.myungwoo.shoppingmall_app.data.ContentModel
-import com.myungwoo.shoppingmall_app.ui.tipList.TipContentItem
 import com.myungwoo.shoppingmall_app.utils.FBAuth
 import com.myungwoo.shoppingmall_app.utils.FBRef
 
 class BookmarkFragment : Fragment() {
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -51,7 +50,6 @@ class BookmarkFragment : Fragment() {
         }
     }
 }
-
 @Composable
 fun BookmarkScreen() {
     var bookmarkList by remember { mutableStateOf(listOf<String>()) }
@@ -65,7 +63,11 @@ fun BookmarkScreen() {
             }
         }
     }
+    BookmarkItem(items, bookmarkList)
+}
 
+@Composable
+fun BookmarkItem(items: List<Pair<String, ContentModel>>, bookmarkList: List<String>) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -81,7 +83,7 @@ fun BookmarkScreen() {
                     horizontalArrangement = Arrangement.spacedBy(16.dp),
                 ) {
                     rowItems.forEach { (key, item) ->
-                        TipContentItem(
+                        TipBookmarkItem(
                             item = item,
                             key = key,
                             bookmarkIdList = bookmarkList,
@@ -118,15 +120,8 @@ private fun loadAllCategories(
 ) {
     val allItems = mutableListOf<Pair<String, ContentModel>>()
     val categories = listOf(
-        "categoryALl",
-        "categoryLip",
-        "categoryBlusher",
-        "categoryMascara",
-        "categoryNail",
-        "categoryShadow",
-        "categorySkin",
-        "categorySun"
-    )
+        "categoryALl", "categoryLip", "categoryBlusher", "categoryMascara",
+        "categoryNail", "categoryShadow", "categorySkin", "categorySun")
     var loadedCount = 0
 
     val postListener = object : ValueEventListener {
@@ -154,8 +149,14 @@ private fun loadAllCategories(
 
 @Preview(showBackground = true)
 @Composable
-fun BookmarkScreenPreview() {
+fun BookmarkContentPreview() {
+    val sampleItems = listOf(
+        "key1" to ContentModel("Title 1", "Content 1", "Time 1"),
+        "key2" to ContentModel("Title 2", "Content 2", "Time 2")
+    )
+    val sampleBookmarkList = listOf("key1", "key2")
+
     MaterialTheme {
-        BookmarkScreen()
+        BookmarkItem(items = sampleItems, bookmarkList = sampleBookmarkList)
     }
 }
