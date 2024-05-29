@@ -45,10 +45,10 @@
             android:name=".ui.board.BoardWriteActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.tipList.ContentShowActivity"
+            android:name=".ui.tip.ContentShowActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.tipList.ContentListActivity"
+            android:name=".ui.tip.TipListActivity"
             android:exported="false" />
         <activity
             android:name=".ui.auth.JoinActivity"

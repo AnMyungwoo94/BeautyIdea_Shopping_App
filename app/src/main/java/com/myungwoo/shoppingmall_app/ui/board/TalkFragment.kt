@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -31,15 +32,16 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshots.SnapshotStateList
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
@@ -91,7 +93,7 @@ fun TalkScreen() {
             items(boardDataList) { boardItem ->
                 val position = boardDataList.indexOf(boardItem)
 
-                BoardData(boardItem, boardKeyList[position]) {
+                BoardContent(boardItem, boardKeyList[position]) {
                     val intent = Intent(context, BoardInsideActivity::class.java)
                     intent.putExtra("key", boardKeyList[position])
                     context.startActivity(intent)
@@ -102,7 +104,7 @@ fun TalkScreen() {
 }
 
 @Composable
-fun BoardData(boardItem: BoardModel, key: String, onClick: () -> Unit) {
+fun BoardContent(boardItem: BoardModel, key: String, onClick: () -> Unit) {
     var imageUrl by remember { mutableStateOf<String?>(null) }
 
     LaunchedEffect(key) {
@@ -114,57 +116,6 @@ fun BoardData(boardItem: BoardModel, key: String, onClick: () -> Unit) {
         }
     }
     BoardItem(boardItem, imageUrl, onClick)
-}
-
-@Composable
-fun BoardItem(boardItem: BoardModel, imageUrl: String?, onClick: () -> Unit) {
-    Spacer(modifier = Modifier.padding(3.dp))
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp)
-            .height(250.dp)
-            .clickable { onClick() },
-        colors = CardDefaults.cardColors(containerColor = Color.White),
-        elevation = CardDefaults.cardElevation(defaultElevation = 3.dp)
-    ) {
-        Column(
-            modifier = Modifier.padding(16.dp)
-        ) {
-            if (boardItem.uid == FBAuth.getUid()) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(Color(0xFFFFD400))
-                )
-            }
-            GlideImage(
-                imageModel = imageUrl ?: R.drawable.home_img,
-                contentDescription = "커뮤니티 이미지",
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(130.dp),
-                contentScale = ContentScale.Crop,
-                placeHolder = painterResource(id = R.drawable.home_img),
-                error = painterResource(id = R.drawable.home_img)
-            )
-            BoardItemText(text = boardItem.title, fontSize = 17, modifier = Modifier.padding(top = 8.dp))
-            BoardItemText(text = boardItem.content, fontSize = 13, modifier = Modifier.padding(top = 4.dp))
-            BoardItemText(text = boardItem.time, fontSize = 10, modifier = Modifier.padding(top = 4.dp))
-        }
-    }
-}
-
-@Composable
-fun BoardItemText(text: String, fontSize: Int, modifier: Modifier = Modifier) {
-    Text(
-        text = text,
-        fontSize = fontSize.sp,
-        maxLines = 1,
-        overflow = TextOverflow.Ellipsis,
-        fontWeight = if (fontSize == 17) FontWeight.Bold else FontWeight.Normal,
-        modifier = modifier
-    )
 }
 
 fun getFBBoardData(
@@ -192,32 +143,70 @@ fun getFBBoardData(
     FBRef.boardRef.addValueEventListener(postListener)
 }
 
-@Preview(showBackground = true)
 @Composable
-fun TalkScreenPreview() {
-    MaterialTheme {
-        TalkScreen()
+fun BoardItem(boardItem: BoardModel, imageUrl: String?, onClick: () -> Unit) {
+    Spacer(modifier = Modifier.padding(3.dp))
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp)
+            .height(250.dp)
+            .clickable { onClick() },
+        colors = CardDefaults.cardColors(containerColor = Color.White),
+        elevation = CardDefaults.cardElevation(defaultElevation = 3.dp)
+    ) {
+        Box(
+            modifier = Modifier.fillMaxSize()
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(16.dp)
+            ) {
+                GlideImage(
+                    imageModel = imageUrl ?: R.drawable.home_img,
+                    contentDescription = stringResource(id = R.string.talk_board_image_desc),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(130.dp),
+                    contentScale = ContentScale.Crop,
+                    placeHolder = painterResource(id = R.drawable.home_img),
+                )
+                BoardItemTextWithIcon(boardItem)
+            }
+        }
     }
 }
 
-@Preview(showBackground = true)
 @Composable
-fun BoardItemPreview() {
-    val sampleBoardModel = BoardModel(
-        uid = "sampleUid",
-        title = "Sample Title",
-        content = "Sample content of the board item.",
-        time = "12:00 PM"
+fun BoardItemTextWithIcon(boardItem: BoardModel) {
+    Column(modifier = Modifier.fillMaxSize()) {
+        BoardItemText(text = boardItem.title, fontSize = 17, modifier = Modifier.padding(top = 8.dp))
+        BoardItemText(text = boardItem.content, fontSize = 13, modifier = Modifier.padding(top = 4.dp))
+        BoardItemText(text = boardItem.time, fontSize = 10, modifier = Modifier.padding(top = 4.dp))
+
+        Box(modifier = Modifier.fillMaxSize()) {
+            if (boardItem.uid == FBAuth.getUid()) {
+                Image(
+                    painter = painterResource(id = R.drawable.ic_check_circle),
+                    contentDescription = stringResource(id = R.string.talk_user_icon_desc),
+                    modifier = Modifier
+                        .align(Alignment.BottomEnd)
+                        .padding(8.dp)
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun BoardItemText(text: String, fontSize: Int, modifier: Modifier = Modifier) {
+    Text(
+        text = text,
+        fontSize = fontSize.sp,
+        maxLines = 1,
+        overflow = TextOverflow.Ellipsis,
+        fontWeight = if (fontSize == 17) FontWeight.Bold else FontWeight.Normal,
+        modifier = modifier
     )
-    MaterialTheme {
-        BoardItem(boardItem = sampleBoardModel, imageUrl = null, onClick = {})
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun BoardItemTextPreview() {
-    MaterialTheme {
-        BoardItemText(text = "Sample Text", fontSize = 17)
-    }
 }

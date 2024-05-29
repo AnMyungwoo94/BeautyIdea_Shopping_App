@@ -38,6 +38,10 @@
     <string name="login_empty_password">비밀번호를 입력하세요</string>
     <string name="login_email">Email</string>
     <string name="login_password">Password</string>
+
+    <string name="talk_board_image_desc">커뮤니티 이미지</string>
+    <string name="talk_user_icon_desc">사용자 아이콘</string>
+
     <string name="board_edit_set_value">수정이 완료되었습니다</string>
     <string name="board_inside_comment_success">댓글 작성완료</string>
     <string name="board_inside_dialog_tilte">게시글 수정/삭제</string>
