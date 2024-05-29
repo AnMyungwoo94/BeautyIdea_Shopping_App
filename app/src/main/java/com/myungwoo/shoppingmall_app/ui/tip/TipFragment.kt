@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -29,12 +30,12 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
-import com.myungwoo.shoppingmall_app.R
-import com.myungwoo.shoppingmall_app.ui.tipList.ContentListActivity
+import com.myungwoo.shoppingmall_app.ui.category.ShopCategory
 
 class TipFragment : Fragment() {
     override fun onCreateView(
@@ -44,7 +45,7 @@ class TipFragment : Fragment() {
         return ComposeView(requireContext()).apply {
             setContent {
                 MaterialTheme {
-                    TipFragmentContent()
+                    TipFragmentScreen()
                 }
             }
         }
@@ -52,7 +53,7 @@ class TipFragment : Fragment() {
 }
 
 @Composable
-fun TipFragmentContent() {
+fun TipFragmentScreen() {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -64,23 +65,14 @@ fun TipFragmentContent() {
                 .align(Alignment.TopCenter)
                 .padding(horizontal = 16.dp)
         ) {
-            CategorySection()
+            TipFragmentContent()
         }
     }
 }
 
 @Composable
-fun CategorySection() {
-    val categories = listOf(
-        Pair(R.drawable.category1_all, "categoryALl"),
-        Pair(R.drawable.category2_lip, "categoryLip"),
-        Pair(R.drawable.category3_blusher, "categoryBlusher"),
-        Pair(R.drawable.category4_mascara, "categoryMascara"),
-        Pair(R.drawable.category5_nail, "categoryNail"),
-        Pair(R.drawable.category6_shadow, "categoryShadow"),
-        Pair(R.drawable.category7_skin, "categorySkin"),
-        Pair(R.drawable.category8_sun, "categorySun")
-    )
+fun TipFragmentContent() {
+    val categories = ShopCategory.entries
 
     categories.chunked(3).forEachIndexed { index, row ->
         Column {
@@ -90,8 +82,8 @@ fun CategorySection() {
                     .height(120.dp),
                 horizontalArrangement = if (index == categories.chunked(3).lastIndex) Arrangement.Start else Arrangement.SpaceBetween
             ) {
-                row.forEach { (imageRes, category) ->
-                    CategoryItem(imageRes, category)
+                row.forEach { category ->
+                    CategoryItem(category.imageRes, category.firebaseCategoryName)
                 }
                 if (row.size < 3) {
                     repeat(3 - row.size) {
@@ -105,9 +97,9 @@ fun CategorySection() {
                     .wrapContentHeight(),
                 horizontalArrangement = if (index == categories.chunked(3).lastIndex) Arrangement.Start else Arrangement.SpaceBetween
             ) {
-                row.forEach { (_, category) ->
+                row.forEach { category ->
                     Text(
-                        text = category.replace("category", ""),
+                        text = stringResource(id = category.resId),
                         modifier = Modifier.weight(1f),
                         textAlign = TextAlign.Center
                     )
@@ -123,14 +115,14 @@ fun CategorySection() {
 }
 
 @Composable
-fun CategoryItem(imageRes: Int, category: String) {
+fun CategoryItem(@DrawableRes imageRes: Int, categoryName: String) {
     val context = LocalContext.current
     Box(
         modifier = Modifier
             .size(120.dp)
             .clickable {
-                val intent = Intent(context, ContentListActivity::class.java)
-                intent.putExtra("category", category)
+                val intent = Intent(context, TipListActivity::class.java)
+                intent.putExtra("category", categoryName)
                 context.startActivity(intent)
             },
         contentAlignment = Alignment.Center
@@ -148,6 +140,6 @@ fun CategoryItem(imageRes: Int, category: String) {
 @Composable
 fun TipFragmentContentPreview() {
     MaterialTheme {
-        TipFragmentContent()
+        TipFragmentScreen()
     }
 }

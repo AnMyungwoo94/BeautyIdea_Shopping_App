@@ -7,7 +7,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -28,7 +27,7 @@ import androidx.compose.ui.unit.dp
 import com.myungwoo.shoppingmall_app.R
 import com.myungwoo.shoppingmall_app.data.BookmarkModel
 import com.myungwoo.shoppingmall_app.data.ContentModel
-import com.myungwoo.shoppingmall_app.ui.tipList.ContentShowActivity
+import com.myungwoo.shoppingmall_app.ui.tip.ContentShowActivity
 import com.myungwoo.shoppingmall_app.utils.FBAuth
 import com.myungwoo.shoppingmall_app.utils.FBRef
 import com.skydoves.landscapist.glide.GlideImage
@@ -51,59 +50,66 @@ fun TipBookmarkItem(
                 context.startActivity(intent)
             }
     ) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(160.dp)
-                .background(Color.LightGray),
-            contentAlignment = Alignment.Center
-        ) {
-            GlideImage(
-                imageModel = item.imageUrl,
-                contentScale = ContentScale.Crop,
-                contentDescription = null,
-                modifier = Modifier.fillMaxSize()
-            )
-        }
-        Spacer(modifier = Modifier.height(5.dp))
-        Text(
-            text = item.title,
-            color = Color.Black,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(5.dp),
-            textAlign = TextAlign.Center,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis
-        )
+        TipBookmarkContent(item, key, bookmarkIdList)
+    }
+}
 
-        val bookmarkIcon = if (bookmarkIdList.contains(key)) {
-            R.drawable.bookmark_color
-        } else {
-            R.drawable.bookmark_white
-        }
+@Composable
+fun TipBookmarkContent(item: ContentModel, key: String, bookmarkIdList: List<String>) {
+    GlideImage(
+        imageModel = item.imageUrl,
+        contentScale = ContentScale.Crop,
+        contentDescription = null,
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(160.dp),
+        previewPlaceholder = R.drawable.home_img
+    )
+    Text(
+        text = item.title,
+        color = Color.Black,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp),
+        textAlign = TextAlign.Center,
+        maxLines = 1,
+        overflow = TextOverflow.Ellipsis
+    )
+    BookmarkIcon(key = key, bookmarkIdList = bookmarkIdList)
+}
+
+@Composable
+fun BookmarkIcon(key: String, bookmarkIdList: List<String>) {
+    val isBookmarked = bookmarkIdList.contains(key)
+
+    val bookmarkIcon = if (isBookmarked) {
+        R.drawable.bookmark_color
+    } else {
+        R.drawable.bookmark_white
+    }
+
+    Box(
+        modifier = Modifier.fillMaxWidth(),
+        contentAlignment = Alignment.Center
+    ) {
         Image(
             painter = painterResource(id = bookmarkIcon),
             contentDescription = null,
-            modifier = Modifier
-                .size(20.dp)
-                .align(Alignment.CenterHorizontally)
+            modifier = Modifier.size(20.dp)
                 .clickable {
-                    if (bookmarkIdList.contains(key)) {
-                        FBRef.bookmarkRef
-                            .child(FBAuth.getUid())
-                            .child(key)
-                            .removeValue()
+                    val uid = FBAuth.getUid()
+                    val ref = FBRef.bookmarkRef
+                        .child(uid)
+                        .child(key)
+                    if (isBookmarked) {
+                        ref.removeValue()
                     } else {
-                        FBRef.bookmarkRef
-                            .child(FBAuth.getUid())
-                            .child(key)
-                            .setValue(BookmarkModel(true))
+                        ref.setValue(BookmarkModel(true))
                     }
                 }
         )
-        Spacer(modifier = Modifier.height(5.dp))
     }
+    Spacer(modifier = Modifier.padding(8.dp))
 }
 
 @Preview(showBackground = true)

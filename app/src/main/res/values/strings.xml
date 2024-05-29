@@ -44,6 +44,8 @@
     <string name="board_inside_modify">수정버튼을 눌렀습니다</string>
     <string name="board_inside_remove_success">삭제완료</string>
     <string name="board_write_write_success">게시글 입력완료</string>
+    <string name="tip_category">카테고리</string>
+
     <string name="product_detail_cart_success">상품이 장바구니에 추가되었습니다</string>
     <string name="product_detail_cart_fail">장바구니에 추가하는데 실패하였습니다</string>
     <string name="product_input_success">상품 등록 완료</string>

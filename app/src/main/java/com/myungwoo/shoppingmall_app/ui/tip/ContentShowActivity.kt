@@ -1,4 +1,4 @@
-package com.myungwoo.shoppingmall_app.ui.tipList
+package com.myungwoo.shoppingmall_app.ui.tip
 
 import android.os.Bundle
 import android.webkit.WebView
