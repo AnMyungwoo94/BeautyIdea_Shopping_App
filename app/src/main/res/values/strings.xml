@@ -14,6 +14,7 @@
         using lip liners or optically minimize their appearance by choosing darker shades.\n\nOverall, lipstick is an essential
         makeup item that not only enhances your natural beauty but also allows you to express your personal style and confidence.</string>
     <string name="intro_kakao_ok">로그인에 성공하였습니다</string>
+
     <string name="join_verify_email">이메일을 입력해주세요</string>
     <string name="join_verify_pw">패스워드를 입력해주세요</string>
     <string name="join_verify_pw_confirm">패스워드 확인란을 입력해주세요</string>
@@ -21,8 +22,22 @@
     <string name="join_verify_pw_pattern">비밀번호를 6라지 이상 입력해주세요</string>
     <string name="join_auth_btn">회원가입</string>
     <string name="join_auth_fail">동일한 아이디가 존재합니다</string>
-    <string name="login_empty">이메일 혹은 비밀번호를 입력해주세요</string>
+    <string name="join_submit">작성완료</string>
+    <string name="join_email">Email</string>
+    <string name="join_password">Password</string>
+    <string name="join_password_check">Password Check</string>
+    <string name="join_icon_content_desc">회원가입 아이콘</string>
+
+    <string name="login_login">LOGIN</string>
+    <string name="login_prompt">아이디와 비밀번호를 입력해주세요</string>
+    <string name="login_button">로그인</string>
+    <string name="login_icon_content_image">로그인 이미지</string>
+    <string name="login_empty">이메일과 비밀번호를 입력하세요</string>
     <string name="login_fail">이메일 혹은 비밀번호를 다시 확인해주세요</string>
+    <string name="login_empty_email">이메일을 입력하세요</string>
+    <string name="login_empty_password">비밀번호를 입력하세요</string>
+    <string name="login_email">Email</string>
+    <string name="login_password">Password</string>
     <string name="board_edit_set_value">수정이 완료되었습니다</string>
     <string name="board_inside_comment_success">댓글 작성완료</string>
     <string name="board_inside_dialog_tilte">게시글 수정/삭제</string>

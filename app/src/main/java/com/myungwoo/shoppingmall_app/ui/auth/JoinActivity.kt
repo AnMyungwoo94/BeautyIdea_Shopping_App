@@ -30,14 +30,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.myungwoo.shoppingmall_app.R
+import com.myungwoo.shoppingmall_app.common.compose.component.AuthOutlinedTextField
 import com.myungwoo.shoppingmall_app.ui.MainActivity
-import com.myungwoo.shoppingmall_app.ui.auth.component.AuthOutlinedTextField
 
 class JoinActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,20 +66,21 @@ fun JoinScreen() {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            stringResource(id = R.string.join_auth_btn),
+            text = stringResource(id = R.string.join_auth_btn),
             fontSize = 20.sp,
             color = Color.Black,
-            modifier = Modifier.padding(bottom = 16.dp, top = 16.dp)
+            modifier = Modifier.padding(bottom = 16.dp, top = 16.dp),
+            textAlign = TextAlign.Center
         )
         Image(
             modifier = Modifier.size(100.dp),
             painter = painterResource(id = R.drawable.join_icon),
-            contentDescription = "회원가입 아이콘"
+            contentDescription = stringResource(id = R.string.join_icon_content_desc)
         )
         Spacer(modifier = Modifier.padding(16.dp))
-        AuthOutlinedTextField(value = email, onValueChange = { email = it }, label = "Email")
-        AuthOutlinedTextField(value = password, onValueChange = { password = it }, label = "Password", isPassword = true)
-        AuthOutlinedTextField(value = passwordCheck, onValueChange = { passwordCheck = it }, label = "Password Check", isPassword = true)
+        AuthOutlinedTextField(value = email, onValueChange = { email = it }, label = R.string.login_email)
+        AuthOutlinedTextField(value = password, onValueChange = { password = it }, label = R.string.login_password, isPassword = true)
+        AuthOutlinedTextField(value = passwordCheck, onValueChange = { passwordCheck = it }, label = R.string.join_password_check, isPassword = true)
         Spacer(modifier = Modifier.padding(16.dp))
         JoinBtn(email, password, passwordCheck)
     }
@@ -85,51 +88,12 @@ fun JoinScreen() {
 
 @Composable
 fun JoinBtn(email: String, password: String, passwordCheck: String) {
-    var isGoToJoin by remember { mutableStateOf(true) }
     val context = LocalContext.current
 
     Button(
         onClick = {
-            isGoToJoin = true
-
-            if (email.isEmpty()) {
-                Toast.makeText(context, R.string.join_verify_email, Toast.LENGTH_SHORT).show()
-                isGoToJoin = false
-            }
-
-            if (password.isEmpty()) {
-                Toast.makeText(context, R.string.join_verify_pw, Toast.LENGTH_SHORT).show()
-                isGoToJoin = false
-            }
-
-            if (passwordCheck.isEmpty()) {
-                Toast.makeText(context, R.string.join_verify_pw_confirm, Toast.LENGTH_SHORT)
-                    .show()
-                isGoToJoin = false
-            }
-
-            if (password != passwordCheck) {
-                Toast.makeText(context, R.string.join_verify_pw_fail, Toast.LENGTH_SHORT).show()
-                isGoToJoin = false
-            }
-
-            if (password.length < 6) {
-                Toast.makeText(context, R.string.join_verify_pw_pattern, Toast.LENGTH_SHORT)
-                    .show()
-                isGoToJoin = false
-            }
-
-            if (isGoToJoin) {
-                Firebase.auth.createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-                            val intent = Intent(context, MainActivity::class.java)
-                            context.startActivity(intent)
-                        } else {
-                            Toast.makeText(context, R.string.join_auth_fail, Toast.LENGTH_SHORT)
-                                .show()
-                        }
-                    }
+            if (validateJoinInputs(email, password, passwordCheck, context)) {
+                createAccountWithEmailAndPassword(email, password, context)
             }
         },
         modifier = Modifier
@@ -142,8 +106,47 @@ fun JoinBtn(email: String, password: String, passwordCheck: String) {
         border = BorderStroke(1.dp, Color.Black)
 
     ) {
-        Text("작성완료")
+        Text(stringResource(id = R.string.join_submit))
     }
+}
+
+private fun validateJoinInputs(email: String, password: String, passwordCheck: String, context: android.content.Context): Boolean {
+    return when {
+        email.isEmpty() -> {
+            Toast.makeText(context, R.string.join_verify_email, Toast.LENGTH_SHORT).show()
+            false
+        }
+        password.isEmpty() -> {
+            Toast.makeText(context, R.string.join_verify_pw, Toast.LENGTH_SHORT).show()
+            false
+        }
+        passwordCheck.isEmpty() -> {
+            Toast.makeText(context, R.string.join_verify_pw_confirm, Toast.LENGTH_SHORT).show()
+            false
+        }
+        password != passwordCheck -> {
+            Toast.makeText(context, R.string.join_verify_pw_fail, Toast.LENGTH_SHORT).show()
+            false
+        }
+        password.length < 6 -> {
+            Toast.makeText(context, R.string.join_verify_pw_pattern, Toast.LENGTH_SHORT).show()
+            false
+        }
+        else -> true
+    }
+}
+
+private fun createAccountWithEmailAndPassword(email: String, password: String, context: android.content.Context) {
+    val auth: FirebaseAuth = Firebase.auth
+    auth.createUserWithEmailAndPassword(email, password)
+        .addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val intent = Intent(context, MainActivity::class.java)
+                context.startActivity(intent)
+            } else {
+                Toast.makeText(context, R.string.join_auth_fail, Toast.LENGTH_SHORT).show()
+            }
+        }
 }
 
 @Preview(showBackground = true)

@@ -1,5 +1,6 @@
-package com.myungwoo.shoppingmall_app.ui.auth.component
+package com.myungwoo.shoppingmall_app.common.compose.component
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.OutlinedTextField
@@ -13,16 +14,18 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
+import com.myungwoo.shoppingmall_app.R
 
 @Composable
 fun AuthOutlinedTextField(
     value: String,
     onValueChange: (String) -> Unit,
-    label: String,
+    @StringRes label: Int,
     isPassword: Boolean = false
 ) {
     OutlinedTextField(
@@ -33,7 +36,7 @@ fun AuthOutlinedTextField(
         ),
         value = value,
         onValueChange = onValueChange,
-        label = { Text(label) },
+        label = { Text(stringResource(id = label)) },
         visualTransformation = if (isPassword) PasswordVisualTransformation() else VisualTransformation.None,
         keyboardOptions = if (isPassword) KeyboardOptions(keyboardType = KeyboardType.Password) else KeyboardOptions.Default,
         modifier = Modifier
@@ -50,7 +53,7 @@ fun AuthOutlinedTextFieldPreview() {
         AuthOutlinedTextField(
             value = text,
             onValueChange = { text = it },
-            label = "Preview Label"
+            label = R.string.app_name
         )
     }
 }

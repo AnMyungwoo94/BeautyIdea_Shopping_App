@@ -81,6 +81,18 @@ class IntroActivity : AppCompatActivity() {
         googleSignInLauncher.launch(signInIntent)
     }
 
+    private val googleSignInLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+        try {
+            val account = task.getResult(ApiException::class.java)
+            firebaseAuthWithGoogle(account!!)
+        } catch (e: ApiException) {
+            Log.w("IntroActivity", "Google sign in failed", e)
+        }
+    }
+
     private fun signInWithKakao() {
         val context = this.applicationContext
         val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
@@ -100,7 +112,8 @@ class IntroActivity : AppCompatActivity() {
                                 .addOnCompleteListener(this) { task ->
                                     if (task.isSuccessful) {
                                         Log.i("IntroActivity", "Firebase 인증 성공")
-                                        toMainActivity()
+                                        startActivity(Intent(this, MainActivity::class.java))
+                                        finish()
                                     } else {
                                         Log.e("IntroActivity", "Firebase 인증 실패", task.exception)
                                     }
@@ -114,33 +127,16 @@ class IntroActivity : AppCompatActivity() {
         UserApiClient.instance.loginWithKakaoAccount(context, callback = callback)
     }
 
-    private val googleSignInLauncher = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult()
-    ) { result ->
-        val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
-        try {
-            val account = task.getResult(ApiException::class.java)
-            firebaseAuthWithGoogle(account!!)
-        } catch (e: ApiException) {
-            Log.w("IntroActivity", "Google sign in failed", e)
-        }
-    }
-
-
     private fun firebaseAuthWithGoogle(acct: GoogleSignInAccount) {
         val credential = GoogleAuthProvider.getCredential(acct.idToken, null)
         auth.signInWithCredential(credential).addOnCompleteListener(this) { task ->
             if (task.isSuccessful) {
-                toMainActivity()
+                startActivity(Intent(this, MainActivity::class.java))
+                finish()
             } else {
                 Log.w("IntroActivity", "firebaseAuthWithGoogle 실패", task.exception)
             }
         }
-    }
-
-    private fun toMainActivity() {
-        startActivity(Intent(this, MainActivity::class.java))
-        finish()
     }
 }
 
