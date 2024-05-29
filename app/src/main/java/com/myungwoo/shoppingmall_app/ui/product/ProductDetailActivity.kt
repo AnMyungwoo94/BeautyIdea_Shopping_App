@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -20,6 +21,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.TopAppBar
 import androidx.compose.material.Divider
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -80,8 +82,7 @@ fun ProductDetailScreen(product: ProductModel) {
     var imageUrl by remember { mutableStateOf<String?>(null) }
 
     LaunchedEffect(product.key) {
-        val storageRef = FirebaseStorage.getInstance().reference.child("${product.key}.png")
-        imageUrl = storageRef.downloadUrl.await().toString()
+        loadImage(product.key) { url -> imageUrl = url }
     }
 
     LaunchedEffect(count) {
@@ -93,205 +94,246 @@ fun ProductDetailScreen(product: ProductModel) {
             .fillMaxSize()
             .background(Color.White)
     ) {
-        TopAppBar(
-            colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.White),
-            title = { Text("상세페이지") },
-            navigationIcon = {
-                IconButton(onClick = { (context as? ComponentActivity)?.finish() }) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.baseline_arrow_back_ios_24),
-                        contentDescription = "Back"
-                    )
-                }
-            }
-        )
-
+        ProductAppBar { (context as? ComponentActivity)?.finish() }
         Column(
             modifier = Modifier
                 .weight(1f)
-                .padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
+                .padding(horizontal = 16.dp, vertical = 8.dp)
                 .verticalScroll(rememberScrollState())
         ) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(32.dp)
-            ) {
-                imageUrl?.let {
-                    GlideImage(
-                        imageModel = it,
-                        contentDescription = null,
-                        modifier = Modifier
-                            .width(150.dp)
-                            .height(150.dp),
-                        contentScale = ContentScale.Crop
-                    )
-                }
-                Column(
-                    modifier = Modifier.weight(1f)
-                ) {
-                    Text(
-                        text = product.name,
-                        style = MaterialTheme.typography.bodyMedium,
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.Bold,
-                        modifier = Modifier.padding(bottom = 4.dp)
-                    )
-                    Text(
-                        text = "${
-                            NumberFormat.getNumberInstance(Locale.US).format(product.price.toInt())
-                        } 원",
-                        style = MaterialTheme.typography.bodyMedium,
-                        fontSize = 15.sp,
-                        modifier = Modifier.padding(bottom = 4.dp)
-                    )
-                    Text(
-                        text = if (product.deliveryFee != 0) "배송비 ${
-                            NumberFormat.getNumberInstance(
-                                Locale.US
-                            ).format(product.deliveryFee)
-                        } 원" else "배송비 무료",
-                        style = MaterialTheme.typography.bodyMedium,
-                        fontSize = 15.sp,
-                        modifier = Modifier.padding(bottom = 4.dp)
-                    )
-                    Text(
-                        text = product.parcel,
-                        style = MaterialTheme.typography.bodyMedium,
-                        fontSize = 15.sp,
-                        modifier = Modifier.padding(bottom = 4.dp)
-                    )
-                    Text(
-                        text = product.parcelDay,
-                        style = MaterialTheme.typography.bodyMedium,
-                        fontSize = 15.sp,
-                        modifier = Modifier.padding(bottom = 4.dp)
-                    )
-                }
-            }
-
+            ProductInfo(product = product, imageUrl = imageUrl)
             Spacer(modifier = Modifier.height(16.dp))
-
-            Text(
-                text = "상세 설명입니다.",
-                style = MaterialTheme.typography.bodyMedium,
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(bottom = 8.dp)
-            )
-            Text(
-                text = stringResource(id = R.string.product_Detail),
-                style = MaterialTheme.typography.bodySmall,
-                fontSize = 14.sp,
-                modifier = Modifier.padding(bottom = 16.dp)
-            )
+            ProductDescription()
         }
-
         Divider(
             color = Color.Gray,
             thickness = 1.dp,
             modifier = Modifier.padding(horizontal = 16.dp)
         )
+        ProductActionButtons(
+            count = count,
+            countSum = countSum,
+            onCountChange = { count = it },
+            onAddToCart = {
+                addToCart(product, count, countSum)
+                Toast.makeText(
+                    context,
+                    R.string.product_detail_added_to_cart,
+                    Toast.LENGTH_SHORT
+                ).show()
+            },
+            onPurchase = {
+                val intent = Intent(context, ProductPayActivity::class.java).apply {
+                    putExtra("SELECTED_PRODUCT_PAY", product)
+                    putExtra("COUNT", count)
+                    putExtra("COUNT_SUM", countSum)
+                    putExtra("origin", "DETAILS")
+                }
+                context.startActivity(intent)
+            },
 
-        Column(
-            modifier = Modifier
-                .padding(16.dp)
-        ) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween,
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Text(
-                    text = "수량 합계: ${NumberFormat.getNumberInstance(Locale.US).format(countSum)} 원",
-                    modifier = Modifier.padding(8.dp),
-                    style = MaterialTheme.typography.bodyLarge
+            )
+    }
+}
+
+@Composable
+fun ProductAppBar(onBackClick: () -> Unit) {
+    TopAppBar(
+        backgroundColor = Color.White,
+        title = { Text(stringResource(id = R.string.product_detail_app_bar)) },
+        navigationIcon = {
+            IconButton(onClick = onBackClick) {
+                Icon(
+                    painter = painterResource(id = R.drawable.baseline_arrow_back_ios_24),
+                    contentDescription = "Back"
                 )
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.End,
-                    modifier = Modifier
-                ) {
-                    IconButton(
-                        onClick = { if (count > 1) count -= 1 },
-                        modifier = Modifier.size(35.dp)
-                    ) {
-                        Image(
-                            painter = painterResource(id = R.drawable.minus_btn),
-                            contentDescription = "Minus",
-                            modifier = Modifier.fillMaxSize(),
-                            contentScale = ContentScale.Crop
-                        )
-                    }
-
-                    Text(
-                        text = count.toString(),
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.Bold,
-                        modifier = Modifier.padding(horizontal = 16.dp)
-                    )
-
-                    IconButton(
-                        onClick = { count += 1 },
-                        modifier = Modifier.size(35.dp)
-                    ) {
-                        Image(
-                            painter = painterResource(id = R.drawable.plus_btn),
-                            contentDescription = "Plus",
-                            modifier = Modifier.fillMaxSize(),
-                            contentScale = ContentScale.Crop
-                        )
-                    }
-                }
-            }
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(16.dp),
-                verticalAlignment = Alignment.Bottom
-            ) {
-                Button(
-                    border = BorderStroke(1.dp, Color.Black),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = Color.White,
-                        contentColor = Color.Black
-                    ),
-                    modifier = Modifier
-                        .weight(1f)
-                        .height(50.dp),
-                    onClick = {
-                        addToCart(product, count, countSum)
-                        Toast.makeText(context, "장바구니에 추가되었습니다.", Toast.LENGTH_SHORT).show()
-                    }
-                ) {
-                    Text(text = "장바구니")
-                }
-
-                Button(
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = Color.DarkGray,
-                        contentColor = Color.White
-                    ),
-                    modifier = Modifier
-                        .weight(1f)
-                        .height(50.dp),
-                    onClick = {
-                        val intent = Intent(context, ProductPayActivity::class.java).apply {
-                            putExtra("SELECTED_PRODUCT_PAY", product)
-                            putExtra("COUNT", count)
-                            putExtra("COUNT_SUM", countSum)
-                            putExtra("origin", "DETAILS")
-                        }
-                        context.startActivity(intent)
-                    }
-                ) {
-                    Text(text = "구매하기")
-                }
             }
         }
+    )
+}
+
+@Composable
+fun ProductInfo(product: ProductModel, imageUrl: String?) {
+    Column(
+        modifier = Modifier
+            .padding(16.dp)
+    ) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(32.dp)
+        ) {
+            imageUrl?.let {
+                GlideImage(
+                    imageModel = it,
+                    contentDescription = null,
+                    modifier = Modifier
+                        .width(150.dp)
+                        .height(150.dp),
+                    contentScale = ContentScale.Crop
+                )
+            }
+            Column(modifier = Modifier.weight(1f)) {
+                ProductText(
+                    text = product.name,
+                    style = MaterialTheme.typography.bodyMedium.copy(
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                )
+                ProductText(
+                    text = stringResource(
+                        id = R.string.product_detail_price_format,
+                        product.price.toInt()
+                    )
+                )
+                ProductText(
+                    text = if (product.deliveryFee != 0) stringResource(
+                        id = R.string.product_detail_delivery_fee_format,
+                        product.deliveryFee
+                    ) else stringResource(id = R.string.product_detail_delivery_free)
+                )
+                ProductText(text = product.parcel)
+                ProductText(text = product.parcelDay)
+            }
+        }
+    }
+}
+
+@Composable
+fun ProductDescription() {
+    Column(
+        modifier = Modifier
+            .padding(16.dp)
+    ) {
+        Spacer(modifier = Modifier.height(16.dp))
+        ProductText(
+            text = stringResource(id = R.string.product_detail_product_description_title),
+            style = MaterialTheme.typography.bodyMedium.copy(
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Bold
+            )
+        )
+        ProductText(
+            text = stringResource(id = R.string.product_detail_product_description),
+            style = MaterialTheme.typography.bodySmall.copy(fontSize = 14.sp)
+        )
+    }
+}
+
+@Composable
+fun ProductActionButtons(
+    count: Int,
+    countSum: Int,
+    onCountChange: (Int) -> Unit,
+    onAddToCart: () -> Unit,
+    onPurchase: () -> Unit
+) {
+    Column(
+        modifier = Modifier.padding(16.dp)
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            ProductText(
+                text = stringResource(id = R.string.product_detail_quantity_sum_format, countSum),
+                style = MaterialTheme.typography.bodyLarge
+            )
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.End
+            ) {
+                CountButton(
+                    iconRes = R.drawable.minus_btn,
+                    onClick = { if (count > 1) onCountChange(count - 1) }
+                )
+                ProductText(
+                    text = count.toString(),
+                    style = MaterialTheme.typography.bodyMedium.copy(
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Bold
+                    ),
+                    modifier = Modifier.padding(horizontal = 16.dp)
+                )
+                CountButton(
+                    iconRes = R.drawable.plus_btn,
+                    onClick = { onCountChange(count + 1) }
+                )
+            }
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
+            verticalAlignment = Alignment.Bottom
+        ) {
+            ActionButton(
+                text = stringResource(id = R.string.product_detail_add_to_cart),
+                onClick = onAddToCart,
+                modifier = Modifier.weight(1f)
+            )
+            ActionButton(
+                text = stringResource(id = R.string.product_detail_purchase),
+                onClick = onPurchase,
+                backgroundColor = Color.DarkGray,
+                contentColor = Color.White,
+                modifier = Modifier.weight(1f)
+            )
+        }
+    }
+}
+
+@Composable
+fun ProductText(
+    text: String,
+    style: androidx.compose.ui.text.TextStyle = MaterialTheme.typography.bodyMedium,
+    modifier: Modifier = Modifier
+) {
+    Text(
+        text = text,
+        style = style,
+        modifier = modifier.padding(bottom = 4.dp)
+    )
+}
+
+@Composable
+fun CountButton(
+    @DrawableRes iconRes: Int,
+    onClick: () -> Unit
+) {
+    IconButton(onClick = onClick, modifier = Modifier.size(35.dp)) {
+        Image(
+            painter = painterResource(id = iconRes),
+            contentDescription = null,
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.Crop
+        )
+    }
+}
+
+@Composable
+fun ActionButton(
+    text: String,
+    onClick: () -> Unit,
+    backgroundColor: Color = Color.White,
+    contentColor: Color = Color.Black,
+    modifier: Modifier = Modifier
+) {
+    Button(
+        border = BorderStroke(1.dp, Color.Black),
+        colors = ButtonDefaults.buttonColors(
+            containerColor = backgroundColor,
+            contentColor = contentColor
+        ),
+        modifier = modifier
+            .height(50.dp),
+        onClick = onClick
+    ) {
+        Text(text = text)
     }
 }
 
@@ -307,12 +349,19 @@ fun addToCart(product: ProductModel, count: Int, countSum: Int) {
     }
 }
 
-@Composable
+fun loadImage(productKey: String, onImageLoaded: (String) -> Unit) {
+    val storageRef = FirebaseStorage.getInstance().reference.child("$productKey.png")
+    storageRef.downloadUrl.addOnSuccessListener { uri ->
+        onImageLoaded(uri.toString())
+    }
+}
+
 @Preview(showBackground = true)
+@Composable
 fun ProductDetailScreenPreview() {
     val sampleProduct = ProductModel(
         key = "sample_key",
-        name = "Sample Product",
+        name = stringResource(id = R.string.product_detail_sample_product_name),
         price = "10000",
         time = "2024-05-27",
         parcel = "Standard",
@@ -326,5 +375,57 @@ fun ProductDetailScreenPreview() {
 
     MaterialTheme {
         ProductDetailScreen(product = sampleProduct)
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun ProductAppBarPreview() {
+    MaterialTheme {
+        ProductAppBar(onBackClick = {})
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun ProductInfoPreview() {
+    val sampleProduct = ProductModel(
+        key = "sample_key",
+        name = stringResource(id = R.string.product_detail_sample_product_name),
+        price = "10000",
+        time = "2024-05-27",
+        parcel = "Standard",
+        deliveryFee = 0,
+        parcelDay = "3 days",
+        category = "sample_category",
+        count = 1,
+        count_sum = 1,
+        isSelected = false
+    )
+
+    MaterialTheme {
+        ProductInfo(product = sampleProduct, imageUrl = null)
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun ProductDescriptionPreview() {
+    MaterialTheme {
+        ProductDescription()
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun ProductActionButtonsPreview() {
+    MaterialTheme {
+        ProductActionButtons(
+            count = 1,
+            countSum = 10000,
+            onCountChange = {},
+            onAddToCart = {},
+            onPurchase = {}
+        )
     }
 }
