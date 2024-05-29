@@ -86,7 +86,7 @@ fun CategoryScreen() {
                 )
             }
         }
-        CategoryData(category = categories[selectedTabIndex])
+        CategoryData(category = categories[selectedTabIndex] )
     }
 }
 
