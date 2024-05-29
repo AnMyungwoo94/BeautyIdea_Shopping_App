@@ -42,6 +42,11 @@
     <string name="talk_board_image_desc">커뮤니티 이미지</string>
     <string name="talk_user_icon_desc">사용자 아이콘</string>
 
+    <string name="success_app_name">ShoppingMallApp</string>
+    <string name="success_payment_success">결제 완료</string>
+    <string name="success_payment_success_message">결제가 완료되었습니다 !\n안전하고 빠르게 배송해드릴게요\n잠시만 기다려주세요</string>
+    <string name="success_confirm_button">확인</string>
+
     <string name="board_edit_set_value">수정이 완료되었습니다</string>
     <string name="board_inside_comment_success">댓글 작성완료</string>
     <string name="board_inside_dialog_tilte">게시글 수정/삭제</string>
@@ -57,8 +62,22 @@
     <string name="product_pay_pay_check">결제동의를 모두 해주셔야 합니다</string>
     <string name="product_pay_order_success">결제동의를 모두 해주셔야 합니다</string>
     <string name="product_pay_order_fail">주문이 실패 되었습니다</string>
+
     <string name="setting_logout_fail">로그아웃 실패</string>
     <string name="setting_logout_success">로그아웃 성공</string>
+
+    <string name="product_detail_app_bar">상세페이지</string>
+    <string name="product_detail_sample_product_name">Sample Product</string>
+    <string name="product_detail_price_format">%,d 원</string>
+    <string name="product_detail_delivery_free">배송비 무료</string>
+    <string name="product_detail_delivery_fee_format">배송비 %,d 원</string>
+    <string name="product_detail_quantity_sum_format">수량 합계: %,d 원</string>
+    <string name="product_detail_add_to_cart">장바구니</string>
+    <string name="product_detail_purchase">구매하기</string>
+    <string name="product_detail_product_description_title">상세 설명입니다.</string>
+    <string name="product_detail_product_description">리소스에서 불러올 실제 설명 텍스트</string>
+    <string name="product_detail_added_to_cart">장바구니에 추가되었습니다.</string>
+
     <string name="lip">lip</string>
     <string name="blusher">blusher</string>
     <string name="mascara">mascara</string>

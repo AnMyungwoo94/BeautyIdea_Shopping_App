@@ -25,7 +25,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -43,7 +45,6 @@ class ProductSuccessActivity : AppCompatActivity() {
 
 @Composable
 fun ProductSuccessScreen() {
-    val context = LocalContext.current
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -53,40 +54,46 @@ fun ProductSuccessScreen() {
         verticalArrangement = Arrangement.Top
     ) {
         Spacer(modifier = Modifier.height(100.dp))
-        Image(
-            painter = painterResource(id = R.drawable.delivery),
-            contentDescription = null,
-            modifier = Modifier
-                .size(150.dp),
-            contentScale = ContentScale.Crop
+        ProductSuccessContent()
+    }
+}
+
+@Composable
+fun ProductSuccessContent() {
+    val context = LocalContext.current
+    Image(
+        painter = painterResource(id = R.drawable.delivery),
+        contentDescription = null,
+        modifier = Modifier
+            .size(150.dp),
+        contentScale = ContentScale.Crop
+    )
+    Spacer(modifier = Modifier.height(30.dp))
+    Text(
+        text = stringResource(id = R.string.success_payment_success),
+        fontSize = 23.sp,
+        fontWeight = FontWeight.Bold
+    )
+    Spacer(modifier = Modifier.height(20.dp))
+    Text(
+        text = stringResource(id = R.string.success_payment_success_message),
+        fontSize = 18.sp,
+        textAlign = TextAlign.Center
+    )
+    Spacer(modifier = Modifier.height(70.dp))
+    Button(
+        onClick = {
+            val intent = Intent(context, SettingActivity::class.java)
+            context.startActivity(intent)
+        },
+        modifier = Modifier
+            .width(200.dp)
+            .height(50.dp),
+        colors = ButtonDefaults.buttonColors(
+            containerColor = Color.Black
         )
-        Spacer(modifier = Modifier.height(30.dp))
-        Text(
-            text = "결제 완료",
-            fontSize = 23.sp,
-            fontWeight = FontWeight.Bold
-        )
-        Spacer(modifier = Modifier.height(20.dp))
-        Text(
-            text = "결제가 완료되었습니다 ! \n안전하고 빠르게 배송해드릴게요\n잠시만 기다려주세요",
-            fontSize = 18.sp,
-            textAlign = androidx.compose.ui.text.style.TextAlign.Center
-        )
-        Spacer(modifier = Modifier.height(70.dp))
-        Button(
-            onClick = {
-                val intent = Intent(context, SettingActivity::class.java)
-                context.startActivity(intent)
-            },
-            modifier = Modifier
-                .width(200.dp)
-                .height(50.dp),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color.Black
-            )
-        ) {
-            Text(text = "확인")
-        }
+    ) {
+        Text(text = stringResource(id = R.string.success_confirm_button))
     }
 }
 
