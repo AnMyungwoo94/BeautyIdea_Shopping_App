@@ -1,5 +1,6 @@
 package com.myungwoo.shoppingmall_app.ui.category
 
+import FirebaseRepository
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -38,10 +39,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 import com.myungwoo.shoppingmall_app.common.compose.component.ProductItem
 import com.myungwoo.shoppingmall_app.data.ProductModel
 import com.myungwoo.shoppingmall_app.ui.product.ProductDetailActivity
@@ -93,22 +90,16 @@ fun CategoryScreen() {
 @Composable
 fun CategoryData(category: ShopCategory) {
     val context = LocalContext.current
-    var items by remember { mutableStateOf(listOf<ProductModel>()) }
-    val dbRef = FirebaseDatabase.getInstance().getReference("product")
+    var items by remember { mutableStateOf<List<ProductModel>>(emptyList()) }
+    val firebaseRepository = FirebaseRepository()
 
     LaunchedEffect(category) {
-        val postListener = object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val categoryItems =
-                    snapshot.children.mapNotNull { it.getValue(ProductModel::class.java) }
-                items = categoryItems
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                Log.e("CategoryContentScreen", "loadCategoryData:onCancelled", error.toException())
-            }
+        if (firebaseRepository.getIdToken() != null) {
+            val productMap = firebaseRepository.getProductsByCategory(category.name.lowercase())
+            items = productMap.values.filter { it.category == category.name.lowercase() }
+        } else {
+            Log.e("CategoryData", "Failed to fetch data: Token is null")
         }
-        dbRef.orderByChild("category").equalTo(category.name.lowercase()).addValueEventListener(postListener)
     }
 
     CategoryItem(items = items) { item ->

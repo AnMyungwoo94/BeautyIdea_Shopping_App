@@ -1,5 +1,9 @@
 package com.myungwoo.shoppingmall_app.data
 
+import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class ProductModel(
     val key: String = "",
     val name: String = "",
@@ -11,14 +15,13 @@ data class ProductModel(
     val category: String = "",
     var count: Int = 0,
     var count_sum: Int = 1,
+    @SerializedName("selected")
     var isSelected: Boolean = false
 ) : java.io.Serializable {
     fun getTotalPrice(): Int {
         return price.toInt() * count
     }
 }
-
-
 
 
 
