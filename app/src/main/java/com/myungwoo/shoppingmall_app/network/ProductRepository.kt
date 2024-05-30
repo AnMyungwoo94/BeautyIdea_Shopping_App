@@ -1,3 +1,5 @@
+package com.myungwoo.shoppingmall_app.network
+
 import com.google.firebase.auth.FirebaseAuth
 import com.myungwoo.shoppingmall_app.data.ProductModel
 import kotlinx.coroutines.tasks.await

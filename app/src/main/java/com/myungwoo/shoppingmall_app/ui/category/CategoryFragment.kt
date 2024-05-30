@@ -1,6 +1,5 @@
 package com.myungwoo.shoppingmall_app.ui.category
 
-import FirebaseRepository
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -41,6 +40,7 @@ import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import com.myungwoo.shoppingmall_app.common.compose.component.ProductItem
 import com.myungwoo.shoppingmall_app.data.ProductModel
+import com.myungwoo.shoppingmall_app.network.FirebaseRepository
 import com.myungwoo.shoppingmall_app.ui.product.ProductDetailActivity
 
 class CategoryFragment : Fragment() {

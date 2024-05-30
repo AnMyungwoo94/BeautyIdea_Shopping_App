@@ -1,3 +1,5 @@
+package com.myungwoo.shoppingmall_app.network
+
 import com.myungwoo.shoppingmall_app.BuildConfig
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
