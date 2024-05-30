@@ -2,7 +2,6 @@ package com.myungwoo.shoppingmall_app.ui.category
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,9 +24,9 @@ import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -38,9 +37,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.myungwoo.shoppingmall_app.common.compose.component.ProductItem
 import com.myungwoo.shoppingmall_app.data.ProductModel
-import com.myungwoo.shoppingmall_app.network.FirebaseRepository
 import com.myungwoo.shoppingmall_app.ui.product.ProductDetailActivity
 
 class CategoryFragment : Fragment() {
@@ -89,17 +88,12 @@ fun CategoryScreen() {
 
 @Composable
 fun CategoryData(category: ShopCategory) {
+    val categoryViewModel: CategoryViewModel = viewModel()
+    val items by categoryViewModel.categoryItems.collectAsState()
     val context = LocalContext.current
-    var items by remember { mutableStateOf<List<ProductModel>>(emptyList()) }
-    val firebaseRepository = FirebaseRepository()
 
     LaunchedEffect(category) {
-        if (firebaseRepository.getIdToken() != null) {
-            val productMap = firebaseRepository.getProductsByCategory(category.name.lowercase())
-            items = productMap.values.filter { it.category == category.name.lowercase() }
-        } else {
-            Log.e("CategoryData", "Failed to fetch data: Token is null")
-        }
+        categoryViewModel.fetchProductsByCategory(category.name.lowercase())
     }
 
     CategoryItem(items = items) { item ->
@@ -108,6 +102,7 @@ fun CategoryData(category: ShopCategory) {
         context.startActivity(intent)
     }
 }
+
 
 @Composable
 fun CategoryItem(items: List<ProductModel>, onItemClick: (ProductModel) -> Unit) {
