@@ -1,5 +1,6 @@
 package com.myungwoo.shoppingmall_app.ui.product
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -63,23 +64,24 @@ import java.util.Locale
 class ProductDetailActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val receivedData = intent.getSerializableExtra("ITEM_DATA") as ProductModel
+        val receivedData = intent.getSerializableExtra("ITEM_DATA", ProductModel::class.java)
         setContent {
             MaterialTheme {
-                ProductDetailScreen(receivedData)
+                if (receivedData != null) {
+                    ProductDetailScreen(receivedData)
+                }
             }
         }
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProductDetailScreen(product: ProductModel) {
     val context = LocalContext.current
     var count by remember { mutableStateOf(1) }
     var countSum by remember { mutableStateOf(0) }
     var productPrice by remember { mutableStateOf(product.price.toInt()) }
-    var imageUrl by remember { mutableStateOf<String?>(null) }
+    var imageUrl by remember { mutableStateOf<String>("") }
 
     LaunchedEffect(product.key) {
         loadImage(product.key) { url -> imageUrl = url }
@@ -98,11 +100,9 @@ fun ProductDetailScreen(product: ProductModel) {
         Column(
             modifier = Modifier
                 .weight(1f)
-                .padding(horizontal = 16.dp, vertical = 8.dp)
                 .verticalScroll(rememberScrollState())
         ) {
             ProductInfo(product = product, imageUrl = imageUrl)
-            Spacer(modifier = Modifier.height(16.dp))
             ProductDescription()
         }
         Divider(
@@ -110,29 +110,12 @@ fun ProductDetailScreen(product: ProductModel) {
             thickness = 1.dp,
             modifier = Modifier.padding(horizontal = 16.dp)
         )
-        ProductActionButtons(
+        ProductActionScreen(
             count = count,
             countSum = countSum,
             onCountChange = { count = it },
-            onAddToCart = {
-                addToCart(product, count, countSum)
-                Toast.makeText(
-                    context,
-                    R.string.product_detail_added_to_cart,
-                    Toast.LENGTH_SHORT
-                ).show()
-            },
-            onPurchase = {
-                val intent = Intent(context, ProductPayActivity::class.java).apply {
-                    putExtra("SELECTED_PRODUCT_PAY", product)
-                    putExtra("COUNT", count)
-                    putExtra("COUNT_SUM", countSum)
-                    putExtra("origin", "DETAILS")
-                }
-                context.startActivity(intent)
-            },
-
-            )
+            product = product
+        )
     }
 }
 
@@ -153,7 +136,7 @@ fun ProductAppBar(onBackClick: () -> Unit) {
 }
 
 @Composable
-fun ProductInfo(product: ProductModel, imageUrl: String?) {
+fun ProductInfo(product: ProductModel, imageUrl: String) {
     Column(
         modifier = Modifier
             .padding(16.dp)
@@ -163,50 +146,52 @@ fun ProductInfo(product: ProductModel, imageUrl: String?) {
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(32.dp)
         ) {
-            imageUrl?.let {
-                GlideImage(
-                    imageModel = it,
-                    contentDescription = null,
-                    modifier = Modifier
-                        .width(150.dp)
-                        .height(150.dp),
-                    contentScale = ContentScale.Crop
-                )
-            }
+            GlideImage(
+                imageModel = imageUrl,
+                contentDescription = null,
+                modifier = Modifier
+                    .width(150.dp)
+                    .height(150.dp),
+                contentScale = ContentScale.Crop,
+            )
             Column(modifier = Modifier.weight(1f)) {
-                ProductText(
-                    text = product.name,
-                    style = MaterialTheme.typography.bodyMedium.copy(
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                )
-                ProductText(
-                    text = stringResource(
-                        id = R.string.product_detail_price_format,
-                        product.price.toInt()
-                    )
-                )
-                ProductText(
-                    text = if (product.deliveryFee != 0) stringResource(
-                        id = R.string.product_detail_delivery_fee_format,
-                        product.deliveryFee
-                    ) else stringResource(id = R.string.product_detail_delivery_free)
-                )
-                ProductText(text = product.parcel)
-                ProductText(text = product.parcelDay)
+                ProductInfoText(product)
             }
         }
     }
 }
 
 @Composable
+fun ProductInfoText(product: ProductModel) {
+    ProductText(
+        text = product.name,
+        style = MaterialTheme.typography.bodyMedium.copy(
+            fontSize = 20.sp,
+            fontWeight = FontWeight.Bold
+        )
+    )
+    ProductText(
+        text = stringResource(
+            id = R.string.product_detail_price_format,
+            product.price.toInt()
+        )
+    )
+    ProductText(
+        text = if (product.deliveryFee != 0) stringResource(
+            id = R.string.product_detail_delivery_fee_format,
+            product.deliveryFee
+        ) else stringResource(id = R.string.product_detail_delivery_free)
+    )
+    ProductText(text = product.parcel)
+    ProductText(text = product.parcelDay)
+}
+
+@Composable
 fun ProductDescription() {
     Column(
         modifier = Modifier
-            .padding(16.dp)
+            .padding(start = 16.dp, end = 16.dp)
     ) {
-        Spacer(modifier = Modifier.height(16.dp))
         ProductText(
             text = stringResource(id = R.string.product_detail_product_description_title),
             style = MaterialTheme.typography.bodyMedium.copy(
@@ -215,9 +200,64 @@ fun ProductDescription() {
             )
         )
         ProductText(
-            text = stringResource(id = R.string.product_detail_product_description),
+            text = stringResource(id = R.string.product_Detail),
             style = MaterialTheme.typography.bodySmall.copy(fontSize = 14.sp)
         )
+    }
+}
+
+@Composable
+fun ProductActionScreen(
+    count: Int,
+    countSum: Int,
+    onCountChange: (Int) -> Unit,
+    product: ProductModel,
+) {
+    Column(
+        modifier = Modifier.padding(16.dp)
+    ) {
+        ProductQuantityModifier(count, countSum, onCountChange)
+        Spacer(modifier = Modifier.padding(16.dp))
+        ProductActionButtons(count, countSum, product)
+    }
+}
+
+@Composable
+fun ProductQuantityModifier(
+    count: Int,
+    countSum: Int,
+    onCountChange: (Int) -> Unit
+) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween,
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        ProductText(
+            text = stringResource(id = R.string.product_detail_quantity_sum_format, countSum),
+            style = MaterialTheme.typography.bodyLarge
+        )
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.End
+        ) {
+            CountButton(
+                iconRes = R.drawable.minus_btn,
+                onClick = { if (count > 1) onCountChange(count - 1) }
+            )
+            ProductText(
+                text = count.toString(),
+                style = MaterialTheme.typography.bodyMedium.copy(
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold
+                ),
+                modifier = Modifier.padding(horizontal = 16.dp)
+            )
+            CountButton(
+                iconRes = R.drawable.plus_btn,
+                onClick = { onCountChange(count + 1) }
+            )
+        }
     }
 }
 
@@ -225,65 +265,42 @@ fun ProductDescription() {
 fun ProductActionButtons(
     count: Int,
     countSum: Int,
-    onCountChange: (Int) -> Unit,
-    onAddToCart: () -> Unit,
-    onPurchase: () -> Unit
+    product: ProductModel,
 ) {
-    Column(
-        modifier = Modifier.padding(16.dp)
+    val context = LocalContext.current
+
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
+        verticalAlignment = Alignment.Bottom
     ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween,
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            ProductText(
-                text = stringResource(id = R.string.product_detail_quantity_sum_format, countSum),
-                style = MaterialTheme.typography.bodyLarge
-            )
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.End
-            ) {
-                CountButton(
-                    iconRes = R.drawable.minus_btn,
-                    onClick = { if (count > 1) onCountChange(count - 1) }
-                )
-                ProductText(
-                    text = count.toString(),
-                    style = MaterialTheme.typography.bodyMedium.copy(
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.Bold
-                    ),
-                    modifier = Modifier.padding(horizontal = 16.dp)
-                )
-                CountButton(
-                    iconRes = R.drawable.plus_btn,
-                    onClick = { onCountChange(count + 1) }
-                )
-            }
-        }
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(16.dp),
-            verticalAlignment = Alignment.Bottom
-        ) {
-            ActionButton(
-                text = stringResource(id = R.string.product_detail_add_to_cart),
-                onClick = onAddToCart,
-                modifier = Modifier.weight(1f)
-            )
-            ActionButton(
-                text = stringResource(id = R.string.product_detail_purchase),
-                onClick = onPurchase,
-                backgroundColor = Color.DarkGray,
-                contentColor = Color.White,
-                modifier = Modifier.weight(1f)
-            )
-        }
+        ActionButton(
+            text = stringResource(id = R.string.product_detail_add_to_cart),
+            onClick = {
+                addToCart(product, count, countSum)
+                Toast.makeText(
+                    context,
+                    R.string.product_detail_added_to_cart,
+                    Toast.LENGTH_SHORT
+                ).show()
+            },
+            modifier = Modifier.weight(1f)
+        )
+        ActionButton(
+            text = stringResource(id = R.string.product_detail_purchase),
+            onClick = {
+                val intent = Intent(context, ProductPayActivity::class.java).apply {
+                    putExtra("SELECTED_PRODUCT_PAY", product)
+                    putExtra("COUNT", count)
+                    putExtra("COUNT_SUM", countSum)
+                    putExtra("origin", "DETAILS")
+                }
+                context.startActivity(intent)
+            },
+            backgroundColor = Color.DarkGray,
+            contentColor = Color.White,
+            modifier = Modifier.weight(1f)
+        )
     }
 }
 
@@ -356,10 +373,9 @@ fun loadImage(productKey: String, onImageLoaded: (String) -> Unit) {
     }
 }
 
-@Preview(showBackground = true)
 @Composable
-fun ProductDetailScreenPreview() {
-    val sampleProduct = ProductModel(
+fun PreviewSampleProductModel(): ProductModel {
+    return ProductModel(
         key = "sample_key",
         name = stringResource(id = R.string.product_detail_sample_product_name),
         price = "10000",
@@ -372,6 +388,12 @@ fun ProductDetailScreenPreview() {
         count_sum = 1,
         isSelected = false
     )
+}
+
+@Preview(showBackground = true)
+@Composable
+fun ProductDetailScreenPreview() {
+    val sampleProduct = PreviewSampleProductModel()
 
     MaterialTheme {
         ProductDetailScreen(product = sampleProduct)
@@ -389,22 +411,10 @@ fun ProductAppBarPreview() {
 @Preview(showBackground = true)
 @Composable
 fun ProductInfoPreview() {
-    val sampleProduct = ProductModel(
-        key = "sample_key",
-        name = stringResource(id = R.string.product_detail_sample_product_name),
-        price = "10000",
-        time = "2024-05-27",
-        parcel = "Standard",
-        deliveryFee = 0,
-        parcelDay = "3 days",
-        category = "sample_category",
-        count = 1,
-        count_sum = 1,
-        isSelected = false
-    )
+    val sampleProduct = PreviewSampleProductModel()
 
     MaterialTheme {
-        ProductInfo(product = sampleProduct, imageUrl = null)
+        ProductInfo(product = sampleProduct, imageUrl = "")
     }
 }
 
@@ -418,14 +428,15 @@ fun ProductDescriptionPreview() {
 
 @Preview(showBackground = true)
 @Composable
-fun ProductActionButtonsPreview() {
+fun ProductActionScreenPreview() {
+    val sampleProduct = PreviewSampleProductModel()
+
     MaterialTheme {
-        ProductActionButtons(
+        ProductActionScreen(
             count = 1,
             countSum = 10000,
             onCountChange = {},
-            onAddToCart = {},
-            onPurchase = {}
+            product = sampleProduct
         )
     }
 }
