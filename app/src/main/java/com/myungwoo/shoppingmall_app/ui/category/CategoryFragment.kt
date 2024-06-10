@@ -16,6 +16,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ScrollableTabRow
 import androidx.compose.material3.Tab
@@ -38,6 +40,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.myungwoo.shoppingmall_app.R
 import com.myungwoo.shoppingmall_app.common.compose.component.ProductItem
 import com.myungwoo.shoppingmall_app.data.ProductModel
 import com.myungwoo.shoppingmall_app.ui.product.ProductDetailActivity
@@ -61,6 +64,9 @@ class CategoryFragment : Fragment() {
 fun CategoryScreen() {
     val categories = ShopCategory.entries
     var selectedTabIndex by remember { mutableIntStateOf(0) }
+    val categoryViewModel: CategoryViewModel = viewModel()
+    val errorMessageKey by categoryViewModel.errorMessageKey.collectAsState()
+
     Column {
         ScrollableTabRow(
             selectedTabIndex = selectedTabIndex,
@@ -82,13 +88,25 @@ fun CategoryScreen() {
                 )
             }
         }
-        CategoryData(category = categories[selectedTabIndex] )
+        CategoryData(category = categories[selectedTabIndex], categoryViewModel)
+
+        errorMessageKey?.let { messageKey ->
+            AlertDialog(
+                onDismissRequest = { categoryViewModel.clearErrorMessage() },
+                title = { Text(text = stringResource(id = R.string.error_title)) },
+                text = { Text(text = stringResource(id = messageKey)) },
+                confirmButton = {
+                    Button(onClick = { categoryViewModel.clearErrorMessage() }) {
+                        Text(text = stringResource(id = R.string.ok))
+                    }
+                }
+            )
+        }
     }
 }
 
 @Composable
-fun CategoryData(category: ShopCategory) {
-    val categoryViewModel: CategoryViewModel = viewModel()
+fun CategoryData(category: ShopCategory, categoryViewModel: CategoryViewModel) {
     val items by categoryViewModel.categoryItems.collectAsState()
     val context = LocalContext.current
 

@@ -86,4 +86,9 @@
     <string name="skin">skin</string>
     <string name="sun">sun</string>
     <string name="etc">etc</string>
+
+    <string name="network_not_available_message">네트워크 연결이 원활하지 않습니다.\n모바일 데이터, WIFI 연결 상태를 확인 후\n다시 시도해 주시기 바랍니다.</string>
+    <string name="unexpected_error_message">예기치 않은 오류입니다.</string>
+    <string name="error_title">Error</string>
+    <string name="ok">OK</string>
 </resources>
