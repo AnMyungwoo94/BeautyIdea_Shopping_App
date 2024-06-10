@@ -8,5 +8,5 @@ interface FirebaseApi {
     @GET("product.json")
     suspend fun getProductsByCategory(
         @Query("category") category: String
-    ): Map<String, ProductModel>
+    ): Result<Map<String, ProductModel>>
 }

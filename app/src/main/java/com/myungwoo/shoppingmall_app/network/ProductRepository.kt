@@ -6,7 +6,7 @@ class FirebaseRepository {
 
     private val firebaseApi = RetrofitInstance.retrofit.create(FirebaseApi::class.java)
 
-    suspend fun getProductsByCategory(category: String): Map<String, ProductModel> {
+    suspend fun getProductsByCategory(category: String): Result<Map<String, ProductModel>> {
         return firebaseApi.getProductsByCategory(category)
     }
 }

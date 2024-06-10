@@ -1,6 +1,7 @@
 package com.myungwoo.shoppingmall_app.network
 
 import com.myungwoo.shoppingmall_app.BuildConfig
+import com.myungwoo.shoppingmall_app.network.adapter.ResultCallAdapter
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -17,6 +18,7 @@ object RetrofitInstance {
         Retrofit.Builder()
             .baseUrl(BASE_URL)
             .client(client)
+            .addCallAdapterFactory(ResultCallAdapter.Factory())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
