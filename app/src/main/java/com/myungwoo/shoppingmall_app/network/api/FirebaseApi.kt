@@ -1,4 +1,4 @@
-package com.myungwoo.shoppingmall_app.network
+package com.myungwoo.shoppingmall_app.network.api
 
 import com.myungwoo.shoppingmall_app.data.ProductModel
 import retrofit2.http.GET

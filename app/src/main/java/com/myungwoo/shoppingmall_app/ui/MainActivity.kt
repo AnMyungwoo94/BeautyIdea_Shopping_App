@@ -43,7 +43,9 @@ import com.myungwoo.shoppingmall_app.ui.category.CategoryFragment
 import com.myungwoo.shoppingmall_app.ui.home.ShopFragment
 import com.myungwoo.shoppingmall_app.ui.setting.SettingActivity
 import com.myungwoo.shoppingmall_app.ui.tip.TipFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 

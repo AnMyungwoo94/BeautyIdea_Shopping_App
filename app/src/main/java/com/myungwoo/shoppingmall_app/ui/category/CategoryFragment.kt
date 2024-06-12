@@ -44,8 +44,11 @@ import com.myungwoo.shoppingmall_app.R
 import com.myungwoo.shoppingmall_app.common.compose.component.ProductItem
 import com.myungwoo.shoppingmall_app.data.ProductModel
 import com.myungwoo.shoppingmall_app.ui.product.ProductDetailActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class CategoryFragment : Fragment() {
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
