@@ -39,7 +39,9 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.myungwoo.shoppingmall_app.R
 import com.myungwoo.shoppingmall_app.common.compose.component.AuthOutlinedTextField
+import com.myungwoo.shoppingmall_app.dataStore.UserPreferencesRepository
 import com.myungwoo.shoppingmall_app.ui.MainActivity
+import kotlinx.coroutines.runBlocking
 
 class LoginActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -134,9 +136,15 @@ private fun validateLoginInputs(email: String, password: String, context: androi
 
 private fun signInWithEmailAndPassword(email: String, password: String, context: android.content.Context) {
     val auth: FirebaseAuth = Firebase.auth
+    val userPreference = UserPreferencesRepository(context)
+
     auth.signInWithEmailAndPassword(email, password)
         .addOnCompleteListener { task ->
             if (task.isSuccessful) {
+
+                runBlocking {
+                    userPreference.saveUserLogin(email, password)
+                }
                 val intent = Intent(context, MainActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 context.startActivity(intent)

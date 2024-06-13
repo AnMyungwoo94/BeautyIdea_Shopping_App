@@ -10,44 +10,49 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import com.myungwoo.shoppingmall_app.R
+import com.myungwoo.shoppingmall_app.dataStore.UserPreferencesRepository
 import com.myungwoo.shoppingmall_app.ui.auth.IntroActivity
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
+import javax.inject.Inject
 
-private lateinit var auth: FirebaseAuth
-
+@AndroidEntryPoint
 class SplashActivity : ComponentActivity() {
+
+    @Inject
+    lateinit var userPreferencesRepository: UserPreferencesRepository
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         installSplashScreen()
-        auth = Firebase.auth
-
         setContent {
-            SplashScreen()
+            SplashScreen(userPreferencesRepository)
         }
     }
 }
 
 @Composable
-fun SplashScreen() {
+fun SplashScreen(userPreferencesRepository: UserPreferencesRepository) {
     val context = LocalContext.current
+    val email by userPreferencesRepository.email.collectAsState(initial = null)
+    val password by userPreferencesRepository.password.collectAsState(initial = null)
 
     LaunchedEffect(Unit) {
         delay(1000)
-        if (auth.currentUser?.uid == null) {
-            context.startActivity(Intent(context, IntroActivity::class.java))
-        } else {
+        if (!email.isNullOrEmpty() && !password.isNullOrEmpty()) {
             context.startActivity(Intent(context, MainActivity::class.java))
+        } else {
+            context.startActivity(Intent(context, IntroActivity::class.java))
         }
     }
 
@@ -67,7 +72,7 @@ fun SplashScreen() {
 @Composable
 fun SplashScreenPreview() {
     MaterialTheme {
-        SplashScreen()
+        //SplashScreen()
     }
 }
 
