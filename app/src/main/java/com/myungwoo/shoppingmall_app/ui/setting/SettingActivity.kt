@@ -4,9 +4,9 @@ import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -19,17 +19,25 @@ import com.kakao.sdk.user.UserApiClient
 import com.myungwoo.shoppingmall_app.R
 import com.myungwoo.shoppingmall_app.data.DeliveryInfo
 import com.myungwoo.shoppingmall_app.data.ProductInfo
+import com.myungwoo.shoppingmall_app.dataStore.UserPreferencesRepository
 import com.myungwoo.shoppingmall_app.databinding.ActivitySettingBinding
 import com.myungwoo.shoppingmall_app.ui.MainActivity
 import com.myungwoo.shoppingmall_app.ui.auth.IntroActivity
 import com.myungwoo.shoppingmall_app.ui.auth.kakao.KakaoUserInfo
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class SettingActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var binding: ActivitySettingBinding
     private lateinit var orderAdapter: OrderAdapter
     private val user = FirebaseAuth.getInstance().currentUser
+
+    @Inject
+    lateinit var userPreferencesRepository: UserPreferencesRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,13 +49,11 @@ class SettingActivity : AppCompatActivity() {
             startActivity(Intent(this, MainActivity::class.java))
         }
 
-        val logoutBtn = findViewById<Button>(R.id.logoutBtn)
-        logoutBtn.setOnClickListener {
+        binding.logoutBtn.setOnClickListener {
 
             val currentUser = auth.currentUser
             if (currentUser != null) {
                 val providerId = currentUser.providerId
-                Log.e("providerId", providerId)
                 when (providerId) {
                     "firebase" -> {
                         performFirebaseLogout()
@@ -60,9 +66,11 @@ class SettingActivity : AppCompatActivity() {
             } else {
                 UserApiClient.instance.logout { error ->
                     if (error != null) {
-                        Toast.makeText(this, R.string.setting_logout_fail, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, R.string.setting_logout_fail, Toast.LENGTH_SHORT)
+                            .show()
                     } else {
-                        Toast.makeText(this, R.string.setting_logout_success, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, R.string.setting_logout_success, Toast.LENGTH_SHORT)
+                            .show()
                     }
                     val intent = Intent(this, IntroActivity::class.java)
                     startActivity(intent.addFlags(FLAG_ACTIVITY_CLEAR_TOP))
@@ -75,7 +83,8 @@ class SettingActivity : AppCompatActivity() {
         val currentUser = auth.currentUser
         if (currentUser != null) {
             val providerData = currentUser.providerData
-            val providerId = if (providerData.size > 1) providerData[1]?.providerId else providerData[0]?.providerId
+            val providerId =
+                if (providerData.size > 1) providerData[1]?.providerId else providerData[0]?.providerId
             when (providerId) {
                 "password" -> {
                     user?.email?.let { email ->
@@ -147,10 +156,13 @@ class SettingActivity : AppCompatActivity() {
 
     private fun performFirebaseLogout() {
         auth.signOut()
+        lifecycleScope.launch {
+            userPreferencesRepository.clearUserLogin()
+        }
         Toast.makeText(this, R.string.setting_logout_success, Toast.LENGTH_SHORT).show()
         val intent = Intent(this, IntroActivity::class.java)
         intent.flags =
-            Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+            Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or FLAG_ACTIVITY_CLEAR_TOP
         startActivity(intent)
     }
 
@@ -158,6 +170,5 @@ class SettingActivity : AppCompatActivity() {
         super.onBackPressed()
         startActivity(Intent(this, MainActivity::class.java))
     }
-
 }
 
