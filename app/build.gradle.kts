@@ -4,7 +4,6 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.gms.google-services")
-    id("org.jetbrains.kotlin.plugin.serialization")
     id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
 }
@@ -15,14 +14,14 @@ val properties = Properties().apply {
 
 android {
     namespace = "com.myungwoo.shoppingmall_app"
-    compileSdk = 34
+    compileSdk = BuildConstants.compileSdkVersion
 
     defaultConfig {
         applicationId = "com.myungwoo.shoppingmall_app"
-        minSdk = 26
-        targetSdk = 34
-        versionCode = 14
-        versionName = "1.0"
+        minSdk = BuildConstants.minSdkVersion
+        targetSdk = BuildConstants.targetSdkVersion
+        versionCode = BuildConstants.appVersionCode
+        versionName = BuildConstants.appVersionName
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled = true
@@ -44,12 +43,12 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility =  BuildConstants.javaVersion
+        targetCompatibility = BuildConstants.javaVersion
     }
 
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = BuildConstants.kotlinJvmTarget
     }
 
     buildFeatures {
