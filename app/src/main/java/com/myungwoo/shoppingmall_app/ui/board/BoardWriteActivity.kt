@@ -9,8 +9,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import com.myungwoo.model.BoardModel
 import com.myungwoo.shoppingmall_app.R
-import com.myungwoo.shoppingmall_app.data.BoardModel
 import com.myungwoo.shoppingmall_app.databinding.ActivityBoardWriteBinding
 import com.myungwoo.shoppingmall_app.utils.FBAuth
 import com.myungwoo.shoppingmall_app.utils.FBRef
@@ -32,7 +32,14 @@ class BoardWriteActivity : AppCompatActivity() {
             val time = FBAuth.getTime()
 
             val key = FBRef.boardRef.push().key.toString()
-            FBRef.boardRef.child(key).setValue(BoardModel(title, content, uid, time))
+            FBRef.boardRef.child(key).setValue(
+                BoardModel(
+                    title,
+                    content,
+                    uid,
+                    time
+                )
+            )
 
             Toast.makeText(this, R.string.board_write_write_success, Toast.LENGTH_SHORT).show()
             if (isImageUpload == true) {

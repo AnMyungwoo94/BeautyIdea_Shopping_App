@@ -18,8 +18,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import com.myungwoo.data.repository.UserRepository
 import com.myungwoo.shoppingmall_app.R
-import com.myungwoo.shoppingmall_app.dataStore.UserPreferencesRepository
 import com.myungwoo.shoppingmall_app.ui.auth.IntroActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
@@ -29,23 +29,23 @@ import javax.inject.Inject
 class SplashActivity : ComponentActivity() {
 
     @Inject
-    lateinit var userPreferencesRepository: UserPreferencesRepository
+    lateinit var userRepository: UserRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         installSplashScreen()
         setContent {
-            SplashScreen(userPreferencesRepository)
+            SplashScreen(userRepository)
         }
     }
 }
 
 @Composable
-fun SplashScreen(userPreferencesRepository: UserPreferencesRepository) {
+fun SplashScreen(userRepository: UserRepository) {
     val context = LocalContext.current
-    val email by userPreferencesRepository.email.collectAsState(initial = null)
-    val password by userPreferencesRepository.password.collectAsState(initial = null)
+    val email by userRepository.email.collectAsState(initial = null)
+    val password by userRepository.password.collectAsState(initial = null)
 
     LaunchedEffect(Unit) {
         delay(1000)

@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
-import com.myungwoo.shoppingmall_app.data.ProductModel
+import com.myungwoo.model.ProductModel
 import com.myungwoo.shoppingmall_app.databinding.ProductRvItemBinding
 import com.myungwoo.shoppingmall_app.ui.product.ProductDetailActivity
 import java.io.Serializable

@@ -16,10 +16,9 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import com.kakao.sdk.user.UserApiClient
+import com.myungwoo.data.repository.UserRepository
+import com.myungwoo.model.DeliveryInfo
 import com.myungwoo.shoppingmall_app.R
-import com.myungwoo.shoppingmall_app.data.DeliveryInfo
-import com.myungwoo.shoppingmall_app.data.ProductInfo
-import com.myungwoo.shoppingmall_app.dataStore.UserPreferencesRepository
 import com.myungwoo.shoppingmall_app.databinding.ActivitySettingBinding
 import com.myungwoo.shoppingmall_app.ui.MainActivity
 import com.myungwoo.shoppingmall_app.ui.auth.IntroActivity
@@ -37,7 +36,7 @@ class SettingActivity : AppCompatActivity() {
     private val user = FirebaseAuth.getInstance().currentUser
 
     @Inject
-    lateinit var userPreferencesRepository: UserPreferencesRepository
+    lateinit var usersRepository: UserRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -124,10 +123,11 @@ class SettingActivity : AppCompatActivity() {
                     val productSum =
                         deliverySnapshot.child("product_sum").getValue(String::class.java) ?: ""
 
-                    val productsList = mutableListOf<ProductInfo>()
+                    val productsList = mutableListOf<com.myungwoo.model.ProductInfo>()
                     val productsSnapshot = deliverySnapshot.child("products")
                     for (productSnapshot in productsSnapshot.children) {
-                        val product = productSnapshot.getValue(ProductInfo::class.java)
+                        val product =
+                            productSnapshot.getValue(com.myungwoo.model.ProductInfo::class.java)
                         product?.let { productsList.add(it) }
                     }
 
@@ -157,7 +157,7 @@ class SettingActivity : AppCompatActivity() {
     private fun performFirebaseLogout() {
         auth.signOut()
         lifecycleScope.launch {
-            userPreferencesRepository.clearUserLogin()
+            usersRepository.clearUserLogin()
         }
         Toast.makeText(this, R.string.setting_logout_success, Toast.LENGTH_SHORT).show()
         val intent = Intent(this, IntroActivity::class.java)

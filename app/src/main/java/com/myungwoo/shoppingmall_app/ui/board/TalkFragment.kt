@@ -35,7 +35,6 @@ import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -50,8 +49,8 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import com.myungwoo.model.BoardModel
 import com.myungwoo.shoppingmall_app.R
-import com.myungwoo.shoppingmall_app.data.BoardModel
 import com.myungwoo.shoppingmall_app.utils.FBAuth
 import com.myungwoo.shoppingmall_app.utils.FBRef
 import com.skydoves.landscapist.glide.GlideImage
@@ -164,13 +163,11 @@ fun BoardItem(boardItem: BoardModel, imageUrl: String?, onClick: () -> Unit) {
                     .padding(16.dp)
             ) {
                 GlideImage(
-                    imageModel = imageUrl ?: R.drawable.home_img,
-                    contentDescription = stringResource(id = R.string.talk_board_image_desc),
+                    imageModel = { imageUrl ?: R.drawable.home_img },
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(130.dp),
-                    contentScale = ContentScale.Crop,
-                    placeHolder = painterResource(id = R.drawable.home_img),
+                    previewPlaceholder= painterResource(id = R.drawable.home_img),
                 )
                 BoardItemTextWithIcon(boardItem)
             }

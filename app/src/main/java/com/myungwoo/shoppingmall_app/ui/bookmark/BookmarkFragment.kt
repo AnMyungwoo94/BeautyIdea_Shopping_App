@@ -31,8 +31,8 @@ import androidx.fragment.app.Fragment
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
+import com.myungwoo.model.ContentModel
 import com.myungwoo.shoppingmall_app.common.compose.component.TipBookmarkItem
-import com.myungwoo.shoppingmall_app.data.ContentModel
 import com.myungwoo.shoppingmall_app.utils.FBAuth
 import com.myungwoo.shoppingmall_app.utils.FBRef
 
@@ -50,6 +50,7 @@ class BookmarkFragment : Fragment() {
         }
     }
 }
+
 @Composable
 fun BookmarkScreen() {
     var bookmarkList by remember { mutableStateOf(listOf<String>()) }
@@ -121,7 +122,8 @@ private fun loadAllCategories(
     val allItems = mutableListOf<Pair<String, ContentModel>>()
     val categories = listOf(
         "categoryALl", "categoryLip", "categoryBlusher", "categoryMascara",
-        "categoryNail", "categoryShadow", "categorySkin", "categorySun")
+        "categoryNail", "categoryShadow", "categorySkin", "categorySun"
+    )
     var loadedCount = 0
 
     val postListener = object : ValueEventListener {

@@ -1,5 +1,6 @@
 package com.myungwoo.shoppingmall_app.ui.auth
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -37,25 +38,32 @@ import androidx.compose.ui.unit.sp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.myungwoo.data.repository.UserRepository
 import com.myungwoo.shoppingmall_app.R
 import com.myungwoo.shoppingmall_app.common.compose.component.AuthOutlinedTextField
-import com.myungwoo.shoppingmall_app.dataStore.UserPreferencesRepository
 import com.myungwoo.shoppingmall_app.ui.MainActivity
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.runBlocking
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class LoginActivity : ComponentActivity() {
+
+    @Inject
+    lateinit var userRepository: UserRepository
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             MaterialTheme {
-                LoginScreen()
+                LoginScreen(userRepository)
             }
         }
     }
 }
 
 @Composable
-fun LoginScreen() {
+fun LoginScreen(userRepository: UserRepository? = null) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 
@@ -86,21 +94,34 @@ fun LoginScreen() {
             textAlign = TextAlign.Center
         )
         Spacer(modifier = Modifier.height(30.dp))
-        AuthOutlinedTextField(value = email, onValueChange = { email = it }, label = R.string.login_email)
-        AuthOutlinedTextField(value = password, onValueChange = { password = it }, label = R.string.login_password, isPassword = true)
+        AuthOutlinedTextField(
+            value = email,
+            onValueChange = { email = it },
+            label = R.string.login_email
+        )
+        AuthOutlinedTextField(
+            value = password,
+            onValueChange = { password = it },
+            label = R.string.login_password,
+            isPassword = true
+        )
         Spacer(modifier = Modifier.padding(16.dp))
-        LoginBtn(email, password)
+        if (userRepository != null) {
+            LoginBtn(email, password, userRepository)
+        }
     }
 }
 
 @Composable
-fun LoginBtn(email: String, password: String) {
+fun LoginBtn(email: String, password: String, userRepository: UserRepository? = null) {
     val context = LocalContext.current
 
     Button(
         onClick = {
             if (validateLoginInputs(email, password, context)) {
-                signInWithEmailAndPassword(email, password, context)
+                if (userRepository != null) {
+                    signInWithEmailAndPassword(email, password, context, userRepository)
+                }
             }
         },
         border = BorderStroke(1.dp, Color.Black),
@@ -116,34 +137,41 @@ fun LoginBtn(email: String, password: String) {
     }
 }
 
-private fun validateLoginInputs(email: String, password: String, context: android.content.Context): Boolean {
+private fun validateLoginInputs(email: String, password: String, context: Context): Boolean {
     return when {
         email.isEmpty() && password.isEmpty() -> {
             Toast.makeText(context, R.string.login_empty, Toast.LENGTH_SHORT).show()
             false
         }
+
         email.isEmpty() -> {
             Toast.makeText(context, R.string.login_empty_email, Toast.LENGTH_SHORT).show()
             false
         }
+
         password.isEmpty() -> {
             Toast.makeText(context, R.string.login_empty_password, Toast.LENGTH_SHORT).show()
             false
         }
+
         else -> true
     }
 }
 
-private fun signInWithEmailAndPassword(email: String, password: String, context: android.content.Context) {
+private fun signInWithEmailAndPassword(
+    email: String,
+    password: String,
+    context: Context,
+    userRepository: UserRepository
+) {
     val auth: FirebaseAuth = Firebase.auth
-    val userPreference = UserPreferencesRepository(context)
 
     auth.signInWithEmailAndPassword(email, password)
         .addOnCompleteListener { task ->
             if (task.isSuccessful) {
 
                 runBlocking {
-                    userPreference.saveUserLogin(email, password)
+                    userRepository.saveUserLogin(email, password)
                 }
                 val intent = Intent(context, MainActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -166,6 +194,9 @@ fun LoginScreenPreview() {
 @Composable
 fun TestPreview() {
     MaterialTheme {
-        LoginBtn("", "")
+        LoginBtn(
+            email = "test@example.com",
+            password = "password"
+        )
     }
 }

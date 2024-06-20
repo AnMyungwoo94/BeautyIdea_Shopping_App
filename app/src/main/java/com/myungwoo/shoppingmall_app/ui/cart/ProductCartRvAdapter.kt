@@ -1,7 +1,6 @@
 package com.myungwoo.shoppingmall_app.ui.cart
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -10,7 +9,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
-import com.myungwoo.shoppingmall_app.data.ProductModel
+import com.myungwoo.model.ProductModel
 import com.myungwoo.shoppingmall_app.databinding.ProductcartItemBinding
 import java.text.NumberFormat
 import java.util.Locale
@@ -22,7 +21,8 @@ class ProductCartRvAdapter(
 ) : RecyclerView.Adapter<ProductCartRvAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ProductcartItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            ProductcartItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
@@ -30,13 +30,14 @@ class ProductCartRvAdapter(
         val product = items[position]
 
         with(holder.binding) {
-            Log.e("ddddd", product.count_sum.toString())
             productName.text = product.name
-            productPrice.text = "${NumberFormat.getNumberInstance(Locale.US).format(product.count_sum)}"
+            productPrice.text =
+                "${NumberFormat.getNumberInstance(Locale.US).format(product.count_sum)}"
             quantityTextView.text = product.count.toString()
             val deliveryFee = product.deliveryFee
             if (deliveryFee != 0) {
-                productDeliveryFee.text = "배송비 ${NumberFormat.getNumberInstance(Locale.US).format(deliveryFee)} 원"
+                productDeliveryFee.text =
+                    "배송비 ${NumberFormat.getNumberInstance(Locale.US).format(deliveryFee)} 원"
             } else {
                 productDeliveryFee.text = "배송비 무료"
             }
@@ -48,15 +49,17 @@ class ProductCartRvAdapter(
             }
             deleteButton.setOnClickListener {
                 val userUID = FirebaseAuth.getInstance().currentUser?.uid
-                FirebaseDatabase.getInstance().getReference("cart/$userUID/${product.key}").removeValue()
+                FirebaseDatabase.getInstance().getReference("cart/$userUID/${product.key}")
+                    .removeValue()
             }
 
             minusBtn.setOnClickListener {
                 if (product.count > 1) {
                     product.count -= 1
                     product.count_sum = product.getTotalPrice()
-                    productPrice.text = "${NumberFormat.getNumberInstance(Locale.US).format(product.count_sum)}"
-                    updateProductInFirebase(product)  // Firebase 업데이트
+                    productPrice.text =
+                        "${NumberFormat.getNumberInstance(Locale.US).format(product.count_sum)}"
+                    updateProductInFirebase(product)
                     quantityTextView.text = product.count.toString()
                     onItemChanged()
                 }
@@ -65,7 +68,8 @@ class ProductCartRvAdapter(
             plusBtn.setOnClickListener {
                 product.count += 1
                 product.count_sum = product.getTotalPrice()
-                productPrice.text = "${NumberFormat.getNumberInstance(Locale.US).format(product.count_sum)}"
+                productPrice.text =
+                    "${NumberFormat.getNumberInstance(Locale.US).format(product.count_sum)}"
                 updateProductInFirebase(product)
                 quantityTextView.text = product.count.toString()
                 onItemChanged()
@@ -94,6 +98,7 @@ class ProductCartRvAdapter(
 
     override fun getItemCount(): Int = items.size
 
-    inner class ViewHolder(val binding: ProductcartItemBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class ViewHolder(val binding: ProductcartItemBinding) :
+        RecyclerView.ViewHolder(binding.root)
 }
 

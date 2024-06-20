@@ -15,9 +15,9 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.myungwoo.model.ProductModel
 import com.myungwoo.shoppingmall_app.R
 import com.myungwoo.shoppingmall_app.common.ProductRvAdapter
-import com.myungwoo.shoppingmall_app.data.ProductModel
 import com.myungwoo.shoppingmall_app.databinding.FragmentSearchResultBinding
 
 class SearchResultFragment : Fragment() {
@@ -58,7 +58,8 @@ class SearchResultFragment : Fragment() {
 
     fun searchInRealtimeDatabase(searchText: String) {
         val databaseReference = FirebaseDatabase.getInstance().getReference("product")
-        val query = databaseReference.orderByChild("name").startAt(searchText).endAt("$searchText\uf8ff")
+        val query =
+            databaseReference.orderByChild("name").startAt(searchText).endAt("$searchText\uf8ff")
 
         query.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {

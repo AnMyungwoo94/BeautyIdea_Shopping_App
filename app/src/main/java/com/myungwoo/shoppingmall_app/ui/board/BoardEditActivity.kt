@@ -11,8 +11,8 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import com.myungwoo.model.BoardModel
 import com.myungwoo.shoppingmall_app.R
-import com.myungwoo.shoppingmall_app.data.BoardModel
 import com.myungwoo.shoppingmall_app.databinding.ActivityBoardEditBinding
 import com.myungwoo.shoppingmall_app.utils.FBAuth
 import com.myungwoo.shoppingmall_app.utils.FBRef
@@ -37,7 +37,14 @@ class BoardEditActivity : AppCompatActivity() {
 
     private fun editBoardData(key: String) {
         FBRef.boardRef.child(key)
-            .setValue(BoardModel(binding.titleArea.text.toString(), binding.contentArea.text.toString(), writerUid, FBAuth.getTime()))
+            .setValue(
+                BoardModel(
+                    binding.titleArea.text.toString(),
+                    binding.contentArea.text.toString(),
+                    writerUid,
+                    FBAuth.getTime()
+                )
+            )
         Toast.makeText(this, R.string.board_edit_set_value, Toast.LENGTH_SHORT).show()
         finish()
     }

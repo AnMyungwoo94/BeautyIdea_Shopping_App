@@ -1,5 +1,6 @@
 package com.myungwoo.shoppingmall_app.ui.auth
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -78,9 +79,23 @@ fun JoinScreen() {
             contentDescription = stringResource(id = R.string.join_icon_content_desc)
         )
         Spacer(modifier = Modifier.padding(16.dp))
-        AuthOutlinedTextField(value = email, onValueChange = { email = it }, label = R.string.login_email)
-        AuthOutlinedTextField(value = password, onValueChange = { password = it }, label = R.string.login_password, isPassword = true)
-        AuthOutlinedTextField(value = passwordCheck, onValueChange = { passwordCheck = it }, label = R.string.join_password_check, isPassword = true)
+        AuthOutlinedTextField(
+            value = email,
+            onValueChange = { email = it },
+            label = R.string.login_email
+        )
+        AuthOutlinedTextField(
+            value = password,
+            onValueChange = { password = it },
+            label = R.string.login_password,
+            isPassword = true
+        )
+        AuthOutlinedTextField(
+            value = passwordCheck,
+            onValueChange = { passwordCheck = it },
+            label = R.string.join_password_check,
+            isPassword = true
+        )
         Spacer(modifier = Modifier.padding(16.dp))
         JoinBtn(email, password, passwordCheck)
     }
@@ -110,33 +125,43 @@ fun JoinBtn(email: String, password: String, passwordCheck: String) {
     }
 }
 
-private fun validateJoinInputs(email: String, password: String, passwordCheck: String, context: android.content.Context): Boolean {
+private fun validateJoinInputs(
+    email: String,
+    password: String,
+    passwordCheck: String,
+    context: Context
+): Boolean {
     return when {
         email.isEmpty() -> {
             Toast.makeText(context, R.string.join_verify_email, Toast.LENGTH_SHORT).show()
             false
         }
+
         password.isEmpty() -> {
             Toast.makeText(context, R.string.join_verify_pw, Toast.LENGTH_SHORT).show()
             false
         }
+
         passwordCheck.isEmpty() -> {
             Toast.makeText(context, R.string.join_verify_pw_confirm, Toast.LENGTH_SHORT).show()
             false
         }
+
         password != passwordCheck -> {
             Toast.makeText(context, R.string.join_verify_pw_fail, Toast.LENGTH_SHORT).show()
             false
         }
+
         password.length < 6 -> {
             Toast.makeText(context, R.string.join_verify_pw_pattern, Toast.LENGTH_SHORT).show()
             false
         }
+
         else -> true
     }
 }
 
-private fun createAccountWithEmailAndPassword(email: String, password: String, context: android.content.Context) {
+private fun createAccountWithEmailAndPassword(email: String, password: String, context: Context) {
     val auth: FirebaseAuth = Firebase.auth
     auth.createUserWithEmailAndPassword(email, password)
         .addOnCompleteListener { task ->

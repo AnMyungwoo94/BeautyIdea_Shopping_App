@@ -11,7 +11,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.myungwoo.shoppingmall_app.data.ProductModel
+import com.myungwoo.model.ProductModel
 import com.myungwoo.shoppingmall_app.databinding.ActivityProductCartBinding
 import com.myungwoo.shoppingmall_app.ui.product.ProductPayActivity
 import java.text.NumberFormat
@@ -59,14 +59,16 @@ class ProductCartActivity : AppCompatActivity() {
                     val price = productSnapshot.child("price").getValue(String::class.java) ?: ""
                     val time = productSnapshot.child("time").getValue(String::class.java) ?: ""
                     val parcel = productSnapshot.child("parcel").getValue(String::class.java) ?: ""
-                    val category = productSnapshot.child("category").getValue(String::class.java) ?: ""
+                    val category =
+                        productSnapshot.child("category").getValue(String::class.java) ?: ""
                     val deliveryFeeObj = productSnapshot.child("delivery_fee").value
                     val deliveryFee = when (deliveryFeeObj) {
                         is Long -> deliveryFeeObj.toInt()
                         is String -> deliveryFeeObj.toIntOrNull() ?: 0
                         else -> 0
                     }
-                    val parcelDay = productSnapshot.child("parcel_day").getValue(String::class.java) ?: ""
+                    val parcelDay =
+                        productSnapshot.child("parcel_day").getValue(String::class.java) ?: ""
                     val countObj = productSnapshot.child("count").value
                     val count = when (countObj) {
                         is Long -> countObj.toInt()
@@ -80,8 +82,22 @@ class ProductCartActivity : AppCompatActivity() {
                         else -> 1
                     }
                     val existingProduct = productCartList.find { it.key == key }
-                    val isSelected = existingProduct?.isSelected ?: productSnapshot.child("isSelected").getValue(Boolean::class.java) ?: false
-                    val product = ProductModel(key, name, price, time, parcel, deliveryFee, parcelDay, category, count, countSum, isSelected)
+                    val isSelected =
+                        existingProduct?.isSelected ?: productSnapshot.child("isSelected")
+                            .getValue(Boolean::class.java) ?: false
+                    val product = ProductModel(
+                        key,
+                        name,
+                        price,
+                        time,
+                        parcel,
+                        deliveryFee,
+                        parcelDay,
+                        category,
+                        count,
+                        countSum,
+                        isSelected
+                    )
                     updatedList.add(product)
                 }
                 productCartList.clear()
@@ -99,7 +115,9 @@ class ProductCartActivity : AppCompatActivity() {
     private fun updateTotalAmount() {
         val selectedAmount = productCartList.filter { it.isSelected }.sumBy { it.count_sum }
         val selectedFee = productCartList.filter { it.isSelected }.sumBy { it.deliveryFee }
-        binding.totalPaymentAmount.text = "${NumberFormat.getNumberInstance(Locale.US).format(selectedAmount)} 원"
-        binding.totalDeliveryFee.text = "${NumberFormat.getNumberInstance(Locale.US).format(selectedFee)} 원"
+        binding.totalPaymentAmount.text =
+            "${NumberFormat.getNumberInstance(Locale.US).format(selectedAmount)} 원"
+        binding.totalDeliveryFee.text =
+            "${NumberFormat.getNumberInstance(Locale.US).format(selectedFee)} 원"
     }
 }

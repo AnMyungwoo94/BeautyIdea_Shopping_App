@@ -16,9 +16,9 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import com.myungwoo.model.BoardModel
+import com.myungwoo.model.CommentModel
 import com.myungwoo.shoppingmall_app.R
-import com.myungwoo.shoppingmall_app.data.BoardModel
-import com.myungwoo.shoppingmall_app.data.CommentModel
 import com.myungwoo.shoppingmall_app.databinding.ActivityBoardInsideBinding
 import com.myungwoo.shoppingmall_app.utils.FBAuth
 import com.myungwoo.shoppingmall_app.utils.FBRef
@@ -74,7 +74,12 @@ class BoardInsideActivity : AppCompatActivity() {
 
     private fun insertComment(key: String) {
         FBRef.commentRef.child(key).push()
-            .setValue(CommentModel(binding.commentArea.text.toString(), FBAuth.getTime()))
+            .setValue(
+                CommentModel(
+                    binding.commentArea.text.toString(),
+                    FBAuth.getTime()
+                )
+            )
         Toast.makeText(this, R.string.board_inside_comment_success, Toast.LENGTH_SHORT).show()
         binding.commentArea.setText("")
     }

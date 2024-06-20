@@ -16,13 +16,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.firebase.storage.FirebaseStorage
+import com.myungwoo.model.ProductModel
 import com.myungwoo.shoppingmall_app.R
-import com.myungwoo.shoppingmall_app.data.ProductModel
 import com.skydoves.landscapist.glide.GlideImage
 import kotlinx.coroutines.tasks.await
 
@@ -53,13 +53,11 @@ fun ProductItemContent(item: ProductModel, imageUrl: String?, onClick: (ProductM
         ) {
             imageUrl?.let {
                 GlideImage(
-                    imageModel = imageUrl,
-                    contentDescription = null,
+                    imageModel = { imageUrl },
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(150.dp),
-                    contentScale = ContentScale.Crop,
-                    previewPlaceholder = R.drawable.home_img
+                    previewPlaceholder = painterResource(id = R.drawable.home_img)
                 )
             }
         }

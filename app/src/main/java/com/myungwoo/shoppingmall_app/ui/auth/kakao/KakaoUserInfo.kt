@@ -9,7 +9,7 @@ object KakaoUserInfo {
     }
 
     fun setKakaoNickName(nickname: String) {
-        kakaoNickName =  nickname
+        kakaoNickName = nickname
     }
 
     fun getKakaoEmail(): String? {

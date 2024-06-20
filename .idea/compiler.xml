@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel target="17" />
+    <bytecodeTargetLevel target="17">
+      <module name="BeautyIdea_APP.BuildSrc1" target="17" />
+      <module name="BeautyIdea_APP.BuildSrc1.main" target="17" />
+      <module name="BeautyIdea_APP.BuildSrc1.test" target="17" />
+      <module name="BeautyIdea_APP.core.lib" target="17" />
+      <module name="BeautyIdea_APP.core.lib.main" target="17" />
+      <module name="BeautyIdea_APP.core.lib.test" target="17" />
+      <module name="BeautyIdea_APP.core.model1" target="17" />
+      <module name="BeautyIdea_APP.core1" target="17" />
+    </bytecodeTargetLevel>
   </component>
 </project>

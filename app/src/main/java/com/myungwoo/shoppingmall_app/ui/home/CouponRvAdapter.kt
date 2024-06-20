@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
-import com.myungwoo.shoppingmall_app.data.CouponModel
+import com.myungwoo.model.CouponModel
 import com.myungwoo.shoppingmall_app.databinding.ItemCouponBinding
 
 class CouponRvAdapter(

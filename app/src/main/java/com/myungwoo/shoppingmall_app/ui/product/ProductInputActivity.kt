@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import com.myungwoo.shoppingmall_app.R
-import com.myungwoo.shoppingmall_app.data.ProductModel
 import com.myungwoo.shoppingmall_app.databinding.ActivityProductInputBinding
 import com.myungwoo.shoppingmall_app.utils.FBAuth
 import com.myungwoo.shoppingmall_app.utils.FBRef
@@ -41,7 +40,21 @@ class ProductInputActivity : AppCompatActivity() {
 
             key = FBRef.productRef.push().key.toString()
             FBRef.productRef.child(key)
-                .setValue(ProductModel(key, name, price, time, parcel, deliveryFee, parcelDay, category, count, countSum, isImageUpload))
+                .setValue(
+                    com.myungwoo.model.ProductModel(
+                        key,
+                        name,
+                        price,
+                        time,
+                        parcel,
+                        deliveryFee,
+                        parcelDay,
+                        category,
+                        count,
+                        countSum,
+                        isImageUpload
+                    )
+                )
 
             Toast.makeText(this, R.string.product_input_success, Toast.LENGTH_SHORT).show()
             if (isImageUpload) {

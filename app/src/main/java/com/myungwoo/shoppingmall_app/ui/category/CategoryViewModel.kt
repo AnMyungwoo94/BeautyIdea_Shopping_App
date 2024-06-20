@@ -3,9 +3,10 @@ package com.myungwoo.shoppingmall_app.ui.category
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.myungwoo.shoppingmall_app.data.ProductModel
-import com.myungwoo.shoppingmall_app.network.api.FirebaseRepository
-import com.myungwoo.shoppingmall_app.network.exception.ApiFailException
+import com.myungwoo.common.exception.ApiFailException
+import com.myungwoo.data.repository.FirebaseRepository
+import com.myungwoo.model.ProductModel
+import com.myungwoo.shoppingmall_app.common.getDisplayMessageKey
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

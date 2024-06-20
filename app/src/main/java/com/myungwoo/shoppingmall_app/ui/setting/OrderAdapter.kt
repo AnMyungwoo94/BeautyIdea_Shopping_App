@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
-import com.myungwoo.shoppingmall_app.data.DeliveryInfo
-import com.myungwoo.shoppingmall_app.data.ProductInfo
+import com.myungwoo.model.DeliveryInfo
+import com.myungwoo.model.ProductInfo
 import com.myungwoo.shoppingmall_app.databinding.ItemDeliveryBinding
 import com.myungwoo.shoppingmall_app.databinding.ItemDeliveryProductBinding
 import java.text.NumberFormat
@@ -63,7 +63,8 @@ class ProductAdapter(
 
     override fun getItemCount() = productInfo.size
 
-    inner class ViewHolder(private val binding: ItemDeliveryProductBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(private val binding: ItemDeliveryProductBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind(productInfo: ProductInfo) {
             binding.deliveryDate.text = productInfo.time
@@ -75,7 +76,9 @@ class ProductAdapter(
                 }
             }
             binding.productName.text = productInfo.name.toString()
-            binding.productPrice.text = "총 가격 : ${NumberFormat.getNumberInstance(Locale.US).format(productInfo.totalPaymentAmount)} 원"
+            binding.productPrice.text = "총 가격 : ${
+                NumberFormat.getNumberInstance(Locale.US).format(productInfo.totalPaymentAmount)
+            } 원"
             binding.deliveryStatus.text = productInfo.deliveryStatus.toString()
         }
     }

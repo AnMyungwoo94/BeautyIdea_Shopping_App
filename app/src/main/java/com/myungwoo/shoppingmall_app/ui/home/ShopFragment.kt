@@ -57,9 +57,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
+import com.myungwoo.model.CouponModel
+import com.myungwoo.model.ProductModel
 import com.myungwoo.shoppingmall_app.R
-import com.myungwoo.shoppingmall_app.data.CouponModel
-import com.myungwoo.shoppingmall_app.data.ProductModel
 import com.myungwoo.shoppingmall_app.ui.product.ProductInputActivity
 import com.myungwoo.shoppingmall_app.ui.search.SearchResultFragment
 import com.myungwoo.shoppingmall_app.utils.FBRef

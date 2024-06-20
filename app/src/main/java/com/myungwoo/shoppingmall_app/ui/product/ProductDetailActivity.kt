@@ -42,6 +42,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -49,8 +50,8 @@ import androidx.compose.ui.unit.sp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
+import com.myungwoo.model.ProductModel
 import com.myungwoo.shoppingmall_app.R
-import com.myungwoo.shoppingmall_app.data.ProductModel
 import com.skydoves.landscapist.glide.GlideImage
 
 class ProductDetailActivity : ComponentActivity() {
@@ -139,12 +140,10 @@ fun ProductInfo(product: ProductModel, imageUrl: String) {
             horizontalArrangement = Arrangement.spacedBy(32.dp)
         ) {
             GlideImage(
-                imageModel = imageUrl,
-                contentDescription = null,
+                imageModel = { imageUrl },
                 modifier = Modifier
                     .width(150.dp)
                     .height(150.dp),
-                contentScale = ContentScale.Crop,
             )
             Column(modifier = Modifier.weight(1f)) {
                 ProductInfoText(product)
@@ -299,7 +298,7 @@ fun ProductActionButtons(
 @Composable
 fun ProductText(
     text: String,
-    style: androidx.compose.ui.text.TextStyle = MaterialTheme.typography.bodyMedium,
+    style: TextStyle = MaterialTheme.typography.bodyMedium,
     modifier: Modifier = Modifier
 ) {
     Text(

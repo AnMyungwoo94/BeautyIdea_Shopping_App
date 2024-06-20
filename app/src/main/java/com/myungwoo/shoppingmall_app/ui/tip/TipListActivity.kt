@@ -36,9 +36,9 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
+import com.myungwoo.model.ContentModel
 import com.myungwoo.shoppingmall_app.R
 import com.myungwoo.shoppingmall_app.common.compose.component.TipBookmarkItem
-import com.myungwoo.shoppingmall_app.data.ContentModel
 import com.myungwoo.shoppingmall_app.ui.category.ShopCategory
 import com.myungwoo.shoppingmall_app.utils.FBAuth
 import com.myungwoo.shoppingmall_app.utils.FBRef
@@ -64,7 +64,8 @@ fun TipListScreen() {
 
     val category = context.intent.getStringExtra("category")
     val shopCategory = ShopCategory.entries.find { it.firebaseCategoryName == category }
-    val myRef: DatabaseReference? = shopCategory?.let { FBRef.content.child(it.firebaseCategoryName) }
+    val myRef: DatabaseReference? =
+        shopCategory?.let { FBRef.content.child(it.firebaseCategoryName) }
 
     LaunchedEffect(Unit) {
         if (myRef != null) {
@@ -82,7 +83,11 @@ fun TipListScreen() {
 }
 
 @Composable
-fun ContentListItem(items: List<ContentModel>, itemKeyList: List<String>, bookmarkIdList: List<String>) {
+fun ContentListItem(
+    items: List<ContentModel>,
+    itemKeyList: List<String>,
+    bookmarkIdList: List<String>
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -121,7 +126,10 @@ fun ContentListItem(items: List<ContentModel>, itemKeyList: List<String>, bookma
     }
 }
 
-private fun loadData(myRef: DatabaseReference, onDataLoaded: (List<ContentModel>, List<String>) -> Unit) {
+private fun loadData(
+    myRef: DatabaseReference,
+    onDataLoaded: (List<ContentModel>, List<String>) -> Unit
+) {
     val postListener = object : ValueEventListener {
         override fun onDataChange(dataSnapshot: DataSnapshot) {
             val newItems = mutableListOf<ContentModel>()

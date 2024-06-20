@@ -17,16 +17,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.myungwoo.model.BookmarkModel
+import com.myungwoo.model.ContentModel
 import com.myungwoo.shoppingmall_app.R
-import com.myungwoo.shoppingmall_app.data.BookmarkModel
-import com.myungwoo.shoppingmall_app.data.ContentModel
 import com.myungwoo.shoppingmall_app.ui.tip.ContentShowActivity
 import com.myungwoo.shoppingmall_app.utils.FBAuth
 import com.myungwoo.shoppingmall_app.utils.FBRef
@@ -57,13 +56,13 @@ fun TipBookmarkItem(
 @Composable
 fun TipBookmarkContent(item: ContentModel, key: String, bookmarkIdList: List<String>) {
     GlideImage(
-        imageModel = item.imageUrl,
-        contentScale = ContentScale.Crop,
-        contentDescription = null,
+        imageModel = { item.imageUrl },
+//        contentScale = ContentScale.Crop,
+//        contentDescription = null,
         modifier = Modifier
             .fillMaxWidth()
             .height(160.dp),
-        previewPlaceholder = R.drawable.home_img
+        previewPlaceholder = painterResource(id = R.drawable.home_img)
     )
     Text(
         text = item.title,

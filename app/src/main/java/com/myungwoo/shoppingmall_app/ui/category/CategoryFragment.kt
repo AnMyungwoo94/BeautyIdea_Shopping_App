@@ -40,9 +40,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.myungwoo.model.ProductModel
 import com.myungwoo.shoppingmall_app.R
 import com.myungwoo.shoppingmall_app.common.compose.component.ProductItem
-import com.myungwoo.shoppingmall_app.data.ProductModel
 import com.myungwoo.shoppingmall_app.ui.product.ProductDetailActivity
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -161,8 +161,26 @@ fun CategoryItem(items: List<ProductModel>, onItemClick: (ProductModel) -> Unit)
 @Composable
 fun CategoryItemPreview() {
     val sampleItems = listOf(
-        ProductModel(key = "id1", name = "Product 1", price = 1000.toString(), time = "12:00 PM", parcel = "Parcel 1", deliveryFee = 100, parcelDay = "1 Day", category = "category1"),
-        ProductModel(key = "id2", name = "Product 2", price = 2000.toString(), time = "1:00 PM", parcel = "Parcel 2", deliveryFee = 200, parcelDay = "2 Days", category = "category1")
+        ProductModel(
+            key = "id1",
+            name = "Product 1",
+            price = 1000.toString(),
+            time = "12:00 PM",
+            parcel = "Parcel 1",
+            deliveryFee = 100,
+            parcelDay = "1 Day",
+            category = "category1"
+        ),
+        ProductModel(
+            key = "id2",
+            name = "Product 2",
+            price = 2000.toString(),
+            time = "1:00 PM",
+            parcel = "Parcel 2",
+            deliveryFee = 200,
+            parcelDay = "2 Days",
+            category = "category1"
+        )
     )
     MaterialTheme {
         CategoryItem(items = sampleItems, onItemClick = {})

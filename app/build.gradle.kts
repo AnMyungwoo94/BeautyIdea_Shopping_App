@@ -4,6 +4,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.gms.google-services")
+    id("org.jetbrains.kotlin.plugin.serialization")
     id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
 }
@@ -27,7 +28,6 @@ android {
         multiDexEnabled = true
 
         buildConfigField("String", "kakao_native_app_key", properties["kakao_native_app_key"] as String)
-        buildConfigField("String", "firebase_base_url", properties["firebase_base_url"] as String)
         buildConfigField("String", "inicis", properties["inicis"] as String)
         resValue("string", "kakao_auth_host", properties["kakao_auth_host"] as String)
     }
@@ -67,6 +67,10 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:data"))
+    implementation(project(":core:model"))
+    implementation(project(":core:common"))
+
     implementation("com.android.volley:volley:1.2.1")
     implementation("androidx.multidex:multidex:2.0.1")
     implementation("androidx.core:core-ktx:1.13.1")
@@ -82,12 +86,6 @@ dependencies {
     implementation("com.google.android.gms:play-services-auth:21.2.0") // 구글
     implementation("com.kakao.sdk:v2-user:2.15.0") // 카카오
 
-    // 네트워크 통신
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.0")
-    implementation("com.squareup.okhttp3:okhttp:4.12.0")
-    implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:1.0.0")
-    implementation("com.squareup.retrofit2:retrofit:2.11.0")
-
     // 파이어베이스
     implementation(platform("com.google.firebase:firebase-bom:33.1.0"))
     implementation("com.google.firebase:firebase-database")
@@ -97,9 +95,6 @@ dependencies {
     // Hilt
     implementation("com.google.dagger:hilt-android:2.51.1")
     kapt("com.google.dagger:hilt-compiler:2.51.1")
-
-    // Datastore
-    implementation("androidx.datastore:datastore-preferences:1.1.1")
 
     // 기타
     implementation("com.github.bumptech.glide:glide:4.16.0") // 이미지
@@ -124,6 +119,4 @@ dependencies {
     implementation("com.github.skydoves:landscapist-glide:2.3.4")
     implementation("com.google.accompanist:accompanist-pager:0.34.0")
     implementation("com.google.accompanist:accompanist-pager-indicators:0.34.0")
-
-    implementation(project(":core:model"))
 }

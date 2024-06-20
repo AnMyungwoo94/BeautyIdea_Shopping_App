@@ -18,10 +18,9 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.storage
+import com.myungwoo.model.ProductInfo
+import com.myungwoo.model.ProductModel
 import com.myungwoo.shoppingmall_app.R
-import com.myungwoo.shoppingmall_app.data.DeliveryInfo
-import com.myungwoo.shoppingmall_app.data.ProductInfo
-import com.myungwoo.shoppingmall_app.data.ProductModel
 import com.myungwoo.shoppingmall_app.databinding.ActivityProductPayBinding
 import com.myungwoo.shoppingmall_app.ui.cart.ProductCartRvAdapter
 import com.myungwoo.shoppingmall_app.utils.FBAuth
@@ -43,7 +42,7 @@ class ProductPayActivity : AppCompatActivity() {
 //            inicisPayment()
 //        }
 
-        val selectedProducts: List<ProductModel> =
+        val selectedProducts: List<com.myungwoo.model.ProductModel> =
             intent.getSerializableExtra("SELECTED_PRODUCTS") as? ArrayList<ProductModel> ?: listOf()
 
         //제품 상세페이지에서 구매하기 버튼을 눌렸을 경우
@@ -198,7 +197,7 @@ class ProductPayActivity : AppCompatActivity() {
 
                 val database = FirebaseDatabase.getInstance().reference
                 val uid = FirebaseAuth.getInstance().uid
-                val deliveryInfo = DeliveryInfo(
+                val deliveryInfo = com.myungwoo.model.DeliveryInfo(
                     name = name,
                     phoneNumber = phoneNumber,
                     address = address,
@@ -296,7 +295,8 @@ class ProductPayActivity : AppCompatActivity() {
                     val price = productSnapshot.child("price").getValue(String::class.java) ?: ""
                     val time = productSnapshot.child("time").getValue(String::class.java) ?: ""
                     val parcel = productSnapshot.child("parcel").getValue(String::class.java) ?: ""
-                    val category = productSnapshot.child("category").getValue(String::class.java) ?: ""
+                    val category =
+                        productSnapshot.child("category").getValue(String::class.java) ?: ""
                     val deliveryFeeObj = productSnapshot.child("delivery_fee").value
                     val deliveryFee = when (deliveryFeeObj) {
                         is Long -> deliveryFeeObj.toInt()
@@ -375,7 +375,8 @@ class ProductPayActivity : AppCompatActivity() {
                     val price = productSnapshot.child("price").getValue(String::class.java) ?: ""
                     val time = productSnapshot.child("time").getValue(String::class.java) ?: ""
                     val parcel = productSnapshot.child("parcel").getValue(String::class.java) ?: ""
-                    val category = productSnapshot.child("category").getValue(String::class.java) ?: ""
+                    val category =
+                        productSnapshot.child("category").getValue(String::class.java) ?: ""
                     val deliveryFeeObj = productSnapshot.child("delivery_fee").value
                     val deliveryFee = when (deliveryFeeObj) {
                         is Long -> deliveryFeeObj.toInt()
@@ -451,7 +452,8 @@ class ProductPayActivity : AppCompatActivity() {
             0
         }
         val totalAmount = selectedProductPrice.plus(cartTotal)
-        binding.totalPaymentAmount.text = "${NumberFormat.getNumberInstance(Locale.US).format(totalAmount)} 원"
+        binding.totalPaymentAmount.text =
+            "${NumberFormat.getNumberInstance(Locale.US).format(totalAmount)} 원"
 
         val productFeeText =
             binding.productDeliveryFee.text.toString().replace("[^0-9]".toRegex(), "").toIntOrNull()
