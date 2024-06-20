@@ -12,6 +12,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -26,50 +27,44 @@ class PiggyActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MaterialTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                ) {
-                    val buttonText = remember { mutableStateOf("Click Me") }
-
-                    viewModel.buttonClicked.observe(this) { clicked ->
-                        if (clicked) {
-                            buttonText.value = "Button Clicked"
-                        }
-                    }
-
-                    MyButton(viewModel, buttonText.value)
-                }
+                PiggyScreen(viewModel)
             }
         }
     }
 }
 
 @Composable
-fun MyButton(viewModel: PiggyViewModel, buttonText: String) {
-    Column(modifier = Modifier.padding(16.dp)) {
-        Button(onClick = { viewModel.onButtonClick() }) {
-            Text(text = buttonText)
-        }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun MyButtonPreview() {
-    val viewModel: PiggyViewModel = viewModel()
+fun PiggyScreen(viewModel: PiggyViewModel) {
     val buttonText = remember { mutableStateOf("Click Me") }
+    val currentChar = viewModel.textStream.collectAsState(initial = 'a')
 
-    viewModel.buttonClicked.observeForever { clicked ->
+    viewModel.buttonClicked.collectAsState().value.let { clicked ->
         if (clicked) {
             buttonText.value = "Button Clicked"
         }
     }
 
+    Column(modifier = Modifier.padding(16.dp)) {
+        Button(onClick = { viewModel.onButtonClick() }) {
+            Text(text = buttonText.value)
+        }
+        Text(
+            text = currentChar.value.toString(),
+            style = MaterialTheme.typography.bodyMedium,
+            modifier = Modifier.padding(top = 16.dp)
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PiggyScreenPreview() {
+    val viewModel: PiggyViewModel = viewModel()
     MaterialTheme {
         Surface(
             modifier = Modifier.fillMaxSize(),
         ) {
-            MyButton(viewModel, buttonText.value)
+            PiggyScreen(viewModel)
         }
     }
 }
