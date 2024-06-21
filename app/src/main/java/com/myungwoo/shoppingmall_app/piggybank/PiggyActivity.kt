@@ -38,8 +38,8 @@ fun PiggyScreen(viewModel: PiggyViewModel) {
     var streamText by remember { mutableStateOf('A') }
 
     LaunchedEffect(Unit) {
-        viewModel.zipFlow.collect { char ->
-            Log.e("PiggyActivity", "char = $char")
+        viewModel.emitTextFlow.collect { char ->
+            Log.d("PiggyActivity", "Char: $char")
             streamText = char
         }
     }
