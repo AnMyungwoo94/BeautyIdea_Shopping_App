@@ -14,9 +14,12 @@ class PiggyViewModel : ViewModel() {
     private val inputTextFlow = MutableSharedFlow<String>()
 
     val emitIntFlow: Flow<Int> = inputTextFlow
-        .filter { it.toIntOrNull() != null}
+        .filter { it.toIntOrNull() != null }
         .map { it.toInt() }
-        .scan(0) { max, value -> maxOf(max, value) }
+        .scan(0 to 0) { prev, curr ->
+            prev.second to curr
+        }
+        .map { (prev, curr) -> prev.minus(curr) }
 
     fun onButtonClick(text: String) {
         viewModelScope.launch {
