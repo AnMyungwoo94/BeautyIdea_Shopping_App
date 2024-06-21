@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.zip
@@ -22,6 +23,7 @@ class PiggyViewModel : ViewModel() {
     val zipFlow: Flow<Char> = _buttonClicked
         .zip(emitTextFlow) { _, char -> char }
         .map { char -> char.uppercaseChar() }
+        .drop(5)
 
     fun onButtonClick() {
         viewModelScope.launch {
