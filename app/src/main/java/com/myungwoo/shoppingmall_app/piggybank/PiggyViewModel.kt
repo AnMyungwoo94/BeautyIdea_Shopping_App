@@ -16,7 +16,7 @@ class PiggyViewModel : ViewModel() {
     val emitIntFlow: Flow<Int> = inputTextFlow
         .filter { it.toIntOrNull() != null}
         .map { it.toInt() }
-        .scan(0) { total, value -> total + value }
+        .scan(0) { max, value -> maxOf(max, value) }
 
     fun onButtonClick(text: String) {
         viewModelScope.launch {
