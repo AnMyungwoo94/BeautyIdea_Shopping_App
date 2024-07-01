@@ -10,17 +10,15 @@ import javax.inject.Inject
 class PagingSource @Inject constructor(private val networkRepository: NetworkRepository) : PagingSource<Int, PeopleData>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, PeopleData> {
         return try {
-            Log.e("DataPagingSource", "페이지 생성")
             val page = params.key ?: 0
             val peopleData =  networkRepository.getPeople(page)
 
-            Log.e("DataPagingSource", "page: $nextPage")
-            Log.e("DataPagingSource", "=====================")
+            Log.d("DataPagingSource", "page: $page")
 
             LoadResult.Page(
-                data = response.take(20),
-                prevKey = if (nextPage == 0) null else nextPage - 1,
-                nextKey = if (response.isEmpty()) null else nextPage + 1
+                data = peopleData,
+                prevKey = if (page == 0) null else page - 50,
+                nextKey = if (peopleData.isEmpty()) null else page + 50
             )
         } catch (e: Exception) {
             LoadResult.Error(e)
