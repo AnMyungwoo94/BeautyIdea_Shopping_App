@@ -8,6 +8,6 @@ class NetworkRepository @Inject constructor(
     private val apiService: BeautyIdeaApiService
 ) {
     suspend fun getPeople(page: Int): List<PeopleData> {
-        return apiService.getPeople(page).take(20)
+        return apiService.getPeople(page * 50).take(20)
     }
 }

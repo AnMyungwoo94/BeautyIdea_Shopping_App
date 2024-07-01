@@ -10,7 +10,6 @@ import javax.inject.Inject
 
 class PagingRepository @Inject constructor(
     private val networkRepository: NetworkRepository) {
-
     fun getPagingPeople(): Flow<PagingData<PeopleData>> {
         return Pager(
             config = PagingConfig(
