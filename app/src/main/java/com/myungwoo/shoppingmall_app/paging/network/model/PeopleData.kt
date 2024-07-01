@@ -3,7 +3,7 @@ package com.myungwoo.shoppingmall_app.paging.network.model
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class DataItem(
+data class PeopleData(
     val id: Int,
     val url: String,
     val name: String,

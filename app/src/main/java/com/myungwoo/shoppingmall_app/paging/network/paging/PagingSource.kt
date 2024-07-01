@@ -3,18 +3,16 @@ package com.myungwoo.shoppingmall_app.paging.network.paging
 import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.myungwoo.shoppingmall_app.paging.network.api.ApiService
-import com.myungwoo.shoppingmall_app.paging.network.model.DataItem
+import com.myungwoo.shoppingmall_app.paging.network.model.PeopleData
+import com.myungwoo.shoppingmall_app.paging.network.repository.NetworkRepository
+import javax.inject.Inject
 
-private const val PAGE_SIZE = 50
-
-class PagingSource(private val apiService: ApiService) : PagingSource<Int, DataItem>() {
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, DataItem> {
+class PagingSource @Inject constructor(private val networkRepository: NetworkRepository) : PagingSource<Int, PeopleData>() {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, PeopleData> {
         return try {
             Log.e("DataPagingSource", "페이지 생성")
-
-            val nextPage = params.key ?: 0
-            val response = apiService.getPeople(nextPage)
+            val page = params.key ?: 0
+            val peopleData =  networkRepository.getPeople(page)
 
             Log.e("DataPagingSource", "page: $nextPage")
             Log.e("DataPagingSource", "=====================")
@@ -29,7 +27,7 @@ class PagingSource(private val apiService: ApiService) : PagingSource<Int, DataI
         }
     }
 
-    override fun getRefreshKey(state: PagingState<Int, DataItem>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, PeopleData>): Int? {
         return state.anchorPosition
     }
 }

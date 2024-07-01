@@ -1,7 +1,7 @@
 package com.myungwoo.shoppingmall_app.paging.network.di
 
-import com.myungwoo.shoppingmall_app.paging.network.api.ApiService
-import com.myungwoo.shoppingmall_app.paging.network.paging.PagingRepository
+import com.myungwoo.shoppingmall_app.paging.network.api.BeautyIdeaApiService
+import com.myungwoo.shoppingmall_app.paging.network.repository.NetworkRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,18 +13,20 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
+
     @Provides
-    fun provideApiService(): ApiService {
+    @Singleton
+    fun provideApiService(): BeautyIdeaApiService {
         return Retrofit.Builder()
             .baseUrl("https://api.tvmaze.com/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-            .create(ApiService::class.java)
+            .create(BeautyIdeaApiService::class.java)
     }
 
     @Provides
     @Singleton
-    fun provideDataRepository(apiService: ApiService): PagingRepository {
-        return PagingRepository(apiService)
+    fun provideApiRepository(apiService: BeautyIdeaApiService): NetworkRepository {
+        return NetworkRepository(apiService)
     }
 }
