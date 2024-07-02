@@ -5,8 +5,9 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.myungwoo.shoppingmall_app.paging.network.model.PeopleData
 import com.myungwoo.shoppingmall_app.paging.network.repository.NetworkRepository
+import javax.inject.Inject
 
-class PagingSource(private val networkRepository: NetworkRepository) : PagingSource<Int, PeopleData>() {
+class PagingSource @Inject constructor (private val networkRepository: NetworkRepository) : PagingSource<Int, PeopleData>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, PeopleData> {
         return try {
             val page = params.key ?: 0
